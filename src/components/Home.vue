@@ -9,7 +9,7 @@
                                 <h3 class="panel-title">Shortcuts</h3>
                             </div>
                             <div class="panel-body">
-                                Panel content
+                                Panel content 
                             </div>
                         </div>
                     </div>
