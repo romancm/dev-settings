@@ -1,0 +1,14 @@
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: $font-stack;
+    margin: 0;
+    background: $color-tan;
+    color: $color-light-gray;
+}
+
+// Override FA spin animation
+.fa-spin-fast {
+    -webkit-animation: fa-spin 0.75s infinite linear !important;
+    animation: fa-spin 0.75s infinite linear !important;
+}
