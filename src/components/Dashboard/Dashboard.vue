@@ -35,11 +35,15 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <h2>{{activePackage.name}}</h2>
-
-                        <p>Downloads {{ activePackage.downloads | number : fractionSize}}</p>
-                        <pre>{{activePackage}}</pre>
-
+                        <div class="panel panel-default package-preview">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{activePackage.name}}</h3>
+                                <p>Downloads {{ activePackage.downloads | number : fractionSize}}</p>
+                            </div>
+                            <div class="panel-body">
+                                <vue-markdown :source="activePackage.readme" />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -68,6 +72,7 @@
 
 <script>
 import moment from 'moment';
+import VueMarkdown from 'vue-markdown';
 import { store } from '../../store';
 import StyleGuide from '../StyleGuide/StyleGuide';
 
@@ -76,6 +81,7 @@ import StyleGuide from '../StyleGuide/StyleGuide';
 export default {
     components: {
         StyleGuide,
+        VueMarkdown,
     },
 
     data() {
@@ -111,6 +117,7 @@ export default {
 
         getPackage(packageName) {
             this.$http.get(`https://www.atom.io/api/packages/${packageName}`).then(({ data }) => {
+                console.log(data);
                 this.activePackage = data;
             });
         },
@@ -134,5 +141,11 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="scss" rel="stylesheet/scss" scoped>
+.package-preview {
+    background: #fc0;
+}
+img {
+    max-width: 100%;
+}
 </style>
