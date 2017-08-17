@@ -119,6 +119,10 @@ export default {
             this.$http.get(`https://www.atom.io/api/packages/${packageName}`).then(({ data }) => {
                 console.log(data);
                 this.activePackage = data;
+
+                this.nextTick(() => {
+                    this.$forceUpdate();
+                });
             });
         },
 
@@ -143,9 +147,8 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .package-preview {
-    background: #fc0;
+    background: #fff;
+    overflow: auto;
 }
-img {
-    max-width: 100%;
-}
+
 </style>

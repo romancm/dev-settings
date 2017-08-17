@@ -1,23 +1,25 @@
 <template>
     <header>
-        <span>
-            <router-link to="/" v-if="!token">
-                <img src="/assets/logo-full.png" alt="">
-            </router-link>
-            <router-link to="/dashboard" v-else>
-                <img src="../../assets/logo-full.png" alt="">
-            </router-link>
-        </span>
-        <div class="menu">
-            <router-link to="/login" v-if="!token">Login</router-link>
-            |
-            <router-link to="/register" v-if="!token">Register</router-link>
-            <span v-else>
-                {{user.firstName}} |
-                <router-link to="/settings/gist">Settings</router-link>
-                <router-link to="/logout">Log out</router-link>
+            <span class="logo">
+                <router-link to="/" v-if="!token">
+                    <img src="../../assets/logo-full.png" alt="">
+                </router-link>
+                <router-link to="/dashboard" v-else>
+                    <img src="../../assets/logo.png" alt="">
+                </router-link>
             </span>
-        </div>
+            <section>
+                <span v-if="token">
+                    {{user.firstName}} |
+                    <router-link to="/settings/gist">Settings</router-link>
+                    <router-link to="/logout">Log out</router-link>
+                </span>
+                <span v-else>
+                    <router-link to="/login" v-if="!token">Login</router-link>
+                    |
+                    <router-link to="/register" v-if="!token">Register</router-link>
+                </span>
+            </section>
     </header>
 </template>
 
@@ -40,6 +42,7 @@ header {
     color: #fff;
     display: flex;
     align-items: center;
+    align-content: space-between;
     height: 70px;
     padding: $gp;
 
@@ -47,11 +50,8 @@ header {
         color: #fff;
     }
 
-    span {
+    .logo {
         flex: 1;
-    }
-
-    .menu {
     }
 }
 </style>
