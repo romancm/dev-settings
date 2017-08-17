@@ -1,8 +1,12 @@
 <template>
     <header>
         <span>
-            <router-link to="/" v-if="!token">Atom Settings</router-link>
-            <router-link to="/dashboard" v-else>AS</router-link>
+            <router-link to="/" v-if="!token">
+                <img src="/assets/logo-full.png" alt="">
+            </router-link>
+            <router-link to="/dashboard" v-else>
+                <img src="../../assets/logo-full.png" alt="">
+            </router-link>
         </span>
         <div class="menu">
             <router-link to="/login" v-if="!token">Login</router-link>
@@ -36,7 +40,7 @@ header {
     color: #fff;
     display: flex;
     align-items: center;
-    height: 60px;
+    height: 70px;
     padding: $gp;
 
     a {
