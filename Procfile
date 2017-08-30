@@ -1,1 +1,1 @@
-web: npm heroku-serve
+web: yarn heroku-serve
