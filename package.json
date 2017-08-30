@@ -11,7 +11,7 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
-    "heroku-postbuild": "yarn install --force && yarn build",
+    "heroku-postbuild": "yarn build",
     "heroku-serve": "http-server ./dist -p ${PORT:=5000} -c-1 --push-state"
   },
   "dependencies": {
