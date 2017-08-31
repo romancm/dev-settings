@@ -1,21 +1,20 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <h3 class="page-header">Forgot your password?</h3>
-                <form role="form" accept-charset="UTF-8" @submit.prevent="resetPassword">
-                    <input name="utf8" type="hidden" value="✓">
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <h2 class="text-center">Forgot your password</h2>
+                <hr>
+                <form @submit.prevent="resetPassword">
                     <p>Fill in your email address below and we'll send you instructions to reset it.</p>
+
                     <div class="form-group">
                         <label for="user_email">Email</label>
-                        <input autofocus="autofocus" class="input-lg form-control" type="email" v-model="recoveryEmail">
+                        <input autofocus class="input-lg form-control" type="email" v-model="recoveryEmail">
                     </div>
-                    <button name="button" type="submit" class="btn btn-success" :disabled="!recoveryEmail">
-                        <span v-if="loading">
-                            <i class="fa fa-spinner fa-spin-fast" aria-hidden="true"></i>
-                            Working...
-                        </span>
+
+                    <button name="button" type="submit" class="btn btn-lg btn-success" :disabled="!recoveryEmail || loading" >
                         <span v-if="!loading">Reset Password</span>
+                        <i class="fa fa-spinner fa-spin-fast" aria-hidden="true" v-else/>
                     </button>
                 </form>
             </div>
@@ -53,6 +52,6 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss" rel="stylesheet/scss" scoped>
 </style>
 

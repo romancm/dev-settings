@@ -1,42 +1,35 @@
 <template>
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-            <h3 class="page-header">Login</h3>
-            <form ref="form" @submit.prevent="submit">
-                <div class="form-group">
-                    <label for="user_email">Email</label>
-                    <input autofocus="autofocus" class="input-lg form-control" type="email" name="email" id="user_email" v-model="loginData.email">
-                </div>
-                <div class="form-group">
-                    <label for="user_password">Password</label>
-                    <input class="input-lg form-control" type="password" name="password" id="user_password" v-model="loginData.password">
-                </div>
-                <!-- <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="" v-model="loginData.retain">
-                            Keep me logged in
-                        </label>
-                    </div>
-                </div> -->
-                <button name="button" type="submit" class="btn btn-lg btn-success" :disabled="!loginData.password || !loginData.email">
-                    <span v-if="loading">
-                        <i class="fa fa-spinner fa-spin-fast" aria-hidden="true"></i>
-                        Working
-                    </span>
-                    <span v-if="!loading">Go</span>
-                </button>
-
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <h2 class="text-center">Login</h2>
                 <hr>
-                <ul>
-                    <li>
-                        <a href="./#/reset-password">Forgot your password?</a>
-                    </li>
-                    <li>
-                        <a href="./#/register">No account? Start a free trial!</a>
-                    </li>
-                </ul>
-            </form>
+                <form @submit.prevent="submit">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input autofocus class="input-lg form-control" type="email" v-model="loginData.email">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input class="input-lg form-control" type="password" v-model="loginData.password">
+                    </div>
+
+                    <button type="submit" class="btn btn-lg btn-info" :disabled="!loginData.password || !loginData.email || loading">
+                        <span v-if="loading">
+                            <i class="fa fa-spinner fa-spin-fast" aria-hidden="true"></i>
+                            logging in
+                        </span>
+                        <span v-else>Login</span>
+                    </button>
+
+                    <hr>
+
+                    <a href="./#/reset-password">Forgot your password?</a>
+                    |
+                    <a href="./#/register">No account? Register now!</a>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -50,7 +43,6 @@ export default {
             loginData: {
                 email: '',
                 password: '',
-                // retain: false,
             },
         };
     },

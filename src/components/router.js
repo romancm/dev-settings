@@ -38,7 +38,6 @@ const routes = new Router({
             },
         },
         {
-            // TBR
             path: '/logout',
             component: Logout,
         },
@@ -127,7 +126,7 @@ const routes = new Router({
 routes.beforeEach((to, from, next) => {
     const session = store.getters.session;
     const isAuth = session && session.token;
-    const isAuthPage = ['/register', '/login', '/reset-password', '/'].includes(to.path);
+    const isAuthPage = ['/register', '/login', '/reset-password', '/logout', '/'].includes(to.path);
 
     Vue.nextTick(() => {
         // TODO: Refactor, less code?

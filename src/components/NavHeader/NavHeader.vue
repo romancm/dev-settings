@@ -12,7 +12,7 @@
                 <span v-if="token">
                     {{user.firstName}} |
                     <router-link to="/settings/gist">Settings</router-link>
-                    <router-link to="/logout">Log out</router-link>
+                    <a @click="logout">Log out</a>
                 </span>
                 <span v-else>
                     <router-link to="/login" v-if="!token">Login</router-link>
@@ -30,6 +30,14 @@ export default {
     computed: {
         token() { return store.getters.session.token; },
         user() { return store.getters.user; },
+    },
+
+    methods: {
+        logout() {
+            store.commit('logout');
+            this.$toasted.success('Successfully logged out');
+            this.$router.push({ path: 'logout' });
+        },
     },
 };
 </script>

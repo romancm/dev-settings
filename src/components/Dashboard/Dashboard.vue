@@ -33,11 +33,17 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <modal name="packageModal" height="700" adaptive>
+                    <vue-markdown :source="activePackage.readme" v-if="activePackage" />
+                </modal>
+
+
+                <div class="row" v-if="activePackage">
                     <div class="col-xs-12">
                         <div class="panel panel-default package-preview">
                             <div class="panel-heading">
                                 <h3 class="panel-title">{{activePackage.name}}</h3>
+
                                 <p>Downloads {{ activePackage.downloads | number : fractionSize}}</p>
                             </div>
                             <div class="panel-body">
@@ -86,7 +92,7 @@ export default {
 
     data() {
         return {
-            activePackage: {},
+            activePackage: null,
         };
     },
 
@@ -119,6 +125,8 @@ export default {
             this.$http.get(`https://www.atom.io/api/packages/${packageName}`).then(({ data }) => {
                 console.log(data);
                 this.activePackage = data;
+
+                this.$modal.show('packageModal');
 
                 this.nextTick(() => {
                     this.$forceUpdate();

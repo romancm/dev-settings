@@ -42,6 +42,11 @@ export const store = new Vuex.Store({
                     store.commit('updateUser', data);
                 });
         },
+
+        logout(state) {
+            state.session = {};
+            state.user = {};
+        },
     },
 
     getters: {

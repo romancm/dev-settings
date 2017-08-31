@@ -1,16 +1,14 @@
 <template>
     <div class="container">
     	<div class="row" ng-hide="user.token">
-    		<div class="header col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 text-center">
-    			<h2>Welcome!</h2>
-    			<p>Use Molecule to share and discover your atom preferences!</p>
-    		</div>
-    	</div>
-    	<div class="row">
-    		<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                <pre>{{formData}}</pre>
+    		<div class="header col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div class="text-center">
+                    <h2>Welcome!</h2>
+                    <p>Use Molecule to share and discover your atom preferences!</p>
+                </div>
+
     			<hr>
-    			<form role="form" @submit.prevent="register" accept-charset="UTF-8">
+    			<form role="form" @submit.prevent="register">
     				<div class="row">
     					<div class="col-md-6">
     						<div class="form-group">
@@ -39,25 +37,11 @@
     				</div>
     				<p class="text-center">
     					By continuing, you agree to our boilerplate
-    					<a href="javascript:;" data-toggle="modal" data-target="#termsModal">Terms of Service</a> agreement.
-    					<br>
-    					No credit card is required for the free trial. You can cancel at anytime.
+    					<a @click="openTermsModal">Terms of Service</a> agreement.
     				</p>
-    				<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel">
-    					<div class="modal-dialog" role="document">
-    						<div class="modal-content">
-    							<div class="modal-header">
-    								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    								<h4 class="modal-title" id="termsModalLabel">Terms of Service</h4>
-    							</div>
-    							<div class="modal-body" ng-include="'/html/partials/_terms.html'"></div>
-    							<div class="modal-footer">
-    								<button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    				<hr>
+                    <modal name="termsModal" adaptive="true" scrollable="true" height="500">
+                        <terms ref="termsModal" />
+                    </modal>
     				<p class="text-center">
     					<button type="submit" class="btn btn-lg btn-primary" ng-disabled="loading">
     						<span v-if="loading">
@@ -76,9 +60,15 @@
 </template>
 <script>
 import { store } from '../../store';
+import Terms from '../Terms/Terms';
 
 export default {
     name: 'hello',
+
+    components: {
+        Terms,
+    },
+
     data() {
         return {
             loading: false,
@@ -92,6 +82,10 @@ export default {
     },
 
     methods: {
+        openTermsModal() {
+            this.$modal.show('termsModal');
+        },
+
         register() {
             this.loading = true;
 
@@ -125,6 +119,6 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss" rel="stylesheet/scss" scoped>
 </style>
 
