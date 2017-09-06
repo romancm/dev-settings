@@ -1,6 +1,9 @@
 <template lang="html">
     <div class="container">
         <div class="row">
+            <pre>
+                TODO: Create profile component, reusable for settings/browse
+            </pre>
             <div class="col-xs-12">
                 <div class="alert alert-success" v-if="!user.verified">
                     <p class="lead">Welcome to Molecule!</p>

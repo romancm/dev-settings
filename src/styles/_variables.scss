@@ -5,3 +5,14 @@ $gp: 15px;
 
 // Typography
 $font-stack: 'Avenir', Helvetica, Arial, sans-serif;
+
+// Media Queries
+$xs: "max-width: 767px";
+$sm: "min-width: 768px) and (max-width: 991px";
+$md: "min-width: 992px) and (max-width: 1199px";
+$lg: "min-width: 1200px";
+// Usage
+// @media($xs) { ... }
+// @media($sm) { ... }
+// @media($md) { ... }
+// @media($lg) { ... }
