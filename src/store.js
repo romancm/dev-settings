@@ -2,14 +2,16 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import moment from 'moment';
 import axios from 'axios';
-
 import createPersistedState from 'vuex-persistedstate';
+
+// TODO: find more suitable names for methods
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
         user: {},
+        users: {},
         session: {},
         gistData: {},
     },
@@ -24,6 +26,10 @@ export const store = new Vuex.Store({
         updateUser(state, user) {
             console.log('user updated');
             state.user = user;
+        },
+
+        updateBrowseData(state, users) {
+            state.users = users;
         },
 
         updateGistData(state, gistData) {
@@ -52,6 +58,7 @@ export const store = new Vuex.Store({
     getters: {
         session(state) { return state.session; },
         user(state) { return state.user; },
+        users(state) { return state.users; },
         gistData(state) { return state.gistData; },
     },
     plugins: [createPersistedState()],
