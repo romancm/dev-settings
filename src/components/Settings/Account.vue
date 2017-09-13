@@ -27,9 +27,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6">
+
+        <!-- <div class="col-xs-12">
             <h3>Delete Account</h3>
-            <p>Once you delete your account, there is no going back. Please be certain.</p>
+            <p>Once you delete your account, there is no going back.</p>
 
             <button type="button" class="btn btn-default btn-danger" @click="showDeleteModal">
                 Delete Account
@@ -48,7 +49,7 @@
                 <button type="button" class="btn btn-default" @click="hideDeleteModal">Cancel</button>
                 <button type="button" class="btn btn-default btn-danger btn-group-xs" @click="deleteAccount" :disabled="!confirmPassword">Delete Account</button>
             </modal>
-        </div>
+        </div> -->
 
     </div>
 </template>

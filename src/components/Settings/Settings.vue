@@ -14,11 +14,15 @@
                     </div>
                 </aside>
 
-                <div class="col-xs-12 col-sm-9">
+                <div class="settings-content col-xs-12 col-sm-9">
                     <div v-if="isSettingsHome">
-                        <pre>{{user}}</pre>
                         <h3>Hello, {{user.firstName}}!</h3>
-                        <!-- {{user.settings.gistId}} -->
+                        <p>AtomSettings helps developers around to world to share and discover settings for the hackable text editor for the 21st Century. In order to get started you need to install Sync Settings for Atom. Please refer to their readme for instructions on how to set it up. Once you are all set you can enter the gist id.</p>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <vue-markdown :source="instructions" v-if="instructions" />
+                            </div>
+                        </div>
                     </div>
                     <router-view v-else />
                 </div>
@@ -28,11 +32,17 @@
 </template>
 
 <script>
+import VueMarkdown from 'vue-markdown';
 import { store } from '../../store';
 
 export default {
+    components: {
+        VueMarkdown,
+    },
+
     data() {
         return {
+            instructions: null,
             settingsRoutes: [
                 {
                     path: '/settings/profile',
@@ -53,6 +63,10 @@ export default {
         };
     },
 
+    mounted() {
+        this.getSyncReadme();
+    },
+
     methods: {
         isCurrentRoute(route) {
             return route === this.$route.path;
@@ -61,11 +75,17 @@ export default {
         isMissingGist(route) {
             return route === '/settings/github' && (!this.user.settings || !this.user.settings.gistId);
         },
+
+        getSyncReadme() {
+            this.$http.get('https://www.atom.io/api/packages/sync-settings').then(({ data }) => {
+                this.instructions = data.readme;
+            });
+        },
     },
 
     computed: {
         isSettingsHome() {
-            return this.$route.path === '/settings/';
+            return this.$route.path === '/settings';
         },
         user() { return store.getters.user; },
     },
@@ -76,7 +96,7 @@ export default {
     @import "../../styles/_variables";
     .sidebar {
         a {
-            width: 100%;
+            width: calc(100% - 30px);
             display: inline-flex;
             align-items: center;
             margin-bottom: 15px;
@@ -88,6 +108,13 @@ export default {
                     margin-left: 0;
                 }
             }
+        }
+    }
+
+    .settings-content {
+        border-left: 1px solid #eeeeee;
+        @media($xs) {
+            border: 0;
         }
     }
 </style>

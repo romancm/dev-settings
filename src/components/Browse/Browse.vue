@@ -2,9 +2,9 @@
     <div class="container">
         <div class="row">
             <h2>Browse</h2>
-            List all users here
 
-            <ul>
+            <p v-if="!users.length">No users</p>
+            <ul v-else>
                 <li v-for="{firstName, lastName, _id} in users">
                     <a :href="url(_id)">
                         {{firstName}} {{lastName}} {{_id}}
