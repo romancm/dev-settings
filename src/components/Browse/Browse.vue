@@ -1,14 +1,18 @@
 <template lang="html">
-  <div>
-      Browse
-      List all users here
+    <div class="container">
+        <div class="row">
+            <h2>Browse</h2>
+            List all users here
 
-      <ul>
-          <li v-for="{firstName, lastName, _id} in users">
-              {{firstName}} {{lastName}} {{_id}}
-          </li>
-      </ul>
-  </div>
+            <ul>
+                <li v-for="{firstName, lastName, _id} in users">
+                    <a :href="url(_id)">
+                        {{firstName}} {{lastName}} {{_id}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -31,6 +35,10 @@ export default {
                 .then(({ data }) => {
                     store.commit('updateBrowseData', data);
                 });
+        },
+
+        url(id) {
+            return `/#/browse/${id}`;
         },
     },
 };

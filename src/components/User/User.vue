@@ -1,5 +1,6 @@
 <template lang="html">
   <div>
+      <a href="/#/browse" class="btn btn-info">Browse</a>
       {{id}}
       <hr>
   </div>
@@ -15,6 +16,7 @@ export default {
 
     created() {
         // TODO: Get user profile info
+        console.log('boom');
         console.log(this.$route.params.id);
     },
 };

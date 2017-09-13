@@ -68,7 +68,7 @@ const routes = new Router({
             },
         },
         {
-            path: '/user/:id',
+            path: '/browse/:id',
             component: User,
             meta: {
                 title: 'Browse {{User}} Atom Settings',
