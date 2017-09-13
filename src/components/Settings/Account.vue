@@ -87,7 +87,7 @@ export default {
                 password: this.confirmPassword,
             };
 
-            this.$http.post('https://atom-settings-api.herokuapp.com/account/delete', payload)
+            this.$http.post('http://localhost:3333/account/delete', payload)
             .then(() => {
                 this.$router.push({ path: '/logout' });
                 this.$toasted.success('Boom!');
@@ -114,7 +114,7 @@ export default {
             };
 
 
-            this.$http.post('https://atom-settings-api.herokuapp.com/account/updatePassword', payload)
+            this.$http.post('http://localhost:3333/account/updatePassword', payload)
             .then(() => {
                 this.$toasted.success('Boom!');
             })

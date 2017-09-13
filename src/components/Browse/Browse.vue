@@ -31,7 +31,7 @@ export default {
     methods: {
         load() {
             // TODO: enhance this logic so endpoint isn't hit every time
-            axios.get('https://atom-settings-api.herokuapp.com/browse/')
+            axios.get('http://localhost:3333/browse/')
                 .then(({ data }) => {
                     store.commit('updateBrowseData', data);
                 });

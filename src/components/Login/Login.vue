@@ -50,14 +50,14 @@ export default {
     methods: {
         submit() {
             this.loading = true;
-            this.$http.post('https://atom-settings-api.herokuapp.com/account/login', this.loginData)
+            this.$http.post('http://localhost:3333/account/login', this.loginData)
             .then(({ data }) => {
                 store.commit('updateSession', data.token);
                 store.commit('updateUser', data.user);
                 this.$router.push({ path: 'dashboard' });
             })
-            .catch(() => {
-                this.$toasted.error('Error while logging in');
+            .catch((error) => {
+                this.$toasted.error(error.response.data.message);
             })
             .then(() => {
                 this.loading = false;

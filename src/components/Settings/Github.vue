@@ -52,7 +52,7 @@ export default {
                 token: this.session.token,
             };
 
-            this.$http.put('https://atom-settings-api.herokuapp.com/account/settings/gist', updateGistIdData)
+            this.$http.put('http://localhost:3333/account/settings/gist', updateGistIdData)
             .then(() => {
                 store.commit('reloadUserData');
                 this.$toasted.success('Boom!');

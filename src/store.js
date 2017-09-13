@@ -43,7 +43,7 @@ export const store = new Vuex.Store({
                 id: state.user._id,
             };
 
-            axios.post('https://atom-settings-api.herokuapp.com/account/get/', payload)
+            axios.post('http://localhost:3333/account/get/', payload)
                 .then(({ data }) => {
                     store.commit('updateUser', data);
                 });

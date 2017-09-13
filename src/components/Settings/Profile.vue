@@ -190,7 +190,7 @@ export default {
                 socialNetworkUser: this.user.settings.social[e.target.id],
             };
 
-            this.$http.put('https://atom-settings-api.herokuapp.com/account/settings/social', payload)
+            this.$http.put('http://localhost:3333/account/settings/social', payload)
             .then(() => {
                 store.commit('reloadUserData');
                 this.$toasted.success('Boom!');

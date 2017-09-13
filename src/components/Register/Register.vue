@@ -89,14 +89,14 @@ export default {
         register() {
             this.loading = true;
 
-            this.$http.post('https://atom-settings-api.herokuapp.com/account/create', this.formData)
+            this.$http.post('http://localhost:3333/account/create', this.formData)
             .then(() => {
                 const loginData = {
                     email: this.formData.email,
                     password: this.formData.password,
                 };
                 this.$toasted.success('Account created');
-                this.$http.post('https://atom-settings-api.herokuapp.com/account/login', loginData)
+                this.$http.post('http://localhost:3333/account/login', loginData)
                 .then(({ data }) => {
                     store.commit('updateSession', data.token);
                     store.commit('updateUser', data.user);

@@ -34,7 +34,7 @@ export default {
         resetPassword() {
             this.loading = true;
 
-            this.$http.post('https://atom-settings-api.herokuapp.com/account/resetPassword', {
+            this.$http.post('http://localhost:3333/account/resetPassword', {
                 email: this.recoveryEmail,
             })
             .then(({ data }) => {

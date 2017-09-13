@@ -4,6 +4,9 @@
             <router-link to="/dashboard">
                 <img src="../../assets/logo-full.png" alt="">
             </router-link>
+            <router-link to="/browse">
+                Browse
+            </router-link>
         </span>
 
             <section>
