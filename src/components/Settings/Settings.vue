@@ -45,14 +45,19 @@ export default {
             instructions: null,
             settingsRoutes: [
                 {
+                    path: '/settings/github',
+                    title: 'Github',
+                    icon: 'github',
+                },
+                {
                     path: '/settings/profile',
                     title: 'Profile',
                     icon: 'user',
                 },
                 {
-                    path: '/settings/github',
-                    title: 'Github',
-                    icon: 'github',
+                    path: '/settings/social',
+                    title: 'Social Networks',
+                    icon: 'share-alt',
                 },
                 {
                     path: '/settings/account',
@@ -73,7 +78,7 @@ export default {
         },
 
         isMissingGist(route) {
-            return route === '/settings/github' && (!this.user.settings || !this.user.settings.gistId);
+            return route === '/settings/github' && !this.user.gistId;
         },
 
         getSyncReadme() {

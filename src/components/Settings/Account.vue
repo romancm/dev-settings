@@ -8,16 +8,16 @@
                         <div class="form-group">
                             <div class="form-group">
                                 <label class="control-label" for="password">Current Password</label>
-                                <input class="form-control" autofocus="autofocus" required="required" aria-required="true" type="password" id="password" v-model="password">
+                                <input class="form-control input-lg" autofocus="autofocus" required="required" aria-required="true" type="password" id="password" v-model="password">
                             </div>
                             <div class="control-group">
                                 <div class="form-group">
                                     <label class="control-label" for="newPassword">New Password</label>
-                                    <input class="form-control" autofocus="autofocus" required="required" aria-required="true" type="password" id="newPassword" v-model="newPassword">
+                                    <input class="form-control input-lg" autofocus="autofocus" required="required" aria-required="true" type="password" id="newPassword" v-model="newPassword">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label" for="confirmPassword">Confirm your new password</label>
-                                    <input class="form-control" required="required" aria-required="true" type="password" id="confirmPassword" v-model="confirmNewPassword">
+                                    <input class="form-control input-lg" required="required" aria-required="true" type="password" id="confirmPassword" v-model="confirmNewPassword">
                                 </div>
 
                             </div>
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <!-- <div class="col-xs-12">
+        <div class="col-xs-12">
             <h3>Delete Account</h3>
             <p>Once you delete your account, there is no going back.</p>
 
@@ -49,7 +49,7 @@
                 <button type="button" class="btn btn-default" @click="hideDeleteModal">Cancel</button>
                 <button type="button" class="btn btn-default btn-danger btn-group-xs" @click="deleteAccount" :disabled="!confirmPassword">Delete Account</button>
             </modal>
-        </div> -->
+        </div>
 
     </div>
 </template>

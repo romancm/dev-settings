@@ -50,7 +50,7 @@ export default {
     methods: {
         submit() {
             this.loading = true;
-            this.$http.post('http://localhost:3333/account/login', this.loginData)
+            this.$http.post('http://localhost:3333/auth/login', this.loginData)
             .then(({ data }) => {
                 store.commit('updateSession', data.token);
                 store.commit('updateUser', data.user);

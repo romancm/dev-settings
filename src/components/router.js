@@ -11,6 +11,7 @@ import User from '@/components/User/User';
 // Settings
 import Settings from '@/components/Settings/Settings';
 import SettingsProfile from '@/components/Settings/Profile';
+import SettingsSocial from '@/components/Settings/Social';
 import SettingsGithub from '@/components/Settings/Github';
 import SettingsAccount from '@/components/Settings/Account';
 import moment from 'moment';
@@ -93,6 +94,13 @@ const routes = new Router({
                     component: SettingsProfile,
                     meta: {
                         title: 'Atom Settings | Profile',
+                    },
+                },
+                {
+                    path: 'social',
+                    component: SettingsSocial,
+                    meta: {
+                        title: 'Atom Settings | Social',
                     },
                 },
                 {

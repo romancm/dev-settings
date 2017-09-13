@@ -1,5 +1,5 @@
 <template>
-    <div class="col-xs-12" v-if="user && user.settings">
+    <div class="col-xs-12">
         <h3>Sync Atom</h3>
         <form @submit.prevent="updateGistId()" accept-charset="UTF-8">
             <div class="form-group">
@@ -13,10 +13,10 @@
                 required="required"
                 aria-required="true"
                 id="gistId"
-                v-model="user.settings.gistId"
+                v-model="user.gistId"
                 maxlength="32">
             </div>
-            <button name="button" type="submit" class="btn btn-lg btn-success" :disabled="!user.settings.gistId">
+            <button name="button" type="submit" class="btn btn-lg btn-success" :disabled="!user.gistId">
                 <span v-if="loading">
                     <i class="fa fa-spinner fa-spin-fast" aria-hidden="true"></i>
                     Saving Gist Id
@@ -48,11 +48,11 @@ export default {
 
             const updateGistIdData = {
                 userId: this.user._id,
-                gistId: this.user.settings.gistId,
+                gistId: this.user.gistId,
                 token: this.session.token,
             };
 
-            this.$http.put('http://localhost:3333/account/settings/gist', updateGistIdData)
+            this.$http.put('http://localhost:3333/profile/gist', updateGistIdData)
             .then(() => {
                 store.commit('reloadUserData');
                 this.$toasted.success('Boom!');
