@@ -15,16 +15,7 @@
                 </aside>
 
                 <div class="settings-content col-xs-12 col-sm-9">
-                    <div v-if="isSettingsHome">
-                        <h3>Hello, {{user.firstName}}!</h3>
-                        <p>AtomSettings helps developers around to world to share and discover settings for the hackable text editor for the 21st Century. In order to get started you need to install Sync Settings for Atom. Please refer to their readme for instructions on how to set it up. Once you are all set you can enter the gist id.</p>
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <vue-markdown :source="instructions" v-if="instructions" />
-                            </div>
-                        </div>
-                    </div>
-                    <router-view v-else />
+                    <router-view />
                 </div>
             </div>
         </div>
@@ -32,18 +23,17 @@
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown';
 import { store } from '../../store';
 
 export default {
-    components: {
-        VueMarkdown,
-    },
-
     data() {
         return {
-            instructions: null,
             settingsRoutes: [
+                {
+                    path: '/settings',
+                    title: 'Get Started',
+                    icon: 'home',
+                },
                 {
                     path: '/settings/github',
                     title: 'Github',
@@ -68,10 +58,6 @@ export default {
         };
     },
 
-    mounted() {
-        this.getSyncReadme();
-    },
-
     methods: {
         isCurrentRoute(route) {
             return route === this.$route.path;
@@ -80,18 +66,9 @@ export default {
         isMissingGist(route) {
             return route === '/settings/github' && !this.user.gistId;
         },
-
-        getSyncReadme() {
-            this.$http.get('https://www.atom.io/api/packages/sync-settings').then(({ data }) => {
-                this.instructions = data.readme;
-            });
-        },
     },
 
     computed: {
-        isSettingsHome() {
-            return this.$route.path === '/settings';
-        },
         user() { return store.getters.user; },
     },
 };
@@ -99,6 +76,13 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "../../styles/_variables";
+    .page-header {
+        margin-bottom: 0;
+    }
+    .settings-content, .sidebar {
+        padding-top: 15px;
+    }
+
     .sidebar {
         a {
             width: calc(100% - 30px);

@@ -9,11 +9,12 @@ import Dashboard from '@/components/Dashboard/Dashboard';
 import Browse from '@/components/Browse/Browse';
 import User from '@/components/User/User';
 // Settings
-import Settings from '@/components/Settings/Settings';
-import SettingsProfile from '@/components/Settings/Profile';
-import SettingsSocial from '@/components/Settings/Social';
-import SettingsGithub from '@/components/Settings/Github';
-import SettingsAccount from '@/components/Settings/Account';
+import SettingsPage from '@/components/Settings/SettingsPage';
+import SettingsGetStarted from '@/components/Settings/SettingsGetStarted';
+import SettingsProfile from '@/components/Settings/SettingsProfile';
+import SettingsSocial from '@/components/Settings/SettingsSocial';
+import SettingsGithub from '@/components/Settings/SettingsGithub';
+import SettingsAccount from '@/components/Settings/SettingsAccount';
 import moment from 'moment';
 
 import { store } from '../store';
@@ -77,11 +78,18 @@ const routes = new Router({
         },
         {
             path: '/settings',
-            component: Settings,
+            component: SettingsPage,
             meta: {
                 title: 'Atom Settings',
             },
             children: [
+                {
+                    path: '',
+                    component: SettingsGetStarted,
+                    meta: {
+                        title: 'Atom Settings | Get Started',
+                    },
+                },
                 {
                     path: 'github',
                     component: SettingsGithub,

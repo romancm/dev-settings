@@ -1,16 +1,18 @@
 <template lang="html">
     <div class="container">
         <div class="row">
-            <h2>Browse</h2>
+            <div class="col-xs-12">
+                <h2>Browse</h2>
 
-            <p v-if="!users.length">No users</p>
-            <ul v-else>
-                <li v-for="{firstName, lastName, _id} in users">
-                    <a :href="url(_id)">
-                        {{firstName}} {{lastName}} {{_id}}
-                    </a>
-                </li>
-            </ul>
+                <p v-if="!users.length">No users</p>
+                <ul v-else>
+                    <li v-for="{firstName, lastName, _id} in users">
+                        <a :href="url(_id)">
+                            {{firstName}} {{lastName}} {{_id}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>

@@ -3,8 +3,6 @@
         <div class="col-md-4">
                 <h3>Social Networks</h3>
 
-                <pre>{{user.socialNetworks}}</pre>
-
                 <form @submit.prevent="save">
                     <div class="form-group">
                         <div class="form-group">

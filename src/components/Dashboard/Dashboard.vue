@@ -1,19 +1,15 @@
 <template lang="html">
     <div class="container">
         <div class="row">
-            <pre>
-                TODO: Create profile component, reusable for settings/browse
-            </pre>
             <div class="col-xs-12">
-                <div class="alert alert-success" v-if="!user.verified">
+                <div class="alert alert-success">
                     <p class="lead">Welcome to Molecule!</p>
                     <p>Molecule is an easy way to share your Atom settings with other developers, discover packages, themes, and everything related to customizing Atom</p>
                 </div>
             </div>
 
-            <div class="col-xs-12" v-if="user.settings && user.settings.gistId && gistData">
-                <h1>Dashboard</h1>
-                <div class="col-xs-12 col-md-6">
+            <div v-if="user.gistId && gistData">
+                <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">
@@ -34,43 +30,46 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
-                <modal name="packageModal" height="700" adaptive>
-                    <vue-markdown :source="activePackage.readme" v-if="activePackage" />
-                </modal>
+                <div class="col-xs-3" id="packages">
+                    <h2>Packages</h2>
+                    <ul>
+                        <li v-for="package in parse(gistData.files['packages.json'].content)" @click="getPackage(package.name)">
+                            {{package.name}}
+                            {{package.version}}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-9" v-if="activePackage">
+                    <modal name="packageModal" height="700" adaptive>
+                        <vue-markdown :source="activePackage.readme" />
+                    </modal>
 
 
-                <div class="row" v-if="activePackage">
-                    <div class="col-xs-12">
-                        <div class="panel panel-default package-preview">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">{{activePackage.name}}</h3>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="panel panel-default package-preview">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">{{activePackage.name}}</h3>
 
-                                <p>Downloads {{ activePackage.downloads | number : fractionSize}}</p>
-                            </div>
-                            <div class="panel-body">
-                                <vue-markdown :source="activePackage.readme" />
+                                    <p>Downloads {{ activePackage.downloads | number : fractionSize}}</p>
+                                </div>
+                                <div class="panel-body">
+                                    <vue-markdown :source="activePackage.readme" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-12" id="packages">
-                        <h2>Packages</h2>
-                        <ul>
-                            <li v-for="package in parse(gistData.files['packages.json'].content)" @click="getPackage(package.name)">
-                                {{package.name}}
-                                {{package.version}}
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
 
             <div v-else>
-                <h2>No gist set</h2>
+                <div class="col-xs-12">
+                    <h2>No gist set</h2>
+                </div>
             </div>
 
             <!-- <style-guide/> -->
@@ -115,7 +114,7 @@ export default {
         },
 
         init() {
-            if (!this.gistData.id || this.gistData.id !== this.user.settings.gistId) {
+            if (!this.gistData.id || this.gistData.id !== this.user.gistId) {
                 this.getGist();
             }
         },
@@ -129,7 +128,7 @@ export default {
                 console.log(data);
                 this.activePackage = data;
 
-                this.$modal.show('packageModal');
+                // this.$modal.show('packageModal');
 
                 this.nextTick(() => {
                     this.$forceUpdate();
@@ -138,8 +137,8 @@ export default {
         },
 
         getGist() {
-            if (this.user.settings && this.user.settings.gistId) {
-                const url = `https://api.github.com/gists/${this.user.settings.gistId}`;
+            if (this.user.gistId) {
+                const url = `https://api.github.com/gists/${this.user.gistId}`;
                 this.$http.get(url).then(({ data }) => {
                     store.commit('updateGistData', data);
                     this.$toasted.success('got data from api');

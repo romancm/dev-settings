@@ -1,20 +1,23 @@
 <template>
     <header>
-        <span class="logo">
-            <router-link to="/dashboard">
-                <img src="../../assets/logo-full.png" alt="">
-            </router-link>
-            <router-link to="/browse">
-                Browse
-            </router-link>
-        </span>
+        <div class="container">
+            <span class="logo">
+                <router-link to="/dashboard">
+                    <img src="../../assets/logo.png" alt="">
+                </router-link>
 
-            <section>
+                <router-link to="/browse">
+                    Browse
+                </router-link>
+            </span>
+
+            <section class="user-menu">
                 <span v-if="token">
-                    <span @click="toggleUserMenu" id="userMenu" class="userMenu">
+                    <span @click="toggleUserMenu" id="userMenu">
                         <img v-if="gistData.owner" class="img-thumbnail img-responsive img-circle" :src="gistData.owner.avatar_url" alt="" width="50" />
-                        <span v-else>
-                            {{user.firstName}}
+                        <span v-else class="initials img-thumbnail img-responsive img-circle">
+                            {{user.profile.firstName}}
+                            {{user.profile.lastName}}
                         </span>
                     </span>
 
@@ -39,6 +42,7 @@
                     <router-link to="/register" v-if="!token">Register</router-link>
                 </span>
             </section>
+        </div>
     </header>
 </template>
 
@@ -85,12 +89,17 @@ export default {
 header {
     background-color: #c66;
     border-bottom: 5px solid #b75c5c;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    align-content: space-between;
-    height: 70px;
-    padding: $gp;
+    margin-bottom: 15px;
+
+    .container {
+        color: #fff;
+        height: 70px;
+        padding: $gp;
+        display: flex;
+        align-items: center;
+        align-content: space-between;
+
+    }
 
     a {
         color: #fff;
@@ -98,33 +107,38 @@ header {
 
     .logo {
         flex: 1;
+
+        a:first-child {
+            margin-right: 15px;
+        }
     }
 
-    .img-thumbnail {
-        background: #b75c5c;
-        border-color: rgba(0,0,0,0.1);
-    }
+    .user-menu {
+        position: relative;
 
-    .userMenu {
+        .img-thumbnail {
+            cursor: pointer;
+            background: #b75c5c;
+            border-color: rgba(0,0,0,0.1);
+        }
 
-    }
-
-    .user-dropdown {
-        background-color: #b75c5c;
-        border-bottom-right-radius: 5px;
-        border-bottom-left-radius: 5px;
-        padding: 15px;
-        width: 120px;
-        right: 5px;
-        top: 70px;
-        z-index: 100;
-        position: absolute;
-        a {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            &:last-child {
-                margin: 0;
+        .user-dropdown {
+            background-color: #b75c5c;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            padding: 15px;
+            width: 120px;
+            right: 5px;
+            top: 65px;
+            z-index: 100;
+            position: absolute;
+            a {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+                &:last-child {
+                    margin: 0;
+                }
             }
         }
     }
