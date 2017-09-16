@@ -40,7 +40,7 @@
                 <h4 class="modal-title" id="deleteModalLabel">Confirm Account Deletion</h4>
                 <p>We are sorry to hear you'd like to remove your account.</p>
                 <p class="text-danger">By pressing the button below, all data associated with your account will be <strong>permanently</strong> deleted.</p>
-                <form>
+                <form @submit.prevent="deleteAccount" accept-charset="UTF-8">
                     <div class="form-group">
                         <label for="confirmPassword" class="control-label">Enter your current password:</label>
                         <input class="form-control" type="password" v-model="confirmPassword">
@@ -90,8 +90,9 @@ export default {
 
             this.$http.post('http://localhost:3333/account/delete', payload)
             .then(() => {
-                this.$router.push({ path: '/logout' });
-                this.$toasted.success('Boom!');
+                store.commit('logout');
+                this.$router.push({ path: '/' });
+                this.$toasted.success('Account Deleted');
             })
             .catch(() => {
                 this.$toasted.error(':(');
