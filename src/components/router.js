@@ -15,8 +15,11 @@ import SettingsProfile from '@/components/Settings/SettingsProfile';
 import SettingsSocial from '@/components/Settings/SettingsSocial';
 import SettingsGithub from '@/components/Settings/SettingsGithub';
 import SettingsAccount from '@/components/Settings/SettingsAccount';
+
+// 3rd party
 import moment from 'moment';
 
+// Absolute imports
 import { store } from '../store';
 
 Vue.use(Router);
@@ -35,17 +38,22 @@ const routes = new Router({
             component: Login,
             meta: {
                 title: 'Login to Atom Settings',
+                unAuth: true,
             },
         },
         {
             path: '/logout',
             component: Logout,
+            meta: {
+                auth: true,
+            },
         },
         {
             path: '/register',
             component: Register,
             meta: {
                 title: 'Create an Atom Settings Account',
+                unAuth: true,
             },
         },
         {
@@ -53,6 +61,7 @@ const routes = new Router({
             component: ResetPassword,
             meta: {
                 title: 'Reset your Atom Settings Password',
+                unAuth: true,
             },
         },
         {
@@ -60,6 +69,7 @@ const routes = new Router({
             component: Dashboard,
             meta: {
                 title: 'Atom Settings Dashboard',
+                auth: true,
             },
         },
         {
@@ -81,6 +91,7 @@ const routes = new Router({
             component: SettingsPage,
             meta: {
                 title: 'Atom Settings',
+                auth: true,
             },
             children: [
                 {
@@ -88,6 +99,7 @@ const routes = new Router({
                     component: SettingsGetStarted,
                     meta: {
                         title: 'Atom Settings | Get Started',
+                        auth: true,
                     },
                 },
                 {
@@ -95,6 +107,7 @@ const routes = new Router({
                     component: SettingsGithub,
                     meta: {
                         title: 'Atom Settings | Sync',
+                        auth: true,
                     },
                 },
                 {
@@ -102,6 +115,7 @@ const routes = new Router({
                     component: SettingsProfile,
                     meta: {
                         title: 'Atom Settings | Profile',
+                        auth: true,
                     },
                 },
                 {
@@ -109,6 +123,7 @@ const routes = new Router({
                     component: SettingsSocial,
                     meta: {
                         title: 'Atom Settings | Social',
+                        auth: true,
                     },
                 },
                 {
@@ -116,6 +131,7 @@ const routes = new Router({
                     component: SettingsAccount,
                     meta: {
                         title: 'Atom Settings | Account',
+                        auth: true,
                     },
                 },
             ],
@@ -126,58 +142,30 @@ const routes = new Router({
 routes.beforeEach((to, from, next) => {
     const session = store.getters.session;
     const isAuth = session && session.token;
-    const isAuthPage = ['/register', '/login', '/reset-password', '/logout', '/'].includes(to.path);
 
     Vue.nextTick(() => {
-        // TODO: Refactor, less code?
-        if (isAuth) {
-            if (isAuthPage) {
-                next('/dashboard');
-            } else if (session && !session.retain) {
-                // console.log('session should expire after a day');
-                const sessionAge = moment().diff(session.lastLogin, 'days');
-                // console.log(sessionAge);
+        if (to.meta.auth) {
+            if (!isAuth) {
+                next('/login');
+            } else {
+                // Handle expired session, currently older than 1 month
+                const sessionAge = moment().diff(session.lastLogin, 'months');
                 if (sessionAge > 0) {
-                    console.log('session is too old, logout!');
+                    next('/logout?sessionExpired=true');
                 }
+                next();
             }
         } else {
-            console.log('no session');
-            if (isAuthPage) {
-                next();
-            } else {
-                next('/login');
+            if (isAuth && to.meta.unAuth) {
+                next('/dashboard');
             }
+            next();
         }
+
+        document.title = to.meta.title ? to.meta.title : 'Atom Settings';
     });
 
-
-    // Handle auth routing
-
-    // Redirect if no session found
-
-
-    // $rootScope.notVerified = $rootScope.session && !$rootScope.session.verified;
-
-    Vue.nextTick(() => {
-        const title = to.meta.title ? to.meta.title : 'NO TITLE';
-        document.title = title;
-    });
-    next(); // make sure to always call next()!
-    // if (to.matched.some(record => record.meta.requiresAuth)) {
-    //     // this route requires auth, check if logged in
-    //     // if not, redirect to login page.
-    //     if (!auth.loggedIn()) {
-    //         next({
-    //             path: '/login',
-    //             query: { redirect: to.fullPath }
-    //         })
-    //     } else {
-    //         next()
-    //     }
-    // } else {
-    //     next() // make sure to always call next()!
-    // }
+    next();
 });
 
 export default routes;

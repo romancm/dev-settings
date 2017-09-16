@@ -2,8 +2,12 @@
     <header>
         <div class="container">
             <span class="logo">
-                <router-link to="/dashboard">
+                <router-link to="/dashboard" v-if="token">
                     <img src="../../assets/logo.png" alt="">
+                </router-link>
+
+                <router-link to="/" v-else>
+                    <img src="../../assets/logo-full.png" alt="">
                 </router-link>
 
                 <router-link to="/browse">
