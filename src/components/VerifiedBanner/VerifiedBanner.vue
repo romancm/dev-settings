@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="well well-sm">
-                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    <i class="fa fa-check-circle-o fa-4x" aria-hidden="true"></i>
                     <div>
                         <h4>Please verify your email address</h4>
                         <p class="text-muted">
@@ -35,13 +35,10 @@
     @import "../../styles/_variables";
 
     .well {
-        // margin-top: $gp;
         display: flex;
         align-items: center;
         .fa {
-            font-size: 55px;
             margin: 0 15px;
-            color: #999;
         }
     }
 </style>

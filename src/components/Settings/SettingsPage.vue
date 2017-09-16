@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h2 class="page-header">Settings</h2>
+                <h2>Settings</h2>
 
                 <aside class="sidebar col-xs-12 col-sm-3">
                     <div class="row">
