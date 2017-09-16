@@ -1,13 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Browse from '@/components/Browse/Browse';
+import Dashboard from '@/components/Dashboard/Dashboard';
 import Home from '@/components/Home';
 import Login from '@/components/Login/Login';
 import Logout from '@/components/Logout/Logout';
 import Register from '@/components/Register/Register';
 import ResetPassword from '@/components/ResetPassword/ResetPassword';
-import Dashboard from '@/components/Dashboard/Dashboard';
-import Browse from '@/components/Browse/Browse';
 import User from '@/components/User/User';
+import VerifyAccount from '@/components/VerifyAccount/VerifyAccount';
 // Settings
 import SettingsPage from '@/components/Settings/SettingsPage';
 import SettingsGetStarted from '@/components/Settings/SettingsGetStarted';
@@ -70,6 +71,14 @@ const routes = new Router({
             meta: {
                 title: 'Atom Settings Dashboard',
                 auth: true,
+            },
+        },
+        {
+            path: '/verify/:id/:token',
+            component: VerifyAccount,
+            meta: {
+                title: 'Atom Settings | Verify Account',
+                hideVerifyBanner: true,
             },
         },
         {

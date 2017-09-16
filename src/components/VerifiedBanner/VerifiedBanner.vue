@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="container" v-if="session.token && !user.verified">
+    <div class="container" v-if="session.token && !user.verified && !hideVerifyBanner">
         <div class="row">
             <div class="col-xs-12">
                 <div class="well well-sm">
@@ -26,6 +26,7 @@
             session() { return store.getters.session; },
             user() { return store.getters.user; },
             gistData() { return store.getters.gistData; },
+            hideVerifyBanner() { return this.$route.meta.hideVerifyBanner; },
         },
     };
 </script>
