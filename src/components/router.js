@@ -9,6 +9,8 @@ import Register from '@/components/Register/Register';
 import ResetPassword from '@/components/ResetPassword/ResetPassword';
 import User from '@/components/User/User';
 import VerifyAccount from '@/components/VerifyAccount/VerifyAccount';
+// Admin
+import AdminPage from '@/components/Admin/AdminPage';
 // Settings
 import SettingsPage from '@/components/Settings/SettingsPage';
 import SettingsGetStarted from '@/components/Settings/SettingsGetStarted';
@@ -63,6 +65,14 @@ const routes = new Router({
             meta: {
                 title: 'Reset your Atom Settings Password',
                 unAuth: true,
+            },
+        },
+        {
+            path: '/admin',
+            component: AdminPage,
+            meta: {
+                title: 'Atom Settings Admin',
+                auth: true,
             },
         },
         {
