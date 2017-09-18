@@ -1,66 +1,62 @@
 <template>
-    <div>
-        <div class="col-xs-12">
-            <div class="row">
-                <h3>About You</h3>
+    <div class="col-xs-12">
+        <h3>About You</h3>
 
-                <form @submit.prevent="updateProfile()">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>First name</label>
-                                    <input class="form-control input-lg" type="text" v-model="user.profile.firstName">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Last name</label>
-                                    <input class="form-control input-lg" type="text" v-model="user.profile.lastName">
-                                </div>
-                            </div>
-                        </div>
-
+        <form @submit.prevent="updateProfile()">
+            <img :src="'https://api.adorable.io/avatars/' + user._id" alt="" class="img-thumbnail" width="200">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Bio</label>
-                            <textarea class="form-control input-lg" type="text" v-model="user.profile.bio" />
-                        </div>
-
-                        <label>Job Title</label>
-
-                        <div class="form-group">
-                            <div class="col-xs-6" v-for="checkbox in titleCheckboxes">
-                                <label>
-                                    <input type="checkbox" :value="checkbox.id" v-model="user.profile.jobTitle">
-                                    {{checkbox.value}}
-                                </label>
-                            </div>
-                        </div>
-
-                        <label>Languages</label>
-
-                        <div class="form-group">
-                            <div class="col-xs-6" v-for="checkbox in languages">
-                                <label>
-                                    <input type="checkbox" :value="checkbox.id" v-model="user.profile.languages">
-                                    {{checkbox.value}}
-                                </label>
-                            </div>
+                            <label>First name</label>
+                            <input class="form-control input-lg" type="text" v-model="user.profile.firstName">
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Last name</label>
+                            <input class="form-control input-lg" type="text" v-model="user.profile.lastName">
+                        </div>
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea class="form-control input-lg" type="text" v-model="user.profile.bio" />
+                </div>
 
-                    <button name="button" type="submit" class="btn btn-lg btn-success">
-                        <span v-if="loading">
-                            <i class="fa fa-spinner fa-spin-fast" aria-hidden="true"></i>
-                            Saving
-                        </span>
-                        <span v-if="!loading">Save</span>
-                    </button>
-                </form>
+                <label>Job Title</label>
+
+                <div class="form-group">
+                    <div class="col-xs-6" v-for="checkbox in titleCheckboxes">
+                        <label>
+                            <input type="checkbox" :value="checkbox.id" v-model="user.profile.jobTitle">
+                            {{checkbox.value}}
+                        </label>
+                    </div>
+                </div>
+
+                <label>Languages</label>
+
+                <div class="form-group">
+                    <div class="col-xs-6" v-for="checkbox in languages">
+                        <label>
+                            <input type="checkbox" :value="checkbox.id" v-model="user.profile.languages">
+                            {{checkbox.value}}
+                        </label>
+                    </div>
+                </div>
             </div>
-        </div>
-        <hr>
+
+
+            <button name="button" type="submit" class="btn btn-lg btn-success">
+                <span v-if="loading">
+                    <i class="fa fa-spinner fa-spin-fast" aria-hidden="true"></i>
+                    Saving
+                </span>
+                <span v-if="!loading">Save</span>
+            </button>
+        </form>
     </div>
 </template>
 

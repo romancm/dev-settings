@@ -18,11 +18,9 @@
             <section class="user-menu">
                 <span v-if="token">
                     <span @click="toggleUserMenu" id="userMenu">
-                        <img v-if="gistData.owner" class="img-thumbnail img-responsive img-circle" :src="gistData.owner.avatar_url" alt="" width="50" />
-                        <span v-else class="initials img-thumbnail img-responsive img-circle">
-                            {{user.profile.firstName}}
-                            {{user.profile.lastName}}
-                        </span>
+                        <img class="img-thumbnail img-responsive img-circle" :src="'https://api.adorable.io/avatars/' + user._id" alt="" width="50" />
+                        <!-- <img v-if="gistData.owner" class="img-thumbnail img-responsive img-circle" :src="gistData.owner.avatar_url" alt="" width="50" />
+                        <img v-else class="img-thumbnail img-responsive img-circle" :src="'https://api.adorable.io/avatars/' + _id" alt="" width="50" /> -->
                     </span>
 
                     <div class="user-dropdown" v-show="active">

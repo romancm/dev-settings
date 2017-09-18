@@ -1,5 +1,5 @@
 <template lang="html">
-    <div>
+    <div class="col-xs-12">
         <h3>Hello, {{user.profile.firstName}}!</h3>
         <p>AtomSettings helps developers around to world to share and discover settings for the hackable text editor for the 21st Century. In order to get started you need to install Sync Settings for Atom. Please refer to their readme for instructions on how to set it up. Once you are all set you can enter the gist id.</p>
         <div class="panel panel-default">

@@ -1,17 +1,32 @@
 <template lang="html">
     <div class="container">
+        <h2>Browse</h2>
         <div class="row">
             <div class="col-xs-12">
-                <h2>Browse</h2>
+                Filters
+            </div>
+            <div class="col-xs-12">
 
                 <p v-if="!users.length">No users</p>
-                <ul v-else>
-                    <li v-for="{firstName, lastName, _id} in users">
+                <div v-else class="users">
+                    <div v-for="user in users" class="user">
                         <a :href="url(_id)">
-                            {{firstName}} {{lastName}} {{_id}}
+                            <img :src="'https://api.adorable.io/avatars/' + user._id" alt="" class="profile-pic">
                         </a>
-                    </li>
-                </ul>
+                        Roman Cervantes
+                        <img src="https://lipis.github.io/flag-icon-css/flags/4x3/us.svg" alt="" width="50">
+                        <i class="devicon-javascript-plain colored"></i>
+                        <i class="devicon-ruby-plain colored"></i>
+                        <i class="devicon-python-plain colored"></i>
+                        <i class="devicon-mysql-plain colored"></i>
+                        <i class="devicon-cplusplus-plain colored"></i>
+                        <i class="devicon-csharp-plain colored"></i>
+                        <i class="devicon-csharp-plain colored"></i>
+                        <i class="devicon-angularjs-plain colored"></i>
+                        <i class="devicon-php-plain colored"></i>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -46,5 +61,16 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="scss" rel="stylesheet/scss" scoped>
+    .users {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        .user {
+            width: 25%;
+            .profile-pic {
+                width: 100%;
+            }
+        }
+    }
 </style>
