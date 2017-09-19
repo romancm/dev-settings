@@ -3,7 +3,7 @@
         <h3>About You</h3>
 
         <form @submit.prevent="updateProfile()">
-            <img :src="'https://api.adorable.io/avatars/' + user._id" alt="" class="img-thumbnail" width="200">
+            <avatar size="lg" />
             <div class="form-group">
                 <div class="row">
                     <div class="col-sm-6">
@@ -39,9 +39,10 @@
                 <label>Languages</label>
 
                 <div class="form-group">
-                    <div class="col-xs-6" v-for="checkbox in languages">
-                        <label>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6" v-for="checkbox in languages">
+                        <label class="language">
                             <input type="checkbox" :value="checkbox.id" v-model="user.profile.languages">
+                            <i :class="'devicon-'+checkbox.id+'-plain colored'"></i>
                             {{checkbox.value}}
                         </label>
                     </div>
@@ -61,9 +62,14 @@
 </template>
 
 <script>
+import Avatar from '../Avatar/Avatar';
 import { store } from '../../store';
 
 export default {
+    components: {
+        Avatar,
+    },
+
     data() {
         return {
             loading: false,
@@ -83,19 +89,39 @@ export default {
                 { id: 'hobby', value: 'Hobbyist' },
             ],
             languages: [
-                { id: 'java', value: 'Java' },
-                { id: 'python', value: 'Python' },
-                { id: 'c ', value: 'C ' },
-                { id: 'ruby', value: 'Ruby' },
-                { id: 'javascript', value: 'JavaScript' },
-                { id: 'c#', value: 'C#' },
-                { id: 'php', value: 'PHP' },
-                { id: 'objective-c', value: 'Objective-C' },
-                { id: 'sql', value: 'SQL' },
-                { id: 'с++', value: 'С++' },
-                { id: 'c#', value: 'C#' },
-                { id: 'go', value: 'Go' },
-                { id: 'swift', value: 'Swift' },
+                { id: 'android', value: 'android' },
+                { id: 'angularjs', value: 'angularjs' },
+                { id: 'apache', value: 'apache' },
+                { id: 'backbonejs', value: 'backbonejs' },
+                { id: 'c', value: 'c' },
+                { id: 'coffeescript', value: 'coffeescript' },
+                { id: 'cplusplus', value: 'cplusplus' },
+                { id: 'csharp', value: 'csharp' },
+                { id: 'css3', value: 'css3' },
+                { id: 'dot-net', value: 'dot-net' },
+                { id: 'drupal', value: 'drupal' },
+                { id: 'go', value: 'go' },
+                { id: 'html5', value: 'html5' },
+                { id: 'java', value: 'java' },
+                { id: 'javascript', value: 'javascript' },
+                { id: 'laravel', value: 'laravel' },
+                { id: 'meteor', value: 'meteor' },
+                { id: 'mocha', value: 'mocha' },
+                { id: 'mongodb', value: 'mongodb' },
+                { id: 'mysql', value: 'mysql' },
+                { id: 'nodejs', value: 'nodejs' },
+                { id: 'oracle', value: 'oracle' },
+                { id: 'php', value: 'php' },
+                { id: 'postgresql', value: 'postgresql' },
+                { id: 'python', value: 'python' },
+                { id: 'rails', value: 'rails' },
+                { id: 'react', value: 'react' },
+                { id: 'redis', value: 'redis' },
+                { id: 'ruby', value: 'ruby' },
+                { id: 'sass', value: 'sass' },
+                { id: 'swift', value: 'swift' },
+                { id: 'typescript', value: 'typescript' },
+                { id: 'vuejs', value: 'vuejs' },
             ],
         };
     },
@@ -128,3 +154,13 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.language {
+    font-size: 20px;
+    cursor: pointer;
+    i {
+        font-size: 100px;
+    }
+}
+</style>

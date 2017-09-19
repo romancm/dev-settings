@@ -11,6 +11,12 @@
                 </div>
             </div>
 
+            <avatar size="xs" />
+            <avatar size="sm" />
+            <avatar size="md" />
+            <avatar size="xl" />
+            <avatar />
+
             <div class="col-xs-12" v-if="!user.gistId">
                 <div class="alert alert-info">
                     <i class="fa fa-github fa-4x" aria-hidden="true"></i>
@@ -23,7 +29,7 @@
             </div>
 
             <div class="col-xs-12">
-                <profile />
+                <!-- <profile /> -->
             </div>
         </div>
     </div>
@@ -32,10 +38,12 @@
 <script>
 import { store } from '../../store';
 import Profile from '../User/Profile';
+import Avatar from '../Avatar/Avatar';
 
 export default {
     components: {
         Profile,
+        Avatar,
     },
 
     computed: {

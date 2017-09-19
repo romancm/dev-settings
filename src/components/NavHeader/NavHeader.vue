@@ -17,11 +17,9 @@
 
             <section class="user-menu">
                 <span v-if="token">
-                    <span @click="toggleUserMenu" id="userMenu">
-                        <img class="img-thumbnail img-responsive img-circle" :src="'https://api.adorable.io/avatars/' + user._id" alt="" width="50" />
-                        <!-- <img v-if="gistData.owner" class="img-thumbnail img-responsive img-circle" :src="gistData.owner.avatar_url" alt="" width="50" />
-                        <img v-else class="img-thumbnail img-responsive img-circle" :src="'https://api.adorable.io/avatars/' + _id" alt="" width="50" /> -->
-                    </span>
+                    <avatar id="userMenu" size="xs" @click="toggleUserMenu"/>
+                    <!-- <img v-if="gistData.owner" class="img-thumbnail img-responsive img-circle" :src="gistData.owner.avatar_url" alt="" width="50" />
+                    <img v-else class="img-thumbnail img-responsive img-circle" :src="'https://api.adorable.io/avatars/' + _id" alt="" width="50" /> -->
 
                     <div class="user-dropdown" v-show="active">
                         <router-link to="/dashboard">
@@ -49,9 +47,14 @@
 </template>
 
 <script>
+import Avatar from '../Avatar/Avatar';
 import { store } from '../../store';
 
 export default {
+    components: {
+        Avatar,
+    },
+
     computed: {
         token() { return store.getters.session.token; },
         user() { return store.getters.user; },
@@ -72,7 +75,7 @@ export default {
         },
 
         blur(e) {
-            if (e.target.parentNode.id !== 'userMenu') {
+            if (e.target.parentNode.parentNode.id !== 'userMenu') {
                 this.active = !this.active;
                 window.removeEventListener('click', this.blur);
             }
@@ -118,10 +121,8 @@ header {
     .user-menu {
         position: relative;
 
-        .img-thumbnail {
-            cursor: pointer;
-            background: #b75c5c;
-            border-color: rgba(0,0,0,0.1);
+        .avatar {
+            --avatar-border-bg: #b75c5c;
         }
 
         .user-dropdown {
