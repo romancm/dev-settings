@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="container">
         <div class="row">
-            <!-- <div class="col-xs-12">
+            <div class="col-xs-12">
                 <div class="alert alert-success">
                     <i class="fa fa-hand-peace-o fa-4x" aria-hidden="true"></i>
                     <div>
@@ -9,8 +9,13 @@
                         <p><strong>AtomSettings</strong> is an easy way to share your Atom settings with other developers, discover packages, themes, and everything related to customizing Atom</p>
                     </div>
                 </div>
-            </div> -->
-            <!-- <div class="col-xs-12" v-if="!user.gistId">
+            </div>
+
+            <div class="col-xs-12" v-if="user.gistId">
+                <profile :user-data="user" :gist-data="gistData" />
+            </div>
+
+            <div class="col-xs-12" v-else>
                 <div class="alert alert-info">
                     <i class="fa fa-github fa-4x" aria-hidden="true"></i>
                     <div>
@@ -19,10 +24,6 @@
                         <a href="/#/settings" class="btn btn-primary">Learn more</a>
                     </div>
                 </div>
-            </div> -->
-
-            <div class="col-xs-12">
-                <profile />
             </div>
         </div>
     </div>
@@ -41,6 +42,34 @@ export default {
 
     computed: {
         user() { return store.getters.user; },
+        gistData() { return store.getters.gistData; },
+    },
+
+    mounted() {
+        if (Object.keys(this.gistData).length === 0 && this.gistData.constructor === Object) {
+            this.getGist();
+        } else {
+            // check how old data is, if too old, get latest data
+            console.log('data cached!');
+        }
+    },
+
+    methods: {
+        getGist() {
+            if (this.user.gistId) {
+                const url = `https://api.github.com/gists/${this.user.gistId}`;
+                this.$http.get(url).then(({ data }) => {
+                    store.commit('updateGistData', data);
+                    this.$toasted.success('got data from api');
+                })
+                .catch(() => {
+                    this.$toasted.error('error');
+                })
+                .then(() => {
+                    this.loading = false;
+                });
+            }
+        },
     },
 };
 </script>

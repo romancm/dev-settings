@@ -14,7 +14,10 @@
                             <avatar :user-data="user" public />
                             <!-- <img :src="'https://api.adorable.io/avatars/' + user._id" alt="" class="profile-pic"> -->
                         </a>
-                        Roman Cervantes
+                        <!-- <pre>{{user}}</pre> -->
+                        {{user.profile.firstName}}
+                        {{user.profile.lastName}}
+
                         <img src="https://lipis.github.io/flag-icon-css/flags/4x3/us.svg" alt="" width="50">
                         <i class="devicon-javascript-plain colored"></i>
                         <i class="devicon-ruby-plain colored"></i>

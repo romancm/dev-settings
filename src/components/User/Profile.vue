@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="profile row">
+    <div class="profile row" v-if="userData && gistData">
         <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -110,7 +110,7 @@ import moment from 'moment';
 import VueMarkdown from 'vue-markdown';
 import Avatar from '../Avatar/Avatar';
 
-import { store } from '../../store';
+// import { store } from '../../store';
 
 export default {
     components: {
@@ -125,21 +125,14 @@ export default {
     },
 
     props: {
-        id: String,
+        gistData: Object,
+        userData: Object,
     },
 
     computed: {
-        user() { return store.getters.user; },
-        gistData() { return store.getters.gistData; },
         packages() {
-            return JSON.parse(store.getters.gistData.files['packages.json'].content);
+            return JSON.parse(this.gistData.files['packages.json'].content);
         },
-    },
-
-    mounted() {
-        if (!this.gistData.id || this.gistData.id !== this.user.gistId) {
-            this.getGist();
-        }
     },
 
     methods: {
@@ -158,22 +151,6 @@ export default {
                     this.$forceUpdate();
                 });
             });
-        },
-
-        getGist() {
-            if (this.user.gistId) {
-                const url = `https://api.github.com/gists/${this.user.gistId}`;
-                this.$http.get(url).then(({ data }) => {
-                    store.commit('updateGistData', data);
-                    this.$toasted.success('got data from api');
-                })
-                .catch(() => {
-                    this.$toasted.error('error');
-                })
-                .then(() => {
-                    this.loading = false;
-                });
-            }
         },
     },
 };
