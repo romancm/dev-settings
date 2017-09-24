@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
+            <!-- <div class="col-xs-12">
                 <div class="alert alert-success">
                     <i class="fa fa-hand-peace-o fa-4x" aria-hidden="true"></i>
                     <div>
@@ -9,15 +9,8 @@
                         <p><strong>AtomSettings</strong> is an easy way to share your Atom settings with other developers, discover packages, themes, and everything related to customizing Atom</p>
                     </div>
                 </div>
-            </div>
-
-            <avatar size="xs" />
-            <avatar size="sm" />
-            <avatar size="md" />
-            <avatar size="xl" />
-            <avatar />
-
-            <div class="col-xs-12" v-if="!user.gistId">
+            </div> -->
+            <!-- <div class="col-xs-12" v-if="!user.gistId">
                 <div class="alert alert-info">
                     <i class="fa fa-github fa-4x" aria-hidden="true"></i>
                     <div>
@@ -26,10 +19,10 @@
                         <a href="/#/settings" class="btn btn-primary">Learn more</a>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="col-xs-12">
-                <!-- <profile /> -->
+                <profile />
             </div>
         </div>
     </div>

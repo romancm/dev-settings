@@ -9,36 +9,84 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <div class="col-xs-12 col-sm-2">
-                        <img class="img-thumbnail img-responsive img-circle" :src="gistData.owner.avatar_url" alt="" width="100" />
-                    </div>
-                    <div class="col-xs-12 col-sm-10">
-                        <h3>{{gistData.owner.login}}</h3>
-                        <p>Last updated {{moment(gistData.lastUpdated).fromNow()}}</p>
-                        <a :href="gistData.owner.html_url" class="btn btn-default" target="_blank">
-                            Github Profile <i class="fa fa-external-link" aria-hidden="true"></i>
-                        </a>
-                    </div>
+                    <avatar size="md" />
+                    <h3>{{gistData.owner.login}}</h3>
+                    <p>Last updated {{moment(gistData.lastUpdated).fromNow()}}</p>
+                    <a :href="gistData.owner.html_url" class="btn btn-default" target="_blank">
+                        Github Profile <i class="fa fa-external-link" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
 
         </div>
 
-        <div class="col-xs-3" id="packages">
-            <h2>Packages</h2>
-            <ul>
-                <li v-for="package in parse(gistData.files['packages.json'].content)" @click="getPackage(package.name)">
-                    {{package.name}}
-                    {{package.version}}
-                </li>
-            </ul>
+        <div class="col-xs-12 text-center">
+            <div class="row">
+                <div class="col-xs-6 col-sm-4 col-lg-2">
+                    <div class="panel panel-default">
+                        <i class="fa fa-archive fa-5x" aria-hidden="true"></i>
+                        <br>
+                        Packages
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-lg-2">
+                    <div class="panel panel-default">
+                        <i class="fa fa-terminal fa-5x" aria-hidden="true"></i>
+                        <br>
+                        Init Script
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-lg-2">
+                    <div class="panel panel-default">
+                        <i class="fa fa-keyboard-o fa-5x" aria-hidden="true"></i>
+                        <br>
+                        Keymaps
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-lg-2">
+                    <div class="panel panel-default">
+                        <i class="fa fa-cog fa-5x" aria-hidden="true"></i>
+                        <br>
+                        settings
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-lg-2">
+                    <div class="panel panel-default">
+                        <i class="fa fa-file-code-o fa-5x" aria-hidden="true"></i>
+                        <br>
+                        snippets
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-lg-2">
+                    <div class="panel panel-default">
+                        <i class="fa fa-css3  fa-5x" aria-hidden="true"></i>
+                        <br>
+                        Styles
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="col-xs-9" v-if="activePackage">
-            <modal name="packageModal" height="700" adaptive>
-                <vue-markdown :source="activePackage.readme" />
-            </modal>
+        <div class="col-xs-4 packages">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-primary">
+                        <i class="fa fa-archive" aria-hidden="true"></i>
+                        Packages
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <a v-for="{name, version} in packages" @click="getPackage(name)"
+                        :class="['package-btn btn btn-sm btn-default', { 'btn-primary' : isActive(name)}]"
+                    >
+                        {{name}}
+                        <span class="label label-info">{{version}}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
 
+        <div class="col-xs-8" v-if="activePackage">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="panel panel-default package-preview">
@@ -60,12 +108,14 @@
 <script>
 import moment from 'moment';
 import VueMarkdown from 'vue-markdown';
+import Avatar from '../Avatar/Avatar';
 
 import { store } from '../../store';
 
 export default {
     components: {
         VueMarkdown,
+        Avatar,
     },
 
     data() {
@@ -81,40 +131,29 @@ export default {
     computed: {
         user() { return store.getters.user; },
         gistData() { return store.getters.gistData; },
+        packages() {
+            return JSON.parse(store.getters.gistData.files['packages.json'].content);
+        },
     },
 
     mounted() {
-        if (this.id) {
-            console.log('no data passed, get id');
-            console.log(this.id);
+        if (!this.gistData.id || this.gistData.id !== this.user.gistId) {
+            this.getGist();
         }
     },
 
     methods: {
-        mounted() {
-            this.init();
-        },
-
-        init() {
-            if (!this.gistData.id || this.gistData.id !== this.user.gistId) {
-                this.getGist();
-            }
+        isActive(packageName) {
+            return this.activePackage && this.activePackage.name === packageName;
         },
 
         moment() {
             return moment();
         },
 
-        parse(o) {
-            return JSON.parse(o);
-        },
         getPackage(packageName) {
             this.$http.get(`https://www.atom.io/api/packages/${packageName}`).then(({ data }) => {
-                console.log(data);
                 this.activePackage = data;
-
-                // this.$modal.show('packageModal');
-
                 this.nextTick(() => {
                     this.$forceUpdate();
                 });
@@ -141,6 +180,14 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+    .packages {
+        .package-btn {
+            margin-bottom: 5px;
+            width: 100%;
+            text-align: left;
+        }
+    }
+
     .package-preview {
         background: #fff;
         overflow: auto;
