@@ -12,9 +12,7 @@
                     <div v-for="user in users" class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                         <a :href="url(user._id)">
                             <avatar :user-data="user" public />
-                            <!-- <img :src="'https://api.adorable.io/avatars/' + user._id" alt="" class="profile-pic"> -->
                         </a>
-                        <!-- <pre>{{user}}</pre> -->
                         {{user.profile.firstName}}
                         {{user.profile.lastName}}
 
@@ -63,7 +61,7 @@ export default {
         },
 
         url(id) {
-            return `/#/browse/${id}`;
+            return `/#/browse/${id}/packages`;
         },
     },
 };
