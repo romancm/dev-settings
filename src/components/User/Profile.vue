@@ -9,7 +9,7 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <avatar size="md" />
+                    <avatar :user-data="userData" size="md" public />
                     <h3>{{gistData.owner.login}}</h3>
                     <p>Last updated {{moment(gistData.lastUpdated).fromNow()}}</p>
                     <a :href="gistData.owner.html_url" class="btn btn-default" target="_blank">
@@ -22,57 +22,12 @@
 
         <div class="col-xs-12 text-center">
             <div class="row">
-                <div class="col-xs-6 col-sm-4 col-lg-2">
+                <div class="col-xs-6 col-sm-4 col-lg-2" v-for="{routeName, title, icon} in sections">
                     <div class="panel panel-default">
-                        <router-link to="packages">
-                            <i class="fa fa-archive fa-5x" aria-hidden="true"></i>
+                        <router-link :to="getUrl(routeName)" :class="{ 'active': isCurrentRoute(routeName)}">
+                            <i class="fa fa-5x" :class="icon" aria-hidden="true"></i>
                             <br>
-                            Packages
-                        </router-link>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4 col-lg-2">
-                    <div class="panel panel-default">
-                        <router-link to="init-script">
-                            <i class="fa fa-terminal fa-5x" aria-hidden="true"></i>
-                            <br>
-                            Init Script
-                        </router-link>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4 col-lg-2">
-                    <div class="panel panel-default">
-                        <router-link to="keymaps">
-                            <i class="fa fa-keyboard-o fa-5x" aria-hidden="true"></i>
-                            <br>
-                            Keymaps
-                        </router-link>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4 col-lg-2">
-                    <div class="panel panel-default">
-                        <router-link to="settings">
-                            <i class="fa fa-cog fa-5x" aria-hidden="true"></i>
-                            <br>
-                            Settings
-                        </router-link>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4 col-lg-2">
-                    <div class="panel panel-default">
-                        <router-link to="snippets">
-                            <i class="fa fa-file-code-o fa-5x" aria-hidden="true"></i>
-                            <br>
-                            Snippets
-                        </router-link>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4 col-lg-2">
-                    <div class="panel panel-default">
-                        <router-link to="styles">
-                            <i class="fa fa-css3  fa-5x" aria-hidden="true"></i>
-                            <br>
-                            Styles
+                            {{title}}
                         </router-link>
                     </div>
                 </div>
@@ -135,6 +90,38 @@ export default {
     data() {
         return {
             activePackage: null,
+            sections: [
+                {
+                    title: 'Packages',
+                    routeName: 'packages',
+                    icon: 'fa-archive',
+                },
+                {
+                    title: 'Init Script',
+                    routeName: 'init-script',
+                    icon: 'fa-terminal',
+                },
+                {
+                    title: 'Keymaps',
+                    routeName: 'keymaps',
+                    icon: 'fa-keyboard-o',
+                },
+                {
+                    title: 'Settings',
+                    routeName: 'settings',
+                    icon: 'fa-cog',
+                },
+                {
+                    title: 'Snippets',
+                    routeName: 'snippets',
+                    icon: 'fa-file-code-o',
+                },
+                {
+                    title: 'Styles',
+                    routeName: 'styles',
+                    icon: 'fa-css3',
+                },
+            ],
         };
     },
 
@@ -156,6 +143,14 @@ export default {
 
         moment() {
             return moment();
+        },
+
+        getUrl(section) {
+            return `/browse/${this.userData._id}/${section}`;
+        },
+
+        isCurrentRoute(route) {
+            return route === this.$route.name;
         },
 
         getPackage(packageName) {
@@ -182,5 +177,9 @@ export default {
     .package-preview {
         background: #fff;
         overflow: auto;
+    }
+
+    .active {
+        color: #c66;
     }
 </style>

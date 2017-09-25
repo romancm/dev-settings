@@ -116,26 +116,32 @@ const routes = new Router({
             children: [
                 {
                     path: 'packages',
+                    name: 'packages',
                     component: Packages,
                 },
                 {
                     path: 'init-script',
+                    name: 'init-script',
                     component: InitScript,
                 },
                 {
                     path: 'keymaps',
                     component: Keymaps,
+                    name: 'keymaps',
                 },
                 {
                     path: 'settings',
+                    name: 'settings',
                     component: Settings,
                 },
                 {
                     path: 'snippets',
+                    name: 'snippets',
                     component: Snippets,
                 },
                 {
                     path: 'styles',
+                    name: 'styles',
                     component: Styles,
                 },
             ],
