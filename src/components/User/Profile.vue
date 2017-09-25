@@ -24,48 +24,62 @@
             <div class="row">
                 <div class="col-xs-6 col-sm-4 col-lg-2">
                     <div class="panel panel-default">
-                        <i class="fa fa-archive fa-5x" aria-hidden="true"></i>
-                        <br>
-                        Packages
+                        <router-link to="packages">
+                            <i class="fa fa-archive fa-5x" aria-hidden="true"></i>
+                            <br>
+                            Packages
+                        </router-link>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-lg-2">
                     <div class="panel panel-default">
-                        <i class="fa fa-terminal fa-5x" aria-hidden="true"></i>
-                        <br>
-                        Init Script
+                        <router-link to="init-script">
+                            <i class="fa fa-terminal fa-5x" aria-hidden="true"></i>
+                            <br>
+                            Init Script
+                        </router-link>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-lg-2">
                     <div class="panel panel-default">
-                        <i class="fa fa-keyboard-o fa-5x" aria-hidden="true"></i>
-                        <br>
-                        Keymaps
+                        <router-link to="keymaps">
+                            <i class="fa fa-keyboard-o fa-5x" aria-hidden="true"></i>
+                            <br>
+                            Keymaps
+                        </router-link>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-lg-2">
                     <div class="panel panel-default">
-                        <i class="fa fa-cog fa-5x" aria-hidden="true"></i>
-                        <br>
-                        settings
+                        <router-link to="settings">
+                            <i class="fa fa-cog fa-5x" aria-hidden="true"></i>
+                            <br>
+                            Settings
+                        </router-link>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-lg-2">
                     <div class="panel panel-default">
-                        <i class="fa fa-file-code-o fa-5x" aria-hidden="true"></i>
-                        <br>
-                        snippets
+                        <router-link to="snippets">
+                            <i class="fa fa-file-code-o fa-5x" aria-hidden="true"></i>
+                            <br>
+                            Snippets
+                        </router-link>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-lg-2">
                     <div class="panel panel-default">
-                        <i class="fa fa-css3  fa-5x" aria-hidden="true"></i>
-                        <br>
-                        Styles
+                        <router-link to="styles">
+                            <i class="fa fa-css3  fa-5x" aria-hidden="true"></i>
+                            <br>
+                            Styles
+                        </router-link>
                     </div>
                 </div>
             </div>
         </div>
+
+        <router-view />
 
         <div class="col-xs-4 packages">
             <div class="panel panel-default">

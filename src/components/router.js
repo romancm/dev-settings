@@ -7,7 +7,16 @@ import Login from '@/components/Login/Login';
 import Logout from '@/components/Logout/Logout';
 import Register from '@/components/Register/Register';
 import ResetPassword from '@/components/ResetPassword/ResetPassword';
+
+// User Profile
 import User from '@/components/User/User';
+import Packages from '@/components/User/Packages';
+import InitScript from '@/components/User/InitScript';
+import Keymaps from '@/components/User/Keymaps';
+import Settings from '@/components/User/Settings';
+import Snippets from '@/components/User/Snippets';
+import Styles from '@/components/User/Styles';
+
 import VerifyAccount from '@/components/VerifyAccount/VerifyAccount';
 // Admin
 import AdminPage from '@/components/Admin/AdminPage';
@@ -104,6 +113,32 @@ const routes = new Router({
             meta: {
                 title: 'Browse {{User}} Atom Settings',
             },
+            children: [
+                {
+                    path: 'packages',
+                    component: Packages,
+                },
+                {
+                    path: 'init-script',
+                    component: InitScript,
+                },
+                {
+                    path: 'keymaps',
+                    component: Keymaps,
+                },
+                {
+                    path: 'settings',
+                    component: Settings,
+                },
+                {
+                    path: 'snippets',
+                    component: Snippets,
+                },
+                {
+                    path: 'styles',
+                    component: Styles,
+                },
+            ],
         },
         {
             path: '/settings',
