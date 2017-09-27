@@ -1,14 +1,11 @@
 <template lang="html">
     <div class="packages">
-        <h2>Packages</h2>
-        <div class="col-xs-4 packages">
+        <div class="col-xs-12">
+            <h2>Packages</h2>
+        </div>
+        <div class="col-xs-4 package-list">
+
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title text-primary">
-                        <i class="fa fa-archive" aria-hidden="true"></i>
-                        Packages
-                    </h3>
-                </div>
                 <div class="panel-body">
                     <a v-for="{name, version} in packages" @click="getPackage(name)"
                         :class="['package-btn btn btn-sm btn-default', { 'btn-primary' : isActive(name)}]"
@@ -24,13 +21,21 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="panel panel-default package-preview">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">{{activePackage.name}}</h3>
-
-                            <p>Downloads {{ activePackage.downloads }}</p>
-                        </div>
                         <div class="panel-body">
                             <vue-markdown :source="activePackage.readme" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-8" v-else>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default package-preview">
+                        <div class="panel-body">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                            Select a package
                         </div>
                     </div>
                 </div>
@@ -82,7 +87,9 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    .packages {
+    .package-list {
+        max-height: calc(100vh - 40px);
+        overflow: auto;
         .package-btn {
             margin-bottom: 5px;
             width: 100%;
@@ -91,6 +98,8 @@ export default {
     }
 
     .package-preview {
+        max-height: calc(100vh - 40px);
+        overflow: auto;
         background: #fff;
         overflow: auto;
     }

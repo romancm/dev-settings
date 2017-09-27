@@ -2,7 +2,6 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <a href="/#/browse" class="btn btn-info">Browse</a>
                 <profile :gist-data="gistData" :user-data="userData"/>
                 <hr>
             </div>

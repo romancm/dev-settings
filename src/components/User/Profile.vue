@@ -1,13 +1,21 @@
 <template lang="html">
     <div class="profile row" v-if="userData && gistData">
         <div class="col-xs-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/#/browse">Browse</a>
+                </li>
+                <li :class="{'active': !route}">
+                    <a :href="`/#/browse/${userData._id}`">{{gistData.owner.login}}</a>
+                </li>
+                <li class="active text-capitalize" v-if="route">
+                    {{route}}
+                </li>
+            </ol>
+        </div>
+
+        <div class="col-xs-12 col-sm-3">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                        Profile
-                    </h3>
-                </div>
                 <div class="panel-body">
                     <avatar :user-data="userData" size="md" public />
                     <h3>{{gistData.owner.login}}</h3>
@@ -20,9 +28,9 @@
 
         </div>
 
-        <div class="col-xs-12 text-center">
+        <div class="col-xs-12 col-sm-9 text-center">
             <div class="row">
-                <div class="col-xs-6 col-sm-4 col-lg-2" v-for="{routeName, title, icon} in sections">
+                <div class="col-xs-6 col-sm-4 col-lg-4" v-for="{routeName, title, icon} in sections">
                     <div class="panel panel-default">
                         <router-link :to="getUrl(routeName)" :class="{ 'active': isCurrentRoute(routeName)}">
                             <i class="fa fa-5x" :class="icon" aria-hidden="true"></i>
@@ -33,7 +41,11 @@
                 </div>
             </div>
         </div>
-        <router-view :gist-data="gistData" :user-data="userData"></router-view>
+        <div class="col-xs-12">
+            <div class="row">
+                <router-view :gist-data="gistData" :user-data="userData"></router-view>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -83,6 +95,12 @@ export default {
                 },
             ],
         };
+    },
+
+    computed: {
+        route() {
+            return this.$route.name;
+        },
     },
 
     props: {
