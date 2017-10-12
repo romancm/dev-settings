@@ -3,10 +3,10 @@
         <div class="col-xs-12">
             <ol class="breadcrumb">
                 <li>
-                    <a href="/#/browse">Browse</a>
+                    <a href="/browse">Browse</a>
                 </li>
                 <li :class="{'active': !route}">
-                    <a :href="`/#/browse/${userData._id}`">{{gistData.owner.login}}</a>
+                    <a :href="`/browse/${userData.user}`">{{gistData.owner.login}}</a>
                 </li>
                 <li class="active text-capitalize" v-if="route">
                     {{route}}

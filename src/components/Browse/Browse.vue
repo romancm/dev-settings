@@ -10,21 +10,25 @@
                 <p v-if="!users.length">No users</p>
                 <div v-else class="users row">
                     <div v-for="user in users" class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                        <a :href="url(user._id)">
+                        <a :href="url(user.user)">
                             <avatar :user-data="user" public />
                         </a>
+
                         {{user.profile.firstName}}
                         {{user.profile.lastName}}
 
-                        <img src="https://lipis.github.io/flag-icon-css/flags/4x3/us.svg" alt="" width="50">
-                        <i class="devicon-javascript-plain colored"></i>
+                        <!-- <img src="https://lipis.github.io/flag-icon-css/flags/4x3/us.svg" alt="" width="50"> -->
+                        <div class="languages">
+                            <i :class="'devicon-'+language+'-plain colored'" v-for="language in user.profile.languages"></i>
+                        </div>
+                        <!-- <i class="devicon-javascript-plain colored"></i>
                         <i class="devicon-ruby-plain colored"></i>
                         <i class="devicon-python-plain colored"></i>
                         <i class="devicon-mysql-plain colored"></i>
                         <i class="devicon-cplusplus-plain colored"></i>
                         <i class="devicon-csharp-plain colored"></i>
                         <i class="devicon-csharp-plain colored"></i>
-                        <i class="devicon-angularjs-plain colored"></i>
+                        <i class="devicon-angularjs-plain colored"></i> -->
 
                     </div>
                 </div>
@@ -61,7 +65,7 @@ export default {
         },
 
         url(id) {
-            return `/#/browse/${id}/packages`;
+            return `/browse/${id}/packages`;
         },
     },
 };

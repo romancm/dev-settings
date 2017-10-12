@@ -2,22 +2,17 @@
     <div>
         <div class="col-md-4">
                 <h3>Social Networks</h3>
-
+<pre>{{session.user.socialNetworks}}</pre>
                 <form @submit.prevent="save">
                     <div class="form-group">
                         <div class="form-group">
-                            <label class="control-label">Github</label>
-                            <input type="text" class="form-control input-lg" v-model="user.socialNetworks.github">
-                        </div>
-
-                        <div class="form-group">
                             <label class="control-label">Twitter</label>
-                            <input type="text" class="form-control input-lg" v-model="user.socialNetworks.twitter">
+                            <input type="text" class="form-control input-lg" v-model="session.user.socialNetworks.twitter">
                         </div>
 
                         <div class="form-group">
                             <label class="control-label">LinkedIn</label>
-                            <input type="text" class="form-control input-lg" v-model="user.socialNetworks.linkedin">
+                            <input type="text" class="form-control input-lg" v-model="session.user.socialNetworks.linkedin">
                         </div>
                     </div>
 
@@ -49,15 +44,14 @@ export default {
 
     computed: {
         session() { return store.getters.session; },
-        user() { return store.getters.user; },
     },
 
     methods: {
         save() {
             const payload = {
-                userId: this.user._id,
+                userName: this.session.user.user,
                 token: this.session.token,
-                socialNetworks: this.user.socialNetworks,
+                socialNetworks: this.session.user.socialNetworks,
             };
 
             this.$http.put('http://localhost:3333/profile/social', payload)

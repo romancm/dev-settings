@@ -9,7 +9,7 @@
                                 <h3 class="panel-title">Shortcuts</h3>
                             </div>
                             <div class="panel-body">
-                                Panel content 
+                                Panel content
                             </div>
                         </div>
                     </div>
@@ -148,22 +148,6 @@
 
     </div>
 </template>
-
-<script>
-export default {
-    name: 'hello',
-    data() {
-        return {
-            msg: 'Welcome to Your Vue.js PWA',
-        };
-    },
-
-    mounted() {
-        console.log('mounted!');
-        this.$emit('test');
-    },
-};
-</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>

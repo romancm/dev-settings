@@ -3,9 +3,9 @@
       <span v-if="public">
           <img
               :class="['img-thumbnail', 'img-responsive', size]"
-              :src="userData.profile.pic"
+              :src="userData.avatar"
               alt=""
-              v-if="userData.profile.pic"
+              v-if="userData.avatar"
           />
 
           <img
@@ -18,24 +18,10 @@
       <span v-else>
           <img
               :class="['img-thumbnail', 'img-responsive', size]"
-              :src="user.profile.pic"
+              :src="session.github.avatar_url"
               alt=""
-              v-if="user.profile.pic"
+              v-if="session"
           />
-
-          <img
-              :class="['img-thumbnail', 'img-responsive', size]"
-              :src="'https://api.adorable.io/avatars/' + user._id"
-              alt=""
-              v-else
-          />
-
-          <!-- <img
-              :class="['img-thumbnail', 'img-responsive', size]"
-              :src="'https://api.adorable.io/avatars/' + user._id"
-              alt=""
-              v-else
-          /> -->
       </span>
   </div>
 </template>
@@ -45,8 +31,8 @@ import { store } from '../../store';
 
 export default {
     computed: {
-        user() { return store.getters.user; },
-        gistData() { return store.getters.gistData; },
+        session() { return store.getters.session; },
+        // gistData() { return store.getters.gistData; },
     },
 
     props: {

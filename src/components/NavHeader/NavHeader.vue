@@ -2,7 +2,7 @@
     <header>
         <div class="container">
             <span class="logo">
-                <router-link to="/dashboard" v-if="token">
+                <router-link to="/dashboard" v-if="session">
                     <img src="../../assets/logo.png" alt="">
                 </router-link>
 
@@ -10,16 +10,15 @@
                     <img src="../../assets/logo-full.png" alt="">
                 </router-link>
 
-                <router-link to="/browse">
+                <router-link to="/browse" v-if="!meta.hideNav">
                     Browse
                 </router-link>
             </span>
 
-            <section class="user-menu">
-                <span v-if="token">
+            <section class="user-menu" v-if="!meta.hideNav">
+                <span v-if="session && session.github">
                     <avatar id="userMenu" size="xs" @click="toggleUserMenu"/>
-                    <!-- <img v-if="gistData.owner" class="img-thumbnail img-responsive img-circle" :src="gistData.owner.avatar_url" alt="" width="50" />
-                    <img v-else class="img-thumbnail img-responsive img-circle" :src="'https://api.adorable.io/avatars/' + _id" alt="" width="50" /> -->
+                    <img v-if="session.github.owner" class="img-thumbnail img-responsive img-circle" :src="session.github.owner.avatar_url" alt="" width="50" />
 
                     <div class="user-dropdown" v-show="active">
                         <router-link to="/dashboard">
@@ -36,11 +35,10 @@
                         </a>
                     </div>
                 </span>
-                <span v-else>
-                    <router-link to="/login" v-if="!token">Login</router-link>
-                    |
-                    <router-link to="/register" v-if="!token">Register</router-link>
-                </span>
+                <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=5a92b9da5f2017553b90" class="btn btn-primary" v-else>
+                    <i class="fa fa-github" />
+                    Sign in with Github
+                </a>
             </section>
         </div>
     </header>
@@ -56,14 +54,14 @@ export default {
     },
 
     computed: {
-        token() { return store.getters.session.token; },
-        user() { return store.getters.user; },
-        gistData() { return store.getters.gistData; },
+        session() { return store.getters.session; },
+        meta() { return this.$route.meta; },
     },
 
     data() {
         return {
             active: false,
+            hideNav: false,
         };
     },
 

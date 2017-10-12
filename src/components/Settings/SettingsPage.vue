@@ -6,7 +6,7 @@
 
                 <aside class="sidebar col-xs-12 col-sm-3">
                     <div class="row">
-                        <a v-for="route in settingsRoutes" class="btn btn-info" :class="{ active: isCurrentRoute(route.path), 'btn-warning': isMissingGist(route.path) }" :href="`#${route.path}`">
+                        <a v-for="route in settingsRoutes" class="btn btn-info" :class="{ active: isCurrentRoute(route.path), 'btn-warning': isMissingGist(route.path) }" :href="`${route.path}`">
                             <i :class="['fa', `fa-warning`]" aria-hidden="true" v-if="isMissingGist(route.path)"></i>
                             <i :class="['fa', `fa-${route.icon}`]" aria-hidden="true" v-else></i>
                             {{route.title}}
@@ -64,12 +64,12 @@ export default {
         },
 
         isMissingGist(route) {
-            return route === '/settings/github' && !this.user.gistId;
+            return route === '/settings/github' && !this.session.user.gistId;
         },
     },
 
     computed: {
-        user() { return store.getters.user; },
+        session() { return store.getters.session; },
     },
 };
 </script>

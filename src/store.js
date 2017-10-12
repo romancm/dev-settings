@@ -10,56 +10,48 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        user: {},
         users: {},
         session: {},
-        gistData: {},
     },
 
     mutations: {
-        updateSession(state, token) {
-            state.session = {
-                token,
-                lastLogin: moment().format(),
-            };
+        updateSession(state, session) {
+            console.log(session);
+            session.lastLogin = moment().format();
+            state.session = session;
         },
+
         updateUser(state, user) {
-            console.log('user updated');
-            state.user = user;
+            state.session.user = user;
         },
 
         updateBrowseData(state, users) {
             state.users = users;
         },
 
-        updateGistData(state, gistData) {
-            console.log('gistData updated');
-            state.gistData = gistData;
-        },
-
         reloadUserData(state) {
             const payload = {
                 token: state.session.token,
-                id: state.user._id,
+                userName: state.session.user.user,
             };
 
             axios.post('http://localhost:3333/account/get/', payload)
                 .then(({ data }) => {
                     store.commit('updateUser', data);
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
         },
 
         logout(state) {
             state.session = {};
-            state.user = {};
         },
     },
 
     getters: {
         session(state) { return state.session; },
-        user(state) { return state.user; },
         users(state) { return state.users; },
-        gistData(state) { return state.gistData; },
     },
     plugins: [createPersistedState()],
 });

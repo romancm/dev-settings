@@ -11,8 +11,8 @@
                 </div>
             </div>
 
-            <div class="col-xs-12" v-if="user.gistId">
-                <profile :user-data="user" :gist-data="gistData" />
+            <div class="col-xs-12" v-if="session.user.gistId">
+                <profile :user-data="session.user" :gist-data="session.github" />
             </div>
 
             <div class="col-xs-12" v-else>
@@ -21,7 +21,7 @@
                     <div>
                         <h4>Link Settings Gist</h4>
                         <p><strong>AtomSettings</strong> is an easy way to share your Atom settings with other developers, discover packages, themes, and everything related to customizing Atom</p>
-                        <a href="/#/settings" class="btn btn-primary">Learn more</a>
+                        <a href="/settings" class="btn btn-primary">Learn more</a>
                     </div>
                 </div>
             </div>
@@ -41,35 +41,34 @@ export default {
     },
 
     computed: {
-        user() { return store.getters.user; },
-        gistData() { return store.getters.gistData; },
+        session() { return store.getters.session; },
     },
 
-    mounted() {
-        if (Object.keys(this.gistData).length === 0 && this.gistData.constructor === Object) {
-            this.getGist();
-        } else {
-            // check how old data is, if too old, get latest data
-            console.log('data cached!');
-        }
-    },
+    // mounted() {
+    //     if (Object.keys(this.gistData).length === 0 && this.gistData.constructor === Object) {
+    //         this.getGist();
+    //     } else {
+    //         // check how old data is, if too old, get latest data
+    //         console.log('data cached!');
+    //     }
+    // },
 
     methods: {
-        getGist() {
-            if (this.user.gistId) {
-                const url = `https://api.github.com/gists/${this.user.gistId}`;
-                this.$http.get(url).then(({ data }) => {
-                    store.commit('updateGistData', data);
-                    this.$toasted.success('got data from api');
-                })
-                .catch(() => {
-                    this.$toasted.error('error');
-                })
-                .then(() => {
-                    this.loading = false;
-                });
-            }
-        },
+        // getGist() {
+        //     if (this.user.gistId) {
+        //         const url = `https://api.github.com/gists/${this.user.gistId}`;
+        //         this.$http.get(url).then(({ data }) => {
+        //             store.commit('updateGistData', data);
+        //             this.$toasted.success('got data from api');
+        //         })
+        //         .catch(() => {
+        //             this.$toasted.error('error');
+        //         })
+        //         .then(() => {
+        //             this.loading = false;
+        //         });
+        //     }
+        // },
     },
 };
 </script>

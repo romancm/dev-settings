@@ -3,26 +3,32 @@
         <h3>About You</h3>
 
         <form @submit.prevent="updateProfile()">
+            <pre>{{session.user}}</pre>
             <avatar size="lg" />
             <div class="form-group">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>First name</label>
-                            <input class="form-control input-lg" type="text" v-model="user.profile.firstName">
+                            <input class="form-control input-lg" type="text" v-model="session.user.profile.firstName">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Last name</label>
-                            <input class="form-control input-lg" type="text" v-model="user.profile.lastName">
+                            <input class="form-control input-lg" type="text" v-model="session.user.profile.lastName">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
+                    <label>Location</label>
+                    <input class="form-control input-lg" type="text" v-model="session.user.profile.location">
+                </div>
+
+                <div class="form-group">
                     <label>Bio</label>
-                    <textarea class="form-control input-lg" type="text" v-model="user.profile.bio" />
+                    <textarea class="form-control input-lg" type="text" v-model="session.user.profile.bio" />
                 </div>
 
                 <label>Job Title</label>
@@ -30,7 +36,7 @@
                 <div class="form-group">
                     <div class="col-xs-6" v-for="checkbox in titleCheckboxes">
                         <label>
-                            <input type="checkbox" :value="checkbox.id" v-model="user.profile.jobTitle">
+                            <input type="checkbox" :value="checkbox.id" v-model="session.user.profile.jobTitle">
                             {{checkbox.value}}
                         </label>
                     </div>
@@ -41,9 +47,9 @@
                 <div class="form-group">
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6" v-for="checkbox in languages">
                         <label class="language">
-                            <input type="checkbox" :value="checkbox.id" v-model="user.profile.languages">
-                            <i :class="'devicon-'+checkbox.id+'-plain colored'"></i>
-                            {{checkbox.value}}
+                            <input type="checkbox" :value="checkbox" v-model="session.user.profile.languages">
+                            <i :class="'devicon-'+checkbox+'-plain colored'"></i>
+                            {{checkbox}}
                         </label>
                     </div>
                 </div>
@@ -89,53 +95,52 @@ export default {
                 { id: 'hobby', value: 'Hobbyist' },
             ],
             languages: [
-                { id: 'android', value: 'android' },
-                { id: 'angularjs', value: 'angularjs' },
-                { id: 'apache', value: 'apache' },
-                { id: 'backbonejs', value: 'backbonejs' },
-                { id: 'c', value: 'c' },
-                { id: 'coffeescript', value: 'coffeescript' },
-                { id: 'cplusplus', value: 'cplusplus' },
-                { id: 'csharp', value: 'csharp' },
-                { id: 'css3', value: 'css3' },
-                { id: 'dot-net', value: 'dot-net' },
-                { id: 'drupal', value: 'drupal' },
-                { id: 'go', value: 'go' },
-                { id: 'html5', value: 'html5' },
-                { id: 'java', value: 'java' },
-                { id: 'javascript', value: 'javascript' },
-                { id: 'laravel', value: 'laravel' },
-                { id: 'meteor', value: 'meteor' },
-                { id: 'mocha', value: 'mocha' },
-                { id: 'mongodb', value: 'mongodb' },
-                { id: 'mysql', value: 'mysql' },
-                { id: 'nodejs', value: 'nodejs' },
-                { id: 'oracle', value: 'oracle' },
-                { id: 'php', value: 'php' },
-                { id: 'postgresql', value: 'postgresql' },
-                { id: 'python', value: 'python' },
-                { id: 'rails', value: 'rails' },
-                { id: 'react', value: 'react' },
-                { id: 'redis', value: 'redis' },
-                { id: 'ruby', value: 'ruby' },
-                { id: 'sass', value: 'sass' },
-                { id: 'swift', value: 'swift' },
-                { id: 'typescript', value: 'typescript' },
-                { id: 'vuejs', value: 'vuejs' },
+                'android',
+                'angularjs',
+                'apache',
+                'backbonejs',
+                'c',
+                'coffeescript',
+                'cplusplus',
+                'csharp',
+                'css3',
+                'dot-net',
+                'drupal',
+                'go',
+                'html5',
+                'java',
+                'javascript',
+                'laravel',
+                'meteor',
+                'mocha',
+                'mongodb',
+                'mysql',
+                'nodejs',
+                'oracle',
+                'php',
+                'postgresql',
+                'python',
+                'rails',
+                'react',
+                'redis',
+                'ruby',
+                'sass',
+                'swift',
+                'typescript',
+                'vuejs',
             ],
         };
     },
 
     computed: {
         session() { return store.getters.session; },
-        user() { return store.getters.user; },
     },
 
     methods: {
         updateProfile() {
             const payload = {
-                profile: this.user.profile,
-                userId: this.user._id,
+                profile: this.session.user.profile,
+                userName: this.session.user.user,
                 token: this.session.token,
             };
 

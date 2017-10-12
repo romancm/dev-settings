@@ -25,9 +25,9 @@
 
                     <hr>
 
-                    <a href="./#/reset-password">Forgot your password?</a>
+                    <a href="./reset-password">Forgot your password?</a>
                     |
-                    <a href="./#/register">No account? Register now!</a>
+                    <a href="./register">No account? Register now!</a>
                 </form>
             </div>
         </div>

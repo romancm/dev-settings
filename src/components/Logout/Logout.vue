@@ -13,9 +13,9 @@
                 <p v-if="sessionExpired">
                     You've been automatically logged out.
                 </p>
-                <button class="btn btn-lg btn-info" @click="login">
+                <!-- <button class="btn btn-lg btn-info" @click="login">
                     Login again
-                </button>
+                </button> -->
             </div>
         </div>
     </div>

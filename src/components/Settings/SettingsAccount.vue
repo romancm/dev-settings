@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <h3>Update Password</h3>
-                    <form @submit.prevent="updatePassword" accept-charset="UTF-8">
+                    <!-- <form @submit.prevent="updatePassword" accept-charset="UTF-8">
                         <div class="form-group">
                             <div class="form-group">
                                 <label class="control-label" for="password">Current Password</label>
@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <button name="button" type="submit" data-disable-with="Saving..." class="btn btn-success">Save</button>
-                    </form>
+                    </form> -->
                 </div>
             </div>
         </div>
