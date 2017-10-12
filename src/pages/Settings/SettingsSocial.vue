@@ -2,7 +2,6 @@
     <div>
         <div class="col-md-4">
                 <h3>Social Networks</h3>
-<pre>{{session.user.socialNetworks}}</pre>
                 <form @submit.prevent="save">
                     <div class="form-group">
                         <div class="form-group">
@@ -24,7 +23,7 @@
 </template>
 
 <script>
-import { store } from '../../store';
+import { store } from '@/store';
 
 export default {
     data() {

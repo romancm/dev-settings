@@ -11,7 +11,6 @@
                     :class="{ 'text-success': session.user.gistId == id }"
                 >
                 <i class="fa fa-check-circle fa-3x selected " aria-hidden="true" />
-                {{session.user.gistId == id}}
                     <i class="fa fa-file-code-o fa-5x" aria-hidden="true" />
                     {{description}}
                 </div>
@@ -35,7 +34,7 @@
 </template>
 
 <script>
-import { store } from '../../store';
+import { store } from '@/store';
 
 export default {
     data() {

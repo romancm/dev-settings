@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Profile from '../User/Profile';
+import Profile from '@/components/Profile/Profile';
 
 export default {
     data() {

@@ -39,8 +39,8 @@
 
 <script>
 import axios from 'axios';
-import Avatar from '../Avatar/Avatar';
-import { store } from '../../store';
+import Avatar from '@/components/Avatar/Avatar';
+import { store } from '@/store';
 
 export default {
     mounted() {

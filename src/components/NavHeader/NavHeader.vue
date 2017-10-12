@@ -45,103 +45,104 @@
 </template>
 
 <script>
-import Avatar from '../Avatar/Avatar';
-import { store } from '../../store';
+    import Avatar from '@/components/Avatar/Avatar';
+    import { store } from '@/store';
 
-export default {
-    components: {
-        Avatar,
-    },
-
-    computed: {
-        session() { return store.getters.session; },
-        meta() { return this.$route.meta; },
-    },
-
-    data() {
-        return {
-            active: false,
-            hideNav: false,
-        };
-    },
-
-    methods: {
-        logout() {
-            store.commit('logout');
-            this.$toasted.success('Successfully logged out');
-            this.$router.push({ path: 'logout' });
+    export default {
+        components: {
+            Avatar,
         },
 
-        blur(e) {
-            if (e.target.parentNode.parentNode.id !== 'userMenu') {
+        computed: {
+            session() { return store.getters.session; },
+            meta() { return this.$route.meta; },
+        },
+
+        data() {
+            return {
+                active: false,
+                hideNav: false,
+            };
+        },
+
+        methods: {
+            logout() {
+                store.commit('logout');
+                this.$toasted.success('Successfully logged out');
+                this.$router.push({ path: '/logout' });
+            },
+
+            blur(e) {
+                if (e.target.parentNode.parentNode.id !== 'userMenu') {
+                    this.active = !this.active;
+                    window.removeEventListener('click', this.blur);
+                }
+            },
+
+            toggleUserMenu() {
+                window.addEventListener('click', this.blur);
                 this.active = !this.active;
-                window.removeEventListener('click', this.blur);
-            }
+            },
         },
-
-        toggleUserMenu() {
-            window.addEventListener('click', this.blur);
-            this.active = !this.active;
-        },
-    },
-};
+    };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "../../styles/_variables";
-header {
-    background-color: #c66;
-    border-bottom: 5px solid #b75c5c;
-    margin-bottom: 15px;
+    @import "~styles/_variables";
 
-    .container {
-        color: #fff;
-        height: 70px;
-        padding: $gp;
-        display: flex;
-        align-items: center;
-        align-content: space-between;
+    header {
+        background-color: #c66;
+        border-bottom: 5px solid #b75c5c;
+        margin-bottom: 15px;
 
-    }
+        .container {
+            color: #fff;
+            height: 70px;
+            padding: $gp;
+            display: flex;
+            align-items: center;
+            align-content: space-between;
 
-    a {
-        color: #fff;
-    }
-
-    .logo {
-        flex: 1;
-
-        a:first-child {
-            margin-right: 15px;
-        }
-    }
-
-    .user-menu {
-        position: relative;
-
-        .avatar {
-            --avatar-border-bg: #b75c5c;
         }
 
-        .user-dropdown {
-            background-color: #b75c5c;
-            border-bottom-right-radius: 5px;
-            border-bottom-left-radius: 5px;
-            padding: 15px;
-            width: 120px;
-            right: 5px;
-            top: 65px;
-            z-index: 100;
-            position: absolute;
-            a {
-                display: flex;
-                align-items: center;
-                margin-bottom: 10px;
-                &:last-child {
-                    margin: 0;
+        a {
+            color: #fff;
+        }
+
+        .logo {
+            flex: 1;
+
+            a:first-child {
+                margin-right: 15px;
+            }
+        }
+
+        .user-menu {
+            position: relative;
+
+            .avatar {
+                --avatar-border-bg: #b75c5c;
+            }
+
+            .user-dropdown {
+                background-color: #b75c5c;
+                border-bottom-right-radius: 5px;
+                border-bottom-left-radius: 5px;
+                padding: 15px;
+                width: 120px;
+                right: 5px;
+                top: 65px;
+                z-index: 100;
+                position: absolute;
+                a {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 10px;
+                    &:last-child {
+                        margin: 0;
+                    }
                 }
             }
         }
     }
-}
 </style>

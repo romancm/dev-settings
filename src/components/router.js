@@ -1,43 +1,43 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Browse from '@/components/Browse/Browse';
-import Dashboard from '@/components/Dashboard/Dashboard';
-import Home from '@/components/Home';
-import Login from '@/components/Login/Login';
-import Logout from '@/components/Logout/Logout';
-import Register from '@/components/Register/Register';
-import ResetPassword from '@/components/ResetPassword/ResetPassword';
+import Browse from '@/pages/Browse/Browse';
+import Dashboard from '@/pages/Dashboard/Dashboard';
+import Home from '@/pages/Home';
+import Login from '@/pages/Login/Login';
+import Logout from '@/pages/Logout/Logout';
+import Register from '@/pages/Register/Register';
+import ResetPassword from '@/pages/ResetPassword/ResetPassword';
 
 // User Profile
-import User from '@/components/User/User';
-import Packages from '@/components/User/Packages';
-import InitScript from '@/components/User/InitScript';
-import Keymaps from '@/components/User/Keymaps';
-import Settings from '@/components/User/Settings';
-import Snippets from '@/components/User/Snippets';
-import Styles from '@/components/User/Styles';
+import User from '@/pages/User/User';
+import Packages from '@/pages/User/Packages';
+import InitScript from '@/pages/User/InitScript';
+import Keymaps from '@/pages/User/Keymaps';
+import Settings from '@/pages/User/Settings';
+import Snippets from '@/pages/User/Snippets';
+import Styles from '@/pages/User/Styles';
 
 // http://localhost:8080/#/auth
 
-import VerifyAccount from '@/components/VerifyAccount/VerifyAccount';
+import VerifyAccount from '@/pages/VerifyAccount/VerifyAccount';
 // Admin
-import AdminPage from '@/components/Admin/AdminPage';
+import AdminPage from '@/pages/Admin/AdminPage';
 
 // Github Auth
-import Handshake from '@/components/Auth/Handshake';
+import Handshake from '@/pages/Auth/Handshake';
 // Settings
-import SettingsPage from '@/components/Settings/SettingsPage';
-import SettingsGetStarted from '@/components/Settings/SettingsGetStarted';
-import SettingsProfile from '@/components/Settings/SettingsProfile';
-import SettingsSocial from '@/components/Settings/SettingsSocial';
-import SettingsGithub from '@/components/Settings/SettingsGithub';
-import SettingsAccount from '@/components/Settings/SettingsAccount';
+import SettingsPage from '@/pages/Settings/SettingsPage';
+import SettingsGetStarted from '@/pages/Settings/SettingsGetStarted';
+import SettingsProfile from '@/pages/Settings/SettingsProfile';
+import SettingsSocial from '@/pages/Settings/SettingsSocial';
+import SettingsGithub from '@/pages/Settings/SettingsGithub';
+import SettingsAccount from '@/pages/Settings/SettingsAccount';
 
 // 3rd party
 import moment from 'moment';
 
 // Absolute imports
-import { store } from '../store';
+import { store } from '@/store';
 
 Vue.use(Router);
 
@@ -63,7 +63,7 @@ const routes = new Router({
             path: '/logout',
             component: Logout,
             meta: {
-                auth: true,
+                hideNav: true,
             },
         },
         {

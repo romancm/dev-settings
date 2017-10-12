@@ -39,13 +39,12 @@
 <script>
 import moment from 'moment';
 import axios from 'axios';
-import { store } from '../../store';
+import { store } from '@/store';
 
 
 export default {
     computed: {
         session() { return store.getters.session; },
-        user() { return store.getters.user; },
     },
 
     data() {

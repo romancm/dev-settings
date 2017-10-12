@@ -3,7 +3,6 @@
         <h3>About You</h3>
 
         <form @submit.prevent="updateProfile()">
-            <pre>{{session.user}}</pre>
             <avatar size="lg" />
             <div class="form-group">
                 <div class="row">
@@ -68,8 +67,8 @@
 </template>
 
 <script>
-import Avatar from '../Avatar/Avatar';
-import { store } from '../../store';
+import Avatar from '@/components/Avatar/Avatar';
+import { store } from '@/store';
 
 export default {
     components: {

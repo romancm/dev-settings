@@ -59,8 +59,8 @@
     </div>
 </template>
 <script>
-import { store } from '../../store';
-import Terms from '../Terms/Terms';
+import { store } from '@/store';
+import Terms from '@/pages/Terms/Terms';
 
 export default {
     name: 'hello',

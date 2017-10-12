@@ -51,9 +51,9 @@
 
 <script>
 import moment from 'moment';
-import Avatar from '../Avatar/Avatar';
+import Avatar from '@/components/Avatar/Avatar';
 
-// import { store } from '../../store';
+// import { store } from '@/store';
 
 export default {
     components: {

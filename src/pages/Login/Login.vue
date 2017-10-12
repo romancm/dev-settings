@@ -33,36 +33,37 @@
         </div>
     </div>
 </template>
+
 <script>
-import { store } from '../../store';
+    import { store } from '@/store';
 
-export default {
-    data() {
-        return {
-            loading: false,
-            loginData: {
-                email: '',
-                password: '',
-            },
-        };
-    },
-
-    methods: {
-        submit() {
-            this.loading = true;
-            this.$http.post('http://localhost:3333/auth/login', this.loginData)
-            .then(({ data }) => {
-                store.commit('updateSession', data.token);
-                store.commit('updateUser', data.user);
-                this.$router.push({ path: 'dashboard' });
-            })
-            .catch((error) => {
-                this.$toasted.error(error.response.data.message);
-            })
-            .then(() => {
-                this.loading = false;
-            });
+    export default {
+        data() {
+            return {
+                loading: false,
+                loginData: {
+                    email: '',
+                    password: '',
+                },
+            };
         },
-    },
-};
+
+        methods: {
+            submit() {
+                this.loading = true;
+                this.$http.post('http://localhost:3333/auth/login', this.loginData)
+                .then(({ data }) => {
+                    store.commit('updateSession', data.token);
+                    store.commit('updateUser', data.user);
+                    this.$router.push({ path: 'dashboard' });
+                })
+                .catch((error) => {
+                    this.$toasted.error(error.response.data.message);
+                })
+                .then(() => {
+                    this.loading = false;
+                });
+            },
+        },
+    };
 </script>

@@ -23,7 +23,7 @@
 
 <script>
     import axios from 'axios';
-    import { store } from '../../store';
+    import { store } from '@/store';
 
     export default {
         data() {
@@ -63,7 +63,7 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "../../styles/_variables";
+    @import "~styles/_variables";
 
     .verify-account {
         > span {

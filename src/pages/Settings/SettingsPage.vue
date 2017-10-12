@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { store } from '../../store';
+import { store } from '@/store';
 
 export default {
     data() {
@@ -75,7 +75,8 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "../../styles/_variables";
+    @import "~styles/_variables";
+    
     .page-header {
         margin-bottom: 0;
     }

@@ -27,27 +27,27 @@
 </template>
 
 <script>
-import { store } from '../../store';
+    import { store } from '@/store';
 
-export default {
-    computed: {
-        session() { return store.getters.session; },
-        // gistData() { return store.getters.gistData; },
-    },
-
-    props: {
-        size: String,
-        public: Boolean,
-        userData: Object,
-    },
-
-    methods: {
-        click() {
-            this.$emit('click');
+    export default {
+        computed: {
+            session() { return store.getters.session; },
+            // gistData() { return store.getters.gistData; },
         },
-    },
 
-};
+        props: {
+            size: String,
+            public: Boolean,
+            userData: Object,
+        },
+
+        methods: {
+            click() {
+                this.$emit('click');
+            },
+        },
+
+    };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

@@ -12,7 +12,7 @@
 
 <script>
 import VueMarkdown from 'vue-markdown';
-import { store } from '../../store';
+import { store } from '@/store';
 
 export default {
     components: {

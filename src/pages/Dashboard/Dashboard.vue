@@ -30,47 +30,47 @@
 </template>
 
 <script>
-import { store } from '../../store';
-import Profile from '../User/Profile';
-import Avatar from '../Avatar/Avatar';
+    import { store } from '@/store';
+    import Profile from '@/components/Profile/Profile';
+    import Avatar from '@/components/Avatar/Avatar';
 
-export default {
-    components: {
-        Profile,
-        Avatar,
-    },
+    export default {
+        components: {
+            Profile,
+            Avatar,
+        },
 
-    computed: {
-        session() { return store.getters.session; },
-    },
+        computed: {
+            session() { return store.getters.session; },
+        },
 
-    // mounted() {
-    //     if (Object.keys(this.gistData).length === 0 && this.gistData.constructor === Object) {
-    //         this.getGist();
-    //     } else {
-    //         // check how old data is, if too old, get latest data
-    //         console.log('data cached!');
-    //     }
-    // },
-
-    methods: {
-        // getGist() {
-        //     if (this.user.gistId) {
-        //         const url = `https://api.github.com/gists/${this.user.gistId}`;
-        //         this.$http.get(url).then(({ data }) => {
-        //             store.commit('updateGistData', data);
-        //             this.$toasted.success('got data from api');
-        //         })
-        //         .catch(() => {
-        //             this.$toasted.error('error');
-        //         })
-        //         .then(() => {
-        //             this.loading = false;
-        //         });
+        // mounted() {
+        //     if (Object.keys(this.gistData).length === 0 && this.gistData.constructor === Object) {
+        //         this.getGist();
+        //     } else {
+        //         // check how old data is, if too old, get latest data
+        //         console.log('data cached!');
         //     }
         // },
-    },
-};
+
+        methods: {
+            // getGist() {
+            //     if (this.user.gistId) {
+            //         const url = `https://api.github.com/gists/${this.user.gistId}`;
+            //         this.$http.get(url).then(({ data }) => {
+            //             store.commit('updateGistData', data);
+            //             this.$toasted.success('got data from api');
+            //         })
+            //         .catch(() => {
+            //             this.$toasted.error('error');
+            //         })
+            //         .then(() => {
+            //             this.loading = false;
+            //         });
+            //     }
+            // },
+        },
+    };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
