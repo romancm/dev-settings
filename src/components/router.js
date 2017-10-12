@@ -17,9 +17,14 @@ import Settings from '@/components/User/Settings';
 import Snippets from '@/components/User/Snippets';
 import Styles from '@/components/User/Styles';
 
+// http://localhost:8080/#/auth
+
 import VerifyAccount from '@/components/VerifyAccount/VerifyAccount';
 // Admin
 import AdminPage from '@/components/Admin/AdminPage';
+
+// Github Auth
+import Handshake from '@/components/Auth/Handshake';
 // Settings
 import SettingsPage from '@/components/Settings/SettingsPage';
 import SettingsGetStarted from '@/components/Settings/SettingsGetStarted';
@@ -37,6 +42,7 @@ import { store } from '../store';
 Vue.use(Router);
 
 const routes = new Router({
+    mode: 'history',
     routes: [
         {
             path: '/',
@@ -82,6 +88,15 @@ const routes = new Router({
             meta: {
                 title: 'Atom Settings Admin',
                 auth: true,
+            },
+        },
+        {
+            path: '/auth/handshake',
+            component: Handshake,
+            meta: {
+                title: 'Auth',
+                auth: false,
+                hideNav: true,
             },
         },
         {
@@ -201,12 +216,12 @@ const routes = new Router({
 
 routes.beforeEach((to, from, next) => {
     const session = store.getters.session;
-    const isAuth = session && session.token;
+    const isAuth = session && session.lastLogin;
 
     Vue.nextTick(() => {
         if (to.meta.auth) {
             if (!isAuth) {
-                next('/login');
+                next('/');
             } else {
                 // Handle expired session, currently older than 1 month
                 const sessionAge = moment().diff(session.lastLogin, 'months');
