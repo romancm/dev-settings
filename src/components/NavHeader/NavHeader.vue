@@ -17,8 +17,7 @@
 
             <section class="user-menu" v-if="!meta.hideNav">
                 <span v-if="session && session.github">
-                    <avatar id="userMenu" size="xs" @click="toggleUserMenu"/>
-                    <img v-if="session.github.owner" class="img-thumbnail img-responsive img-circle" :src="session.github.owner.avatar_url" alt="" width="50" />
+                    <avatar id="userMenu" size="xs" @click="toggleUserMenu" circle />
 
                     <div class="user-dropdown" v-show="active">
                         <router-link to="/dashboard">

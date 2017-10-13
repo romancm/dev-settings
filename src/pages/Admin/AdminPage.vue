@@ -6,27 +6,22 @@
                 <table class="table table-hover table-responsive table-striped table-bordered table-condensed">
                   <thead>
                     <tr>
+                      <th>Avatar</th>
                       <th>Firstname</th>
                       <th>Lastname</th>
-                      <th>Email</th>
-                      <th>Status</th>
                       <th>Joined</th>
                       <th>Languages</th>
                     </tr>
                   </thead>
                   <tbody>
                       <tr v-for="user in users" :class="{ 'danger': isInactive(user)}">
+                          <td>
+                              <img :src="user.avatar" class="img-thumbnail img-responsive img-circle" width="50">
+                          </td>
                           <td>{{user.profile.firstName}}</td>
                           <td>{{user.profile.lastName}}</td>
-                          <td>{{user.email}}</td>
-                          <td>
-                              <span v-if="user.verified" class="text-success">
-                                  Verified
-                              </span>
-                              <span v-else class="text-danger" :class="{'danger': isInactive(user)}">Not Verified</span>
-                          </td>
                           <td>{{user.dateJoined}}</td>
-                          <td><pre>{{user.profile.languages}}</pre></td>
+                          <td>{{user.profile.languages.length}}</td>
                       </tr>
                   </tbody>
                 </table>
@@ -65,7 +60,7 @@ export default {
         load() {
             const payLoad = {
                 token: this.session.token,
-                userId: this.user._id,
+                userId: this.session.user._id,
             };
 
             axios.post('http://localhost:3333/admin/users', payLoad)

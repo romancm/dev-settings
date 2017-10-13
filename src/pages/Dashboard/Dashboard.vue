@@ -11,17 +11,13 @@
                 </div>
             </div>
 
-            <div class="col-xs-12" v-if="session.user.gistId">
-                <profile :user-data="session.user" :gist-data="session.github" />
-            </div>
-
-            <div class="col-xs-12" v-else>
+            <div class="col-xs-12" v-if="!session.user.gistId">
                 <div class="alert alert-info">
                     <i class="fa fa-github fa-4x" aria-hidden="true"></i>
                     <div>
                         <h4>Link Settings Gist</h4>
                         <p><strong>AtomSettings</strong> is an easy way to share your Atom settings with other developers, discover packages, themes, and everything related to customizing Atom</p>
-                        <a href="/settings" class="btn btn-primary">Learn more</a>
+                        <a href="/settings/github" class="btn btn-primary">Link Gist</a>
                     </div>
                 </div>
             </div>
@@ -31,12 +27,10 @@
 
 <script>
     import { store } from '@/store';
-    import Profile from '@/components/Profile/Profile';
     import Avatar from '@/components/Avatar/Avatar';
 
     export default {
         components: {
-            Profile,
             Avatar,
         },
 

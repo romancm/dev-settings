@@ -6,7 +6,7 @@
                     <a href="/browse">Browse</a>
                 </li>
                 <li :class="{'active': !route}">
-                    <a :href="`/browse/${userData.user}`">{{gistData.owner.login}}</a>
+                    <a :href="`/browse/${userData.user}`">{{gistData.userData.user}}</a>
                 </li>
                 <li class="active text-capitalize" v-if="route">
                     {{route}}
@@ -52,8 +52,6 @@
 <script>
 import moment from 'moment';
 import Avatar from '@/components/Avatar/Avatar';
-
-// import { store } from '@/store';
 
 export default {
     components: {
@@ -106,6 +104,7 @@ export default {
     props: {
         gistData: Object,
         userData: Object,
+        showBreadcrumb: Boolean,
     },
 
     methods: {
@@ -115,7 +114,7 @@ export default {
         },
 
         getUrl(section) {
-            return `/browse/${this.userData._id}/${section}`;
+            return `/browse/${this.userData.user}/${section}`;
         },
 
         isCurrentRoute(route) {
