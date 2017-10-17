@@ -34,7 +34,8 @@
                         </a>
                     </div>
                 </span>
-                <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=5a92b9da5f2017553b90" class="btn btn-primary" v-else>
+
+                <a :href="'https://github.com/login/oauth/authorize?scope=user:email&client_id=' + environment.githubClientId" class="btn btn-primary" v-else>
                     <i class="fa fa-github" />
                     Sign in with Github
                 </a>
@@ -55,6 +56,7 @@
         computed: {
             session() { return store.getters.session; },
             meta() { return this.$route.meta; },
+            environment() { return store.getters.environment; },
         },
 
         data() {

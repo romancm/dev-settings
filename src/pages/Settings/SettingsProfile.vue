@@ -133,6 +133,7 @@ export default {
 
     computed: {
         session() { return store.getters.session; },
+        environment() { return store.getters.environment; },
     },
 
     methods: {
@@ -145,15 +146,15 @@ export default {
 
             this.loading = true;
 
-            this.$http.put('http://localhost:3333/profile/', payload)
-            .then(() => {
-                store.commit('reloadUserData');
-                this.$toasted.success('Updated');
-            }).catch((error) => {
-                this.$toasted.error(error.reponse.data.message);
-            }).then(() => {
-                this.loading = false;
-            });
+            this.$http.put(`${this.environment.baseUrl}/profile/`, payload)
+                .then(() => {
+                    store.commit('reloadUserData');
+                    this.$toasted.success('Updated');
+                }).catch((error) => {
+                    this.$toasted.error(error.reponse.data.message);
+                }).then(() => {
+                    this.loading = false;
+                });
         },
     },
 };

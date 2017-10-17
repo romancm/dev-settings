@@ -40,6 +40,7 @@ import { store } from '@/store';
 export default {
     computed: {
         session() { return store.getters.session; },
+        environment() { return store.getters.environment; },
     },
 
     data() {
@@ -63,7 +64,7 @@ export default {
                 userId: this.session.user._id,
             };
 
-            axios.post('http://localhost:3333/admin/users', payLoad)
+            axios.post(`${this.environment.baseUrl}/admin/users/`, payLoad)
                 .then(({ data }) => {
                     this.users = data;
                 })

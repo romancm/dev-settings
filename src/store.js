@@ -12,11 +12,11 @@ export const store = new Vuex.Store({
     state: {
         users: {},
         session: {},
+        environment: {},
     },
 
     mutations: {
         updateSession(state, session) {
-            console.log(session);
             session.lastLogin = moment().format();
             state.session = session;
         },
@@ -29,13 +29,22 @@ export const store = new Vuex.Store({
             state.users = users;
         },
 
+        setEnvironment(state, environment) {
+            if (Object.keys(state.environment).length === 0) {
+                state.environment = {
+                    baseUrl: environment === 'development' ? 'http://localhost:3333' : 'https://atom-settings-api.herokuapp.com',
+                    githubClientId: environment === 'development' ? '5aeeffcd5b5afb0043fa' : '5a92b9da5f2017553b90',
+                };
+            }
+        },
+
         reloadUserData(state) {
             const payload = {
                 token: state.session.token,
                 userName: state.session.user.user,
             };
 
-            axios.post('http://localhost:3333/account/get/', payload)
+            axios.post(`${state.environment.baseUrl}/account/get/`, payload)
                 .then(({ data }) => {
                     store.commit('updateUser', data);
                 })
@@ -52,6 +61,7 @@ export const store = new Vuex.Store({
     getters: {
         session(state) { return state.session; },
         users(state) { return state.users; },
+        environment(state) { return state.environment; },
     },
     plugins: [createPersistedState()],
 });

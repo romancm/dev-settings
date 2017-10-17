@@ -43,6 +43,7 @@ export default {
 
     computed: {
         session() { return store.getters.session; },
+        environment() { return store.getters.environment; },
     },
 
     methods: {
@@ -53,7 +54,7 @@ export default {
                 socialNetworks: this.session.user.socialNetworks,
             };
 
-            this.$http.put('http://localhost:3333/profile/social', payload)
+            this.$http.put(`${this.environment.baseUrl}/profile/social`, payload)
             .then(() => {
                 store.commit('reloadUserData');
                 this.$toasted.success('Updated');

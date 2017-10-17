@@ -34,6 +34,7 @@ export default {
 
     computed: {
         session() { return store.getters.session; },
+        environment() { return store.getters.environment; },
     },
 
     methods: {
@@ -50,9 +51,7 @@ export default {
                 token: this.session.token,
             };
 
-            console.log(payload);
-
-            this.$http.post('http://localhost:3333/account/delete', payload)
+            this.$http.post(`${this.environment.baseUrl}/account/delete`, payload)
             .then(() => {
                 store.commit('logout');
                 this.$router.push({ path: '/' });

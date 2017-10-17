@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { store } from '@/store';
 import Profile from '@/components/Profile/Profile';
 
 export default {
@@ -26,10 +27,11 @@ export default {
 
     computed: {
         id() { return this.$route.params.id; },
+        environment() { return store.getters.environment; },
     },
 
     mounted() {
-        this.$http.get(`http://localhost:3333/browse/${this.id}`)
+        this.$http.get(`${this.environment.baseUrl}/browse/${this.id}`)
         .then(({ data }) => {
             this.userData = data;
             this.getGist(data.gistId);

@@ -14,10 +14,10 @@
                 <p v-if="sessionExpired">
                     You've been automatically logged out.
                 </p>
-                <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=5a92b9da5f2017553b90" class="btn btn-primary" v-else>
+                <!-- <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=5a92b9da5f2017553b90" class="btn btn-primary" v-else>
                     <i class="fa fa-github" />
                     Login again
-                </a>
+                </a> -->
             </div>
         </div>
     </div>
@@ -30,6 +30,7 @@
         computed: {
             session() { return store.getters.session; },
             sessionExpired() { return this.$route.query.sessionExpired; },
+            // environment() { return store.getters.environment; },
         },
 
         mounted() {

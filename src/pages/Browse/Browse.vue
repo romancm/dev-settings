@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Avatar from '@/components/Avatar/Avatar';
 import { store } from '@/store';
 
@@ -49,6 +48,7 @@ export default {
 
     computed: {
         users() { return store.getters.users; },
+        environment() { return store.getters.environment; },
     },
 
     components: {
@@ -58,7 +58,7 @@ export default {
     methods: {
         load() {
             // TODO: enhance this logic so endpoint isn't hit every time
-            axios.get('http://localhost:3333/browse/')
+            this.$http.get(`${this.environment.baseUrl}/browse/`)
                 .then(({ data }) => {
                     store.commit('updateBrowseData', data);
                 });

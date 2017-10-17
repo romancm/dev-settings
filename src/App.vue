@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { store } from '@/store';
 import NavHeader from './components/NavHeader/NavHeader';
 
 export default {
@@ -14,8 +15,11 @@ export default {
     components: {
         NavHeader,
     },
-};
 
+    mounted() {
+        store.commit('setEnvironment', process.env.NODE_ENV);
+    },
+};
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

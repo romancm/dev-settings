@@ -47,6 +47,7 @@ export default {
 
     computed: {
         session() { return store.getters.session; },
+        environment() { return store.getters.environment; },
     },
 
     mounted() {
@@ -61,7 +62,7 @@ export default {
                 token: this.session.token,
             };
 
-            this.$http.put('http://localhost:3333/profile/gist', payload)
+            this.$http.put(`${this.environment.baseUrl}/profile/gist`, payload)
                 .then(() => {
                     store.commit('reloadUserData');
                     this.$toasted.success('Boom!');
@@ -77,9 +78,9 @@ export default {
         loadGist() {
             this.loadingGists = true;
 
-            this.$http.get('https://api.github.com/users/romancm/gists')
+
+            this.$http.get(`https://api.github.com/users/${this.session.user.user}/gists`)
                 .then(({ data }) => {
-                    console.log(data);
                     this.gists = data;
                 })
                 .catch(() => {
@@ -95,14 +96,12 @@ export default {
             this.loading = true;
 
             const payload = {
-                userId: this.user._id,
+                userName: this.user.userName,
                 gistId: this.user.gistId,
                 token: this.session.token,
             };
 
-            console.log(payload);
-
-            this.$http.put('http://localhost:3333/profile/gist', payload)
+            this.$http.put(`${this.environment.baseUrl}/profile/gist/`, payload)
                 .then(() => {
                     store.commit('reloadUserData');
                     this.$toasted.success('Boom!');

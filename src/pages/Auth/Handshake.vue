@@ -9,6 +9,10 @@
     import { store } from '@/store';
 
     export default {
+        computed: {
+            environment() { return store.getters.environment; },
+        },
+
         mounted() {
             this.validateGithubCode();
         },
@@ -16,7 +20,7 @@
         methods: {
             validateGithubCode() {
                 if (this.$route.query.code) {
-                    this.$http.post('http://localhost:3333/auth/', {
+                    this.$http.post(`${this.environment.baseUrl}/auth/`, {
                         code: this.$route.query.code,
                     })
                     .then((res) => {
@@ -33,7 +37,7 @@
             },
 
             login(user) {
-                this.$http.post('http://localhost:3333/auth/register', user)
+                this.$http.post(`${this.environment.baseUrl}/auth/register`, user)
                     .then((res) => {
                         const session = {
                             user: res.data,

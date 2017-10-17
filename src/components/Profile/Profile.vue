@@ -6,7 +6,7 @@
                     <a href="/browse">Browse</a>
                 </li>
                 <li :class="{'active': !route}">
-                    <a :href="`/browse/${userData.user}`">{{gistData.userData.user}}</a>
+                    <a :href="`/browse/${userData.user}`">{{userData.user}}</a>
                 </li>
                 <li class="active text-capitalize" v-if="route">
                     {{route}}
