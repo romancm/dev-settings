@@ -1,30 +1,26 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+
+// Pages
 import Browse from '@/pages/Browse/Browse';
 import Dashboard from '@/pages/Dashboard/Dashboard';
 import Home from '@/pages/Home';
-import Login from '@/pages/Login/Login';
 import Logout from '@/pages/Logout/Logout';
-import Register from '@/pages/Register/Register';
-import ResetPassword from '@/pages/ResetPassword/ResetPassword';
-
 // User Profile
 import User from '@/pages/User/User';
-import Packages from '@/pages/User/Packages';
-import InitScript from '@/pages/User/InitScript';
-import Keymaps from '@/pages/User/Keymaps';
-import Settings from '@/pages/User/Settings';
-import Snippets from '@/pages/User/Snippets';
-import Styles from '@/pages/User/Styles';
+import UserPackages from '@/pages/User/Packages';
+import UserScripts from '@/pages/User/InitScript';
+import UserKeymaps from '@/pages/User/Keymaps';
+import UserSettings from '@/pages/User/Settings';
+import UserSnippets from '@/pages/User/Snippets';
+import UserStyles from '@/pages/User/Styles';
 
-// http://localhost:8080/#/auth
-
-import VerifyAccount from '@/pages/VerifyAccount/VerifyAccount';
 // Admin
 import AdminPage from '@/pages/Admin/AdminPage';
 
 // Github Auth
 import Handshake from '@/pages/Auth/Handshake';
+
 // Settings
 import SettingsPage from '@/pages/Settings/SettingsPage';
 import SettingsGetStarted from '@/pages/Settings/SettingsGetStarted';
@@ -52,34 +48,10 @@ const routes = new Router({
             },
         },
         {
-            path: '/login',
-            component: Login,
-            meta: {
-                title: 'Login to Atom Settings',
-                unAuth: true,
-            },
-        },
-        {
             path: '/logout',
             component: Logout,
             meta: {
                 hideNav: true,
-            },
-        },
-        {
-            path: '/register',
-            component: Register,
-            meta: {
-                title: 'Create an Atom Settings Account',
-                unAuth: true,
-            },
-        },
-        {
-            path: '/reset-password',
-            component: ResetPassword,
-            meta: {
-                title: 'Reset your Atom Settings Password',
-                unAuth: true,
             },
         },
         {
@@ -108,14 +80,6 @@ const routes = new Router({
             },
         },
         {
-            path: '/verify/:id/:token',
-            component: VerifyAccount,
-            meta: {
-                title: 'Atom Settings | Verify Account',
-                hideVerifyBanner: true,
-            },
-        },
-        {
             path: '/browse',
             component: Browse,
             meta: {
@@ -132,32 +96,32 @@ const routes = new Router({
                 {
                     path: 'packages',
                     name: 'packages',
-                    component: Packages,
+                    component: UserPackages,
                 },
                 {
                     path: 'init-script',
                     name: 'init-script',
-                    component: InitScript,
+                    component: UserScripts,
                 },
                 {
                     path: 'keymaps',
-                    component: Keymaps,
+                    component: UserKeymaps,
                     name: 'keymaps',
                 },
                 {
                     path: 'settings',
                     name: 'settings',
-                    component: Settings,
+                    component: UserSettings,
                 },
                 {
                     path: 'snippets',
                     name: 'snippets',
-                    component: Snippets,
+                    component: UserSnippets,
                 },
                 {
                     path: 'styles',
                     name: 'styles',
-                    component: Styles,
+                    component: UserStyles,
                 },
             ],
         },

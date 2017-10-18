@@ -9,7 +9,7 @@ import vmodal from 'vue-js-modal';
 import 'font-awesome/css/font-awesome.css';
 
 import App from './App';
-import router from './components/router';
+import router from './router';
 import { store } from './store';
 
 Vue.use(vmodal);
