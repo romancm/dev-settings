@@ -6,14 +6,20 @@
 
                 <aside class="sidebar col-xs-12 col-sm-3">
                     <div class="row">
-                        <router-link  v-for="{icon, name, path, title} in settingsRoutes" :to="{ name: name }" class="btn btn-info" :class="{ active: isCurrentRoute(name), 'btn-warning': isMissingGist(name) }">
+                        <router-link
+                            v-for="{icon, name, path, title} in settingsRoutes"
+                            :to="{ name: name }"
+                            class="btn btn-info"
+                            :key="name"
+                            :class="{ active: isCurrentRoute(name), 'btn-warning': isMissingGist(name) }"
+                        >
                             <i :class="['fa', `fa-warning`]" aria-hidden="true" v-if="isMissingGist(name)"></i>
                             <i :class="['fa', `fa-${icon}`]" aria-hidden="true" v-else></i>
                             {{title}}
                         </router-link>
                     </div>
                 </aside>
-                
+
                 <div class="settings-content col-xs-12 col-sm-9">
                     <router-view />
                 </div>

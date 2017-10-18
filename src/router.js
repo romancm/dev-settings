@@ -51,7 +51,7 @@ const routes = new Router({
         {
             path: '/logout',
             component: Logout,
-            name: 'home',
+            name: 'logout',
             meta: {
                 hideNav: true,
             },
@@ -146,7 +146,6 @@ const routes = new Router({
         {
             path: '/settings',
             component: SettingsPage,
-            name: 'settingsPage',
             meta: {
                 title: 'Atom Settings',
                 auth: true,
