@@ -10,10 +10,10 @@
                 <p v-if="!users.length">No users</p>
                 <div v-else class="users row">
                     <div v-for="user in users" class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                        <a :href="url(user.user)">
+                        <router-link :to="{ name: 'user', params: { id: user.user } }">
                             <avatar :user-data="user" public />
-                        </a>
-
+                        </router-link>
+                        
                         {{user.profile.firstName}}
                         {{user.profile.lastName}}
 

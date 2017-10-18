@@ -17,7 +17,9 @@
                     <div>
                         <h4>Link Settings Gist</h4>
                         <p><strong>AtomSettings</strong> is an easy way to share your Atom settings with other developers, discover packages, themes, and everything related to customizing Atom</p>
-                        <a href="/settings/github" class="btn btn-primary">Link Gist</a>
+                        <router-link :to="{ name: 'settingsGithub' }" class="btn btn-primary">
+                            Link Gist
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -36,33 +38,6 @@
 
         computed: {
             session() { return store.getters.session; },
-        },
-
-        // mounted() {
-        //     if (Object.keys(this.gistData).length === 0 && this.gistData.constructor === Object) {
-        //         this.getGist();
-        //     } else {
-        //         // check how old data is, if too old, get latest data
-        //         console.log('data cached!');
-        //     }
-        // },
-
-        methods: {
-            // getGist() {
-            //     if (this.user.gistId) {
-            //         const url = `https://api.github.com/gists/${this.user.gistId}`;
-            //         this.$http.get(url).then(({ data }) => {
-            //             store.commit('updateGistData', data);
-            //             this.$toasted.success('got data from api');
-            //         })
-            //         .catch(() => {
-            //             this.$toasted.error('error');
-            //         })
-            //         .then(() => {
-            //             this.loading = false;
-            //         });
-            //     }
-            // },
         },
     };
 </script>

@@ -3,13 +3,17 @@
         <div class="col-xs-12">
             <ol class="breadcrumb">
                 <li>
-                    <a href="/browse">Browse</a>
+                    <router-link :to="{ name: 'browse' }">
+                        Browse
+                    </router-link>
                 </li>
-                <li :class="{'active': !route}">
-                    <a :href="`/browse/${userData.user}`">{{userData.user}}</a>
+                <li :class="{'active': !tabName}">
+                    <router-link :to="{ name: 'user', params: { id: userData.user } }">
+                        {{userData.user}}
+                    </router-link>
                 </li>
-                <li class="active text-capitalize" v-if="route">
-                    {{route}}
+                <li class="active text-capitalize" v-if="tabName">
+                    {{tabName}}
                 </li>
             </ol>
         </div>
@@ -30,9 +34,9 @@
 
         <div class="col-xs-12 col-sm-9 text-center">
             <div class="row">
-                <div class="col-xs-6 col-sm-4 col-lg-4" v-for="{routeName, title, icon} in sections">
+                <div class="col-xs-6 col-sm-4 col-lg-4" v-for="{routeName, tab, title, icon} in sections" :key="routeName">
                     <div class="panel panel-default">
-                        <router-link :to="getUrl(routeName)" :class="{ 'active': isCurrentRoute(routeName)}">
+                        <router-link :to="getUrl(routeName)" :class="{ 'active': tabName === tab}">
                             <i class="fa fa-5x" :class="icon" aria-hidden="true"></i>
                             <br>
                             {{title}}
@@ -64,31 +68,37 @@ export default {
                 {
                     title: 'Packages',
                     routeName: 'packages',
+                    tab: 'Packages',
                     icon: 'fa-archive',
                 },
                 {
                     title: 'Init Script',
                     routeName: 'init-script',
+                    tab: 'Init Script',
                     icon: 'fa-terminal',
                 },
                 {
                     title: 'Keymaps',
                     routeName: 'keymaps',
+                    tab: 'Keymaps',
                     icon: 'fa-keyboard-o',
                 },
                 {
                     title: 'Settings',
                     routeName: 'settings',
+                    tab: 'Settings',
                     icon: 'fa-cog',
                 },
                 {
                     title: 'Snippets',
                     routeName: 'snippets',
+                    tab: 'Snippets',
                     icon: 'fa-file-code-o',
                 },
                 {
                     title: 'Styles',
                     routeName: 'styles',
+                    tab: 'Styles',
                     icon: 'fa-css3',
                 },
             ],
@@ -96,8 +106,8 @@ export default {
     },
 
     computed: {
-        route() {
-            return this.$route.name;
+        tabName() {
+            return this.$route.meta.tabName;
         },
     },
 

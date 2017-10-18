@@ -6,14 +6,14 @@
 
                 <aside class="sidebar col-xs-12 col-sm-3">
                     <div class="row">
-                        <a v-for="route in settingsRoutes" class="btn btn-info" :class="{ active: isCurrentRoute(route.path), 'btn-warning': isMissingGist(route.path) }" :href="`${route.path}`">
-                            <i :class="['fa', `fa-warning`]" aria-hidden="true" v-if="isMissingGist(route.path)"></i>
-                            <i :class="['fa', `fa-${route.icon}`]" aria-hidden="true" v-else></i>
-                            {{route.title}}
-                        </a>
+                        <router-link  v-for="{icon, name, path, title} in settingsRoutes" :to="{ name: name }" class="btn btn-info" :class="{ active: isCurrentRoute(name), 'btn-warning': isMissingGist(name) }">
+                            <i :class="['fa', `fa-warning`]" aria-hidden="true" v-if="isMissingGist(name)"></i>
+                            <i :class="['fa', `fa-${icon}`]" aria-hidden="true" v-else></i>
+                            {{title}}
+                        </router-link>
                     </div>
                 </aside>
-
+                
                 <div class="settings-content col-xs-12 col-sm-9">
                     <router-view />
                 </div>
@@ -30,27 +30,27 @@ export default {
         return {
             settingsRoutes: [
                 {
-                    path: '/settings',
+                    name: 'settingsGetStarted',
                     title: 'Get Started',
                     icon: 'home',
                 },
                 {
-                    path: '/settings/github',
+                    name: 'settingsGithub',
                     title: 'Github',
                     icon: 'github',
                 },
                 {
-                    path: '/settings/profile',
+                    name: 'settingsProfile',
                     title: 'Profile',
                     icon: 'user',
                 },
                 {
-                    path: '/settings/social',
+                    name: 'settingsSocial',
                     title: 'Social Networks',
                     icon: 'share-alt',
                 },
                 {
-                    path: '/settings/account',
+                    name: 'settingsAccount',
                     title: 'Account',
                     icon: 'lock',
                 },
@@ -60,11 +60,11 @@ export default {
 
     methods: {
         isCurrentRoute(route) {
-            return route === this.$route.path;
+            return route === this.$route.name;
         },
 
-        isMissingGist(route) {
-            return route === '/settings/github' && !this.session.user.gistId;
+        isMissingGist(name) {
+            return name === 'settingsGithub' && !this.session.user.gistId;
         },
     },
 
@@ -76,7 +76,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
-    
+
     .page-header {
         margin-bottom: 0;
     }

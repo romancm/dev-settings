@@ -14,10 +14,18 @@
                 <p v-if="sessionExpired">
                     You've been automatically logged out.
                 </p>
-                <!-- <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=5a92b9da5f2017553b90" class="btn btn-primary" v-else>
+                <router-link :to="{ name: 'home' }" class="btn btn-primary">
+                    <i class="fa fa-home" />
+                    Home
+                </router-link>
+                <router-link :to="{ name: 'home' }" class="btn btn-primary">
+                    <i class="fa fa-home" />
+                    Home
+                </router-link>
+                <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=5a92b9da5f2017553b90" class="btn btn-primary">
                     <i class="fa fa-github" />
                     Login again
-                </a> -->
+                </a>
             </div>
         </div>
     </div>

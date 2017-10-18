@@ -14,6 +14,13 @@
                     <i class="fa fa-file-code-o fa-5x" aria-hidden="true" />
                     {{description}}
                 </div>
+                <div
+                    class="col-xs-6 col-md-3 text-center thumbnail gist"
+                    @click="selectGist(null)"
+                    :class="{ 'text-danger': session.user.gistId === null }"
+                >
+                Remove
+            </div>
             </div>
         </div>
 

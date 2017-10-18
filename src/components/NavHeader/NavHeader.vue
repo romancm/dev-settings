@@ -2,7 +2,7 @@
     <header>
         <div class="container">
             <span class="logo">
-                <router-link to="/dashboard" v-if="session">
+                <router-link to="/dashboard" v-if="session.user">
                     <img src="../../assets/logo.png" alt="">
                 </router-link>
 

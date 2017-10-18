@@ -43,6 +43,7 @@ const routes = new Router({
         {
             path: '/',
             component: Home,
+            name: 'home',
             meta: {
                 title: 'Atom Settings',
             },
@@ -50,6 +51,7 @@ const routes = new Router({
         {
             path: '/logout',
             component: Logout,
+            name: 'home',
             meta: {
                 hideNav: true,
             },
@@ -57,6 +59,7 @@ const routes = new Router({
         {
             path: '/admin',
             component: AdminPage,
+            name: 'admin',
             meta: {
                 title: 'Atom Settings Admin',
                 auth: true,
@@ -74,6 +77,7 @@ const routes = new Router({
         {
             path: '/dashboard',
             component: Dashboard,
+            name: 'dashboard',
             meta: {
                 title: 'Atom Settings Dashboard',
                 auth: true,
@@ -82,6 +86,7 @@ const routes = new Router({
         {
             path: '/browse',
             component: Browse,
+            name: 'browse',
             meta: {
                 title: 'Browse Atom Settings',
             },
@@ -89,38 +94,51 @@ const routes = new Router({
         {
             path: '/browse/:id',
             component: User,
+            name: 'user',
             meta: {
                 title: 'Browse {{User}} Atom Settings',
             },
             children: [
                 {
                     path: 'packages',
-                    name: 'packages',
+                    meta: {
+                        tabName: 'Packages',
+                    },
                     component: UserPackages,
                 },
                 {
                     path: 'init-script',
-                    name: 'init-script',
+                    meta: {
+                        tabName: 'Init Script',
+                    },
                     component: UserScripts,
                 },
                 {
                     path: 'keymaps',
+                    meta: {
+                        tabName: 'Keymaps',
+                    },
                     component: UserKeymaps,
-                    name: 'keymaps',
                 },
                 {
                     path: 'settings',
-                    name: 'settings',
+                    meta: {
+                        tabName: 'Settings',
+                    },
                     component: UserSettings,
                 },
                 {
                     path: 'snippets',
-                    name: 'snippets',
+                    meta: {
+                        tabName: 'Snippets',
+                    },
                     component: UserSnippets,
                 },
                 {
                     path: 'styles',
-                    name: 'styles',
+                    meta: {
+                        tabName: 'Styles',
+                    },
                     component: UserStyles,
                 },
             ],
@@ -128,6 +146,7 @@ const routes = new Router({
         {
             path: '/settings',
             component: SettingsPage,
+            name: 'settingsPage',
             meta: {
                 title: 'Atom Settings',
                 auth: true,
@@ -136,6 +155,7 @@ const routes = new Router({
                 {
                     path: '',
                     component: SettingsGetStarted,
+                    name: 'settingsGetStarted',
                     meta: {
                         title: 'Atom Settings | Get Started',
                         auth: true,
@@ -144,6 +164,7 @@ const routes = new Router({
                 {
                     path: 'github',
                     component: SettingsGithub,
+                    name: 'settingsGithub',
                     meta: {
                         title: 'Atom Settings | Sync',
                         auth: true,
@@ -152,6 +173,7 @@ const routes = new Router({
                 {
                     path: 'profile',
                     component: SettingsProfile,
+                    name: 'settingsProfile',
                     meta: {
                         title: 'Atom Settings | Profile',
                         auth: true,
@@ -160,6 +182,7 @@ const routes = new Router({
                 {
                     path: 'social',
                     component: SettingsSocial,
+                    name: 'settingsSocial',
                     meta: {
                         title: 'Atom Settings | Social',
                         auth: true,
@@ -168,6 +191,7 @@ const routes = new Router({
                 {
                     path: 'account',
                     component: SettingsAccount,
+                    name: 'settingsAccount',
                     meta: {
                         title: 'Atom Settings | Account',
                         auth: true,

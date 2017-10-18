@@ -4,14 +4,12 @@
           <img
               :class="['img-thumbnail', 'img-responsive', { 'img-circle': circle }, size]"
               :src="userData.avatar"
-              alt=""
               v-if="userData.avatar"
           />
 
           <img
               :class="['img-thumbnail', 'img-responsive', { 'img-circle': circle }, size]"
               :src="'https://api.adorable.io/avatars/' + userData._id"
-              alt=""
               v-else
           />
       </span>
@@ -19,7 +17,6 @@
           <img
               :class="['img-thumbnail', 'img-responsive', { 'img-circle': circle }, size]"
               :src="session.github.avatar_url"
-              alt=""
               v-if="session"
           />
       </span>
@@ -32,7 +29,6 @@
     export default {
         computed: {
             session() { return store.getters.session; },
-            // gistData() { return store.getters.gistData; },
         },
 
         props: {
