@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 <profile :gist-data="gistData" :user-data="userData"/>

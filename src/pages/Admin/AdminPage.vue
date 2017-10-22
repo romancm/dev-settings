@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="container">
+    <div class="container-fluid">
         <h2>Admin</h2>
         <div class="row">
             <div class="col-xs-12">

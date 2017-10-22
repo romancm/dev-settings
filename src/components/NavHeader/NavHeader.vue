@@ -1,6 +1,6 @@
 <template>
     <header>
-        <div class="container">
+        <div class="container-fluid">
             <span class="logo">
                 <router-link to="/dashboard" v-if="session.user">
                     <img src="../../assets/logo.png" alt="">
@@ -96,7 +96,7 @@
         border-bottom: 5px solid #b75c5c;
         margin-bottom: 15px;
 
-        .container {
+        .container-fluid {
             color: #fff;
             height: 70px;
             padding: $gp;

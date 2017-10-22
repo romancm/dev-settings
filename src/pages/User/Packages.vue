@@ -1,9 +1,6 @@
 <template lang="html">
     <div class="packages">
-        <div class="col-xs-12">
-            <h2>Packages</h2>
-        </div>
-        <div class="col-xs-4 package-list">
+        <div class="col-xs-4 col-lg-3 package-list">
 
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -18,13 +15,9 @@
         </div>
 
         <div class="col-xs-8" v-if="activePackage">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel panel-default package-preview">
-                        <div class="panel-body">
-                            <vue-markdown :source="activePackage.readme" />
-                        </div>
-                    </div>
+            <div class="panel panel-default package-preview">
+                <div class="panel-body">
+                    <vue-markdown :source="activePackage.readme" />
                 </div>
             </div>
         </div>
@@ -75,18 +68,19 @@ export default {
         },
 
         getPackage(packageName) {
-            this.$http.get(`https://www.atom.io/api/packages/${packageName}`).then(({ data }) => {
-                this.activePackage = data;
-                this.nextTick(() => {
-                    this.$forceUpdate();
+            this.$http.get(`https://www.atom.io/api/packages/${packageName}`)
+                .then(({ data }) => {
+                    this.activePackage = data;
+                })
+                .catch(() => {
+                    console.log('err');
                 });
-            });
         },
     },
 };
 </script>
 
-<style lang="scss" rel="stylesheet/scss" scoped>
+<style lang="scss" rel="stylesheet/scss">
     .package-list {
         max-height: calc(100vh - 40px);
         overflow: auto;
@@ -102,5 +96,8 @@ export default {
         overflow: auto;
         background: #fff;
         overflow: auto;
+    }
+    img {
+        max-width: 100%;
     }
 </style>
