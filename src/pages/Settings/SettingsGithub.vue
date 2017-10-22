@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import msg from '@/msg';
 import { store } from '@/store';
 
 export default {
@@ -75,7 +76,7 @@ export default {
                     this.$toasted.success('Boom!');
                 })
                 .catch(() => {
-                    this.$toasted.error(':(');
+                    this.$toasted.error(msg.errors.settings.gist);
                 })
                 .then(() => {
                     this.loading = false;
@@ -91,6 +92,7 @@ export default {
                     this.gists = data;
                 })
                 .catch(() => {
+                    this.$toasted.error(msg.errors.user);
                     this.$toasted.error(':(');
                 })
                 .then(() => {

@@ -67,6 +67,7 @@
 </template>
 
 <script>
+import msg from '@/msg';
 import Avatar from '@/components/Avatar/Avatar';
 import { store } from '@/store';
 
@@ -150,8 +151,8 @@ export default {
                 .then(() => {
                     store.commit('reloadUserData');
                     this.$toasted.success('Updated');
-                }).catch((error) => {
-                    this.$toasted.error(error.reponse.data.message);
+                }).catch(() => {
+                    this.$toasted.error(msg.errors.settings.profile);
                 }).then(() => {
                     this.loading = false;
                 });

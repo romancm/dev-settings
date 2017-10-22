@@ -13,7 +13,7 @@
                         <router-link :to="{ name: 'user', params: { id: user.user } }">
                             <avatar :user-data="user" public />
                         </router-link>
-                        
+
                         {{user.profile.firstName}}
                         {{user.profile.lastName}}
 
@@ -38,37 +38,42 @@
 </template>
 
 <script>
-import Avatar from '@/components/Avatar/Avatar';
-import { store } from '@/store';
+    import msg from '@/msg';
+    import Avatar from '@/components/Avatar/Avatar';
+    import { store } from '@/store';
 
-export default {
-    mounted() {
-        this.load();
-    },
-
-    computed: {
-        users() { return store.getters.users; },
-        environment() { return store.getters.environment; },
-    },
-
-    components: {
-        Avatar,
-    },
-
-    methods: {
-        load() {
-            // TODO: enhance this logic so endpoint isn't hit every time
-            this.$http.get(`${this.environment.baseUrl}/browse/`)
-                .then(({ data }) => {
-                    store.commit('updateBrowseData', data);
-                });
+    export default {
+        mounted() {
+            this.load();
         },
 
-        url(id) {
-            return `/browse/${id}/packages`;
+        computed: {
+            users() { return store.getters.users; },
+            environment() { return store.getters.environment; },
         },
-    },
-};
+
+        components: {
+            Avatar,
+        },
+
+        methods: {
+            load() {
+                // TODO: enhance this logic so endpoint isn't hit every time
+                this.$http.get(`${this.environment.baseUrl}/browse/`)
+                    .then(({ data }) => {
+                        store.commit('updateBrowseData', data);
+                    })
+                    .catch(() => {
+                        this.$toasted.error(msg.errors.browse);
+                        console.log('boom');
+                    });
+            },
+
+            url(id) {
+                return `/browse/${id}/packages`;
+            },
+        },
+    };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

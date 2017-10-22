@@ -18,7 +18,7 @@
                     <i class="fa fa-home" />
                     Home
                 </router-link>
-                <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=5a92b9da5f2017553b90" class="btn btn-primary">
+                <a :href="'https://github.com/login/oauth/authorize?scope=user:email&client_id=' + environment.githubClientId" class="btn btn-primary">
                     <i class="fa fa-github" />
                     Login again
                 </a>
@@ -34,6 +34,7 @@
         computed: {
             session() { return store.getters.session; },
             sessionExpired() { return this.$route.query.sessionExpired; },
+            environment() { return store.getters.environment; },
             // environment() { return store.getters.environment; },
         },
 

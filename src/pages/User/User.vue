@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import msg from '@/msg';
 import { store } from '@/store';
 import Profile from '@/components/Profile/Profile';
 
@@ -36,11 +37,11 @@ export default {
             this.userData = data;
             this.getGist(data.gistId);
         })
-        .catch((error) => {
-            this.$toasted.error(error.response.data.message);
+        .catch(() => {
+            this.$toasted.error(msg.errors.user);
         })
         .then(() => {
-            // this.loading = false;
+            this.loading = false;
         });
     },
 

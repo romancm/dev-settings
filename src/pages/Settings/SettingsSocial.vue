@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import msg from '@/msg';
 import { store } from '@/store';
 
 export default {
@@ -58,8 +59,8 @@ export default {
             .then(() => {
                 store.commit('reloadUserData');
                 this.$toasted.success('Updated');
-            }).catch((error) => {
-                this.$toasted.error(error.reponse.data.message);
+            }).catch(() => {
+                this.$toasted.error(msg.errors.settings.social);
             });
         },
     },

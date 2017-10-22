@@ -6,7 +6,7 @@
 </template>
 
 <script>
-    import i18n from '@/i18n';
+    import msg from '@/msg';
     import { store } from '@/store';
 
     export default {
@@ -28,7 +28,7 @@
                         this.login(res);
                     })
                     .catch(() => {
-                        this.$toasted.error(i18n.errors.handshake.validation);
+                        this.$toasted.error(msg.errors.handshake.validation);
                         this.$router.push({ path: '/' });
                     });
                 }

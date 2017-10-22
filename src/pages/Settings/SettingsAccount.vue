@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import msg from '@/msg';
 import { store } from '@/store';
 
 export default {
@@ -58,7 +59,7 @@ export default {
                 this.$toasted.success('Account Deleted');
             })
             .catch(() => {
-                this.$toasted.error(':(');
+                this.$toasted.error(msg.errors.settings.account);
             })
             .then(() => {
                 // this.loading = false;
