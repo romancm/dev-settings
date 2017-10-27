@@ -6,6 +6,8 @@ import axios from 'axios';
 import Toasted from 'vue-toasted';
 import vmodal from 'vue-js-modal';
 
+import 'prismjs';
+import 'prismjs/themes/prism.css';
 import 'font-awesome/css/font-awesome.css';
 
 import App from './App';

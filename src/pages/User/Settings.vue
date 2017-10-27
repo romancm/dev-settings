@@ -1,24 +1,23 @@
 <template lang="html">
     <div>
         <h2>Settings</h2>
-        <pre>{{gistData.files['settings.json'].content}}</pre>
+        <prism
+            language="json"
+            :code="gistData.files['settings.json'].content"
+        />
     </div>
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown';
+import Prism from 'vue-prismjs';
 
 export default {
     components: {
-        VueMarkdown,
+        Prism,
     },
 
     props: {
         gistData: Object,
-        userData: Object,
     },
 };
 </script>
-
-<style lang="css">
-</style>

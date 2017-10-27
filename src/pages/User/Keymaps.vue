@@ -1,21 +1,23 @@
 <template lang="html">
     <div>
-        <h2>Key Maps</h2>
-        <vue-markdown :source="gistData.files['keymap.cson'].content" />
+        <h2>Keymaps</h2>
+        <prism
+            language="coffeescript"
+            :code="gistData.files['keymap.cson'].content"
+        />
     </div>
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown';
+import Prism from 'vue-prismjs';
 
 export default {
     components: {
-        VueMarkdown,
+        Prism,
     },
 
     props: {
         gistData: Object,
-        userData: Object,
     },
 };
 </script>

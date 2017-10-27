@@ -1,21 +1,23 @@
 <template lang="html">
     <div>
         <h2>Init Script</h2>
-        <vue-markdown :source="gistData.files['init.coffee'].content" />
+        <prism
+            language="coffeescript"
+            :code="gistData.files['init.coffee'].content"
+        />
     </div>
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown';
+import Prism from 'vue-prismjs';
 
 export default {
     components: {
-        VueMarkdown,
+        Prism,
     },
 
     props: {
         gistData: Object,
-        userData: Object,
     },
 };
 </script>
