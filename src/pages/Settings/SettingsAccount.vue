@@ -55,8 +55,7 @@ export default {
             this.$http.post(`${this.environment.baseUrl}/account/delete`, payload)
             .then(() => {
                 store.commit('logout');
-                this.$router.push({ path: '/' });
-                this.$toasted.success('Account Deleted');
+                this.$router.push({ name: 'exit-page' });
             })
             .catch(() => {
                 this.$toasted.error(msg.errors.settings.account);

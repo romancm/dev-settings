@@ -6,6 +6,8 @@ import Browse from '@/pages/Browse/Browse';
 import Dashboard from '@/pages/Dashboard/Dashboard';
 import Home from '@/pages/Home';
 import Logout from '@/pages/Logout/Logout';
+import ExitPage from '@/pages/ExitPage/ExitPage';
+
 // User Profile
 import User from '@/pages/User/User';
 import UserPackages from '@/pages/User/Packages';
@@ -81,6 +83,14 @@ const routes = new Router({
             meta: {
                 title: 'Atom Settings Dashboard',
                 auth: true,
+            },
+        },
+        {
+            path: '/account-deleted',
+            component: ExitPage,
+            name: 'exit-page',
+            meta: {
+                title: 'Atom Settings',
             },
         },
         {
