@@ -1,47 +1,33 @@
 <template>
-    <header>
-        <div class="container-fluid">
-            <span class="logo">
-                <router-link to="/dashboard" v-if="session.user">
-                    <img src="../../assets/logo.png" alt="">
-                </router-link>
-
-                <router-link to="/" v-else>
-                    <img src="../../assets/logo-full.png" alt="">
-                </router-link>
-
-                <router-link to="/browse" v-if="!meta.hideNav">
-                    Browse
-                </router-link>
+    <el-menu
+        :default-active="1"
+        class="el-menu-demo"
+        mode="horizontal"
+        @select="handleSelect"
+        background-color="#409EFF"
+        text-color="#fff"
+        active-text-color="#fff"
+    >
+        <el-menu-item v-for="({name, title, isButton, auth, titleAuth}, index) in menuItems" :index="index">
+            <span v-if="isButton">
+                <el-button type="success">
+                    <span v-if="!session.token">
+                        {{title}}
+                    </span>
+                    <span v-else>
+                        {{titleAuth}}
+                    </span>
+                </el-button>
+            </span>
+            <span v-else>
+                <span>
+                    {{title}}
+                </span>
             </span>
 
-            <section class="user-menu" v-if="!meta.hideNav">
-                <span v-if="session && session.github">
-                    <avatar id="userMenu" size="xs" @click="toggleUserMenu" circle />
-
-                    <div class="user-dropdown" v-show="active">
-                        <router-link to="/dashboard">
-                            <i class="fa fa-tachometer" aria-hidden="true"></i>
-                            Dashboard
-                        </router-link>
-                        <router-link to="/settings">
-                            <i class="fa fa-cog" aria-hidden="true"></i>
-                            Settings
-                        </router-link>
-                        <a @click="logout">
-                            <i class="fa fa-sign-out" aria-hidden="true"></i>
-                            Log out
-                        </a>
-                    </div>
-                </span>
-
-                <a :href="'https://github.com/login/oauth/authorize?scope=user:email&client_id=' + environment.githubClientId" class="btn btn-primary" v-else>
-                    <i class="fa fa-github" />
-                    Sign in with Github
-                </a>
-            </section>
-        </div>
-    </header>
+        </el-menu-item>
+         <!-- v-if="!session.token && !auth" -->
+    </el-menu>
 </template>
 
 <script>
@@ -57,12 +43,21 @@
             session() { return store.getters.session; },
             meta() { return this.$route.meta; },
             environment() { return store.getters.environment; },
+            githuburl() {
+                return `https://github.com/login/oauth/authorize?scope=user:email&client_id=${this.environment.githubClientId}`;
+            },
         },
 
         data() {
             return {
                 active: false,
                 hideNav: false,
+                menuItems: [
+                    { name: 'dashboard', title: 'AtomSettings' },
+                    { name: 'browse', title: 'Browse' },
+                    { name: 'settingsGetStarted', title: 'Settings', auth: true },
+                    { name: 'session', title: 'Login with GitHub', titleAuth: 'Logout', isButton: true },
+                ],
             };
         },
 
@@ -73,16 +68,17 @@
                 this.$router.push({ path: '/logout' });
             },
 
-            blur(e) {
-                if (e.target.parentNode.parentNode.id !== 'userMenu') {
-                    this.active = !this.active;
-                    window.removeEventListener('click', this.blur);
+            handleSelect(i) {
+                const name = this.menuItems[i].name;
+                if (name === 'session') {
+                    if (this.session && this.session.token) {
+                        this.$router.push({ name: 'logout' });
+                    } else {
+                        window.location.href = this.githuburl;
+                    }
+                } else {
+                    this.$router.push({ name });
                 }
-            },
-
-            toggleUserMenu() {
-                window.addEventListener('click', this.blur);
-                this.active = !this.active;
             },
         },
     };
@@ -90,60 +86,20 @@
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
-
-    header {
-        background-color: #c66;
-        border-bottom: 5px solid #b75c5c;
-        margin-bottom: 15px;
-
-        .container-fluid {
-            color: #fff;
-            height: 70px;
-            padding: $gp;
-            display: flex;
-            align-items: center;
-            align-content: space-between;
-
-        }
-
-        a {
+    .userMenu {
+        background: #cf0;
+        float: right;
+        color: #fff;
+        .el-submenu__title i {
             color: #fff;
         }
-
-        .logo {
-            flex: 1;
-
-            a:first-child {
-                margin-right: 15px;
-            }
-        }
-
-        .user-menu {
-            position: relative;
-
-            .avatar {
-                --avatar-border-bg: #b75c5c;
-            }
-
-            .user-dropdown {
-                background-color: #b75c5c;
-                border-bottom-right-radius: 5px;
-                border-bottom-left-radius: 5px;
-                padding: 15px;
-                width: 120px;
-                right: 5px;
-                top: 65px;
-                z-index: 100;
-                position: absolute;
-                a {
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 10px;
-                    &:last-child {
-                        margin: 0;
-                    }
-                }
-            }
+        .avatar {
+            float: left;
         }
     }
+
+    // .el-menu {
+    //     right: $gp;
+    //     left: auto;
+    // }
 </style>

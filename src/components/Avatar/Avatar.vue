@@ -49,6 +49,7 @@
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     img {
+        width: 100%;
         cursor: pointer;
         border-color: rgba(0,0,0,0.1);
 

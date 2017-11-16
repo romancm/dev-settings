@@ -1,7 +1,11 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import vMediaQuery from 'v-media-query';
 import FastClick from 'fastclick';
+import VueContentPlaceholders from 'vue-content-placeholders';
 import axios from 'axios';
 import Toasted from 'vue-toasted';
 import vmodal from 'vue-js-modal';
@@ -14,10 +18,24 @@ import App from './App';
 import router from './router';
 import { store } from './store';
 
+Vue.use(ElementUI);
+Vue.use(vMediaQuery);
+Vue.use(VueContentPlaceholders);
 Vue.use(vmodal);
 Vue.use(Toasted, { duration: 2000 });
 
 Vue.config.productionTip = false;
+
+/* eslint-disable arrow-body-style */
+axios.interceptors.response.use((response) => {
+    return response;
+}, (error) => {
+    if (error.response.status === 401) {
+        router.push({ name: 'logout', query: { sessionExpired: true } });
+    }
+    return Promise.reject(error.response);
+});
+
 Vue.prototype.$http = axios;
 
 // console.log(store.getters.getTodos);

@@ -1,34 +1,14 @@
 <template lang="html">
-    <div class="container-fluid">
-        <h2>Admin</h2>
-        <div class="row">
-            <div class="col-xs-12">
-                <table class="table table-hover table-responsive table-striped table-bordered table-condensed">
-                  <thead>
-                    <tr>
-                      <th>Avatar</th>
-                      <th>Firstname</th>
-                      <th>Lastname</th>
-                      <th>Joined</th>
-                      <th>Languages</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                      <tr v-for="user in users" :class="{ 'danger': isInactive(user)}">
-                          <td>
-                              <img :src="user.avatar" class="img-thumbnail img-responsive img-circle" width="50">
-                          </td>
-                          <td>{{user.profile.firstName}}</td>
-                          <td>{{user.profile.lastName}}</td>
-                          <td>{{user.dateJoined}}</td>
-                          <td>{{user.profile.languages.length}}</td>
-                      </tr>
-                  </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
+    <el-container>
+        <el-main>
+            <h2>Admin</h2>
+            <el-table :data="users" stripe border>
+                <el-table-column prop="user" label="User" width="180" />
+                <el-table-column prop="dateJoined" label="Date Joined" width="180" />
+                <el-table-column prop="avatar" label="avatar" width="180" />
+            </el-table>
+        </el-main>
+    </el-container>
 </template>
 
 <script>
@@ -46,11 +26,32 @@ export default {
     data() {
         return {
             users: null,
+            tableData: [{
+                date: '2016-05-03',
+                name: 'Tom',
+                address: 'No. 189, Grove St, Los Angeles',
+            }, {
+                date: '2016-05-02',
+                name: 'Tom',
+                address: 'No. 189, Grove St, Los Angeles',
+            }, {
+                date: '2016-05-04',
+                name: 'Tom',
+                address: 'No. 189, Grove St, Los Angeles',
+            }, {
+                date: '2016-05-01',
+                name: 'Tom',
+                address: 'No. 189, Grove St, Los Angeles',
+            }],
         };
     },
 
     mounted() {
-        this.load();
+        if (this.session.user.admin) {
+            this.load();
+        } else {
+            this.$router.push({ path: '/' });
+        }
     },
 
     methods: {

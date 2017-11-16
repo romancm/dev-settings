@@ -1,7 +1,10 @@
 <template>
     <main id="app">
-        <nav-header/>
-        <router-view/>
+        <el-container>
+            <nav-header/>
+            <router-view/>
+            <el-footer />
+        </el-container>
     </main>
 </template>
 
@@ -23,7 +26,11 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-    @import "styles/lumen";
+    // @import "styles/lumen";
     @import "styles/_variables";
     @import "styles/_global";
+
+    .el-footer {
+        background: #fff;
+    }
 </style>
