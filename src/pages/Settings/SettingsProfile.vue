@@ -1,68 +1,49 @@
 <template>
-    <div class="col-xs-12">
-        <h3>About You</h3>
+    <div class="settings-profile">
+        <h3>Profile</h3>
+        <!-- <pre>{{session.user}}</pre> -->
+        <el-form ref="form">
+            <!-- <avatar size="xl" /> -->
+            <el-col :span="11">
+                <el-form-item label="First name">
+                    <el-input v-model="session.user.profile.firstName"></el-input>
+                </el-form-item>
+            </el-col>
+            <el-col :span="11" :offset="2">
+                <el-form-item label="Last name">
+                    <el-input v-model="session.user.profile.lastName"></el-input>
+                </el-form-item>
+            </el-col>
 
-        <form @submit.prevent="updateProfile()">
-            <avatar size="lg" />
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>First name</label>
-                            <input class="form-control input-lg" type="text" v-model="session.user.profile.firstName">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Last name</label>
-                            <input class="form-control input-lg" type="text" v-model="session.user.profile.lastName">
-                        </div>
-                    </div>
-                </div>
+            <el-form-item label="Location">
+                <el-input v-model="session.user.profile.location"></el-input>
+            </el-form-item>
 
-                <div class="form-group">
-                    <label>Location</label>
-                    <input class="form-control input-lg" type="text" v-model="session.user.profile.location">
-                </div>
+            <el-form-item label="Bio">
+                <el-input type="textarea" v-model="session.user.profile.bio"></el-input>
+            </el-form-item>
 
-                <div class="form-group">
-                    <label>Bio</label>
-                    <textarea class="form-control input-lg" type="text" v-model="session.user.profile.bio" />
-                </div>
+            <el-form-item label="Field of expertise / Job title">
+                <br>
+                <el-checkbox-group v-model="session.user.profile.jobTitle">
+                    <el-checkbox :label="checkbox.value" border name="type" v-for="checkbox in titleCheckboxes" />
+                </el-checkbox-group>
+            </el-form-item>
 
-                <label>Job Title</label>
+            <el-form-item label="Languages">
+                <br>
+                <el-checkbox-group v-model="session.user.profile.languages">
+                    <el-checkbox-button :label="checkbox" border name="type" v-for="checkbox in languages">
+                        <i :class="'devicon-'+checkbox+'-plain colored'"></i>
+                        {{checkbox}}
+                    </el-checkbox-button>
+                </el-checkbox-group>
+            </el-form-item>
 
-                <div class="form-group">
-                    <div class="col-xs-6" v-for="checkbox in titleCheckboxes">
-                        <label>
-                            <input type="checkbox" :value="checkbox.id" v-model="session.user.profile.jobTitle">
-                            {{checkbox.value}}
-                        </label>
-                    </div>
-                </div>
-
-                <label>Languages</label>
-
-                <div class="form-group">
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6" v-for="checkbox in languages">
-                        <label class="language">
-                            <input type="checkbox" :value="checkbox" v-model="session.user.profile.languages">
-                            <i :class="'devicon-'+checkbox+'-plain colored'"></i>
-                            {{checkbox}}
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-
-            <button name="button" type="submit" class="btn btn-lg btn-success">
-                <span v-if="loading">
-                    <i class="fa fa-spinner fa-spin-fast" aria-hidden="true"></i>
-                    Saving
-                </span>
-                <span v-if="!loading">Save</span>
-            </button>
-        </form>
+            <el-form-item>
+                <el-button type="primary" plain @click="updateProfile">Save</el-button>
+            </el-form-item>
+        </el-form>
     </div>
 </template>
 
@@ -136,8 +117,11 @@ export default {
         session() { return store.getters.session; },
         environment() { return store.getters.environment; },
     },
-
     methods: {
+        onSubmit() {
+            console.log('submit!');
+        },
+
         updateProfile() {
             const payload = {
                 profile: this.session.user.profile,
@@ -162,11 +146,4 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.language {
-    font-size: 20px;
-    cursor: pointer;
-    i {
-        font-size: 100px;
-    }
-}
 </style>

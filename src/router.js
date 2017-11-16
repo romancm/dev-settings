@@ -108,47 +108,30 @@ const routes = new Router({
             meta: {
                 title: 'Browse {{User}} Atom Settings',
             },
+            redirect: '/browse/:id/packages',
             children: [
                 {
                     path: 'packages',
-                    meta: {
-                        tabName: 'Packages',
-                    },
                     component: UserPackages,
                 },
                 {
                     path: 'init-script',
-                    meta: {
-                        tabName: 'Init Script',
-                    },
                     component: UserScripts,
                 },
                 {
                     path: 'keymaps',
-                    meta: {
-                        tabName: 'Keymaps',
-                    },
                     component: UserKeymaps,
                 },
                 {
                     path: 'settings',
-                    meta: {
-                        tabName: 'Settings',
-                    },
                     component: UserSettings,
                 },
                 {
                     path: 'snippets',
-                    meta: {
-                        tabName: 'Snippets',
-                    },
                     component: UserSnippets,
                 },
                 {
                     path: 'styles',
-                    meta: {
-                        tabName: 'Styles',
-                    },
                     component: UserStyles,
                 },
             ],

@@ -1,30 +1,17 @@
 <template lang="html">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="alert alert-success">
-                    <i class="fa fa-hand-peace-o fa-4x" aria-hidden="true"></i>
-                    <div>
-                        <h4>Welcome!</h4>
-                        <p><strong>AtomSettings</strong> is an easy way to share your Atom settings with other developers, discover packages, themes, and everything related to customizing Atom</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xs-12" v-if="!session.user.gistId">
-                <div class="alert alert-info">
-                    <i class="fa fa-github fa-4x" aria-hidden="true"></i>
-                    <div>
-                        <h4>Link Settings Gist</h4>
-                        <p><strong>AtomSettings</strong> is an easy way to share your Atom settings with other developers, discover packages, themes, and everything related to customizing Atom</p>
-                        <router-link :to="{ name: 'settingsGithub' }" class="btn btn-primary">
-                            Link Gist
-                        </router-link>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <el-container>
+        <el-main>
+            <el-row :gutter="20">
+                <el-col :span="24">
+                    <el-alert title="Welcome!" description="AtomSettings is an easy way to share your Atom settings with other developers, discover packages, themes, and everything related to customizing Atom" :closable="false" type="success" show-icon />
+                </el-col>
+                <el-col :span="24">
+                    <el-alert title="Link Settings Gist" :closable="false" type="info" show-icon description="AtomSettings is an easy way to share your Atom settings with other developers, discover packages, themes, and everything related to customizing Atom">
+                    </el-alert>
+                </el-col>
+            </el-row>
+        </el-main>
+    </el-container>
 </template>
 
 <script>
@@ -38,6 +25,12 @@
 
         computed: {
             session() { return store.getters.session; },
+        },
+
+        methods: {
+            linkGist() {
+                this.$router.push({ name: 'settingsGithub' });
+            },
         },
     };
 </script>

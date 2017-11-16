@@ -1,40 +1,52 @@
 <template lang="html">
-    <div class="packages">
-        <div class="col-xs-4 col-lg-3 package-list">
+    <el-container>
+        <el-aside width="200px">
+            <el-card class="box-card">
+                <span v-for="{name, version} in packages" @click="getPackage(name)"
+                    :class="['text-success', { 'btn-primary' : isActive(name)}]"
+                >
+                    {{name}}
+                    <span class="label label-info">{{version}}</span>
+                </span>
+            </el-card>
 
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <a v-for="{name, version} in packages" @click="getPackage(name)"
-                        :class="['package-btn btn btn-sm btn-default', { 'btn-primary' : isActive(name)}]"
-                    >
-                        {{name}}
-                        <span class="label label-info">{{version}}</span>
-                    </a>
+            <div class="col-xs-4 col-lg-3 package-list">
+                <p class="text-normal text-warning">Test</p>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                    </div>
                 </div>
             </div>
-        </div>
+        </el-aside>
+        <el-main>
+            <div class="packages">
 
-        <div class="col-xs-8" v-if="activePackage">
-            <div class="panel panel-default package-preview">
-                <div class="panel-body">
-                    <vue-markdown :source="activePackage.readme" />
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xs-8" v-else>
-            <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-8" v-if="activePackage">
                     <div class="panel panel-default package-preview">
-                        <div class="panel-body">
-                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                            Select a package
+                        <div class="panel-body" v-loading="loading"
+                        >
+                            <vue-markdown :source="activePackage.readme" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-8" v-else>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="panel panel-default package-preview">
+                                <div class="panel-body">
+                                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                    Select a package
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </el-main>
+    </el-container>
 </template>
 
 <script>
@@ -48,6 +60,7 @@ export default {
     data() {
         return {
             activePackage: null,
+            loading: false,
         };
     },
 
@@ -68,8 +81,10 @@ export default {
         },
 
         getPackage(packageName) {
+            this.loading = true;
             this.$http.get(`https://www.atom.io/api/packages/${packageName}`)
                 .then(({ data }) => {
+                    this.loading = false;
                     this.activePackage = data;
                 })
                 .catch(() => {
@@ -81,22 +96,22 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-    .package-list {
-        max-height: calc(100vh - 40px);
-        overflow: auto;
-        .package-btn {
-            margin-bottom: 5px;
-            width: 100%;
-            text-align: left;
-        }
-    }
-
-    .package-preview {
-        max-height: calc(100vh - 40px);
-        overflow: auto;
-        background: #fff;
-        overflow: auto;
-    }
+    // .package-list {
+    //     max-height: calc(100vh - 40px);
+    //     overflow: auto;
+    //     .package-btn {
+    //         margin-bottom: 5px;
+    //         width: 100%;
+    //         text-align: left;
+    //     }
+    // }
+    //
+    // .package-preview {
+    //     max-height: calc(100vh - 40px);
+    //     overflow: auto;
+    //     background: #fff;
+    //     overflow: auto;
+    // }
     img {
         max-width: 100%;
     }

@@ -2,7 +2,6 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
-                {{sessionExpired}}
                 <h3 class="page-header">
                     <span v-if="sessionExpired">
                         Your session has expired

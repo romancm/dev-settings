@@ -4,23 +4,21 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <div
-                    class="col-xs-6 col-md-3 text-center thumbnail gist"
-                    v-for="{description, id} in gists"
-                    @click="selectGist(id)"
-                    :class="{ 'text-success': session.user.gistId == id }"
-                >
-                <i class="fa fa-check-circle fa-3x selected " aria-hidden="true" />
-                    <i class="fa fa-file-code-o fa-5x" aria-hidden="true" />
-                    {{description}}
+                <p>{{filteredGists.length}} compatible settings gist found, {{gists.length}} gists found total.</p>
+                <div class="col-xs-6 col-md-3 panel" v-for="{id, owner, created_at, updated_at} in filteredGists" @click="selectGist(id)">
+                    <button class="btn btn-success" v-if="session.user.gistId == id">
+                        <i class="fa fa-check-circle fa-3x " aria-hidden="true" />
+                        Compatible
+                    </button>
+                    <i class="fa fa-cog fa-5x" aria-hidden="true" />
+                    Settings / {{owner.login}}
+                    <br>
+                    <img :src="owner.avatar_url" alt="" width="20">
+                    Last Updated {{ moment(updated_at).fromNow() }}
                 </div>
-                <div
-                    class="col-xs-6 col-md-3 text-center thumbnail gist"
-                    @click="selectGist(null)"
-                    :class="{ 'text-danger': session.user.gistId === null }"
-                >
-                Remove
-            </div>
+                <div class="col-xs-6 col-md-3 text-center thumbnail gist" @click="selectGist(null)" :class="{ 'text-danger': session.user.gistId === null }" >
+                    Remove
+                </div>
             </div>
         </div>
 
@@ -43,19 +41,26 @@
 <script>
 import msg from '@/msg';
 import { store } from '@/store';
+import moment from 'moment';
 
 export default {
     data() {
         return {
             loading: false,
             loadingGists: false,
-            gists: null,
+            gists: [],
         };
     },
 
     computed: {
         session() { return store.getters.session; },
         environment() { return store.getters.environment; },
+        /* eslint-disable arrow-body-style */
+        filteredGists() {
+            return this.gists.filter((gist) => {
+                return gist.files && gist.files['init.coffee'];
+            });
+        },
     },
 
     mounted() {
@@ -63,6 +68,10 @@ export default {
     },
 
     methods: {
+        moment() {
+            return moment();
+        },
+
         selectGist(id) {
             const payload = {
                 userName: this.session.user.user,
@@ -127,37 +136,37 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.gist {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-    cursor: pointer;
-    transition: all 500ms ease;
-    opacity: 0.7;
-
-    &:hover {
-        opacity: 1;
-        transition: all 500ms ease;
-    }
-
-    .fa {
-        margin-bottom: 20px;
-    }
-
-    .selected {
-        opacity: 0;
-        top: 20px;
-        right: 20px;
-        position: absolute;
-        transition: all 500ms ease;
-    }
-
-    &.text-success {
-        .selected {
-            opacity: 1;
-        }
-    }
-
-}
+// .gist {
+//     display: flex;
+//     align-items: center;
+//     flex-direction: column;
+//     padding: 20px;
+//     cursor: pointer;
+//     transition: all 500ms ease;
+//     opacity: 0.7;
+//
+//     &:hover {
+//         opacity: 1;
+//         transition: all 500ms ease;
+//     }
+//
+//     .fa {
+//         margin-bottom: 20px;
+//     }
+//
+//     // .selected {
+//     //     opacity: 0;
+//     //     top: 20px;
+//     //     right: 20px;
+//     //     position: absolute;
+//     //     transition: all 500ms ease;
+//     // }
+//
+//     // &.text-success {
+//     //     .selected {
+//     //         opacity: 1;
+//     //     }
+//     // }
+//
+// }
 </style>

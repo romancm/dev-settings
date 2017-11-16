@@ -1,40 +1,30 @@
 <template lang="html">
-    <div class="container-fluid">
-        <h2>Browse</h2>
-        <div class="row">
-            <div class="col-xs-12">
-                Filters
-            </div>
-            <div class="col-xs-12">
-
-                <p v-if="!users.length">No users</p>
-                <div v-else class="users row">
-                    <div v-for="user in users" class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+    <el-container>
+        <el-main>
+            <el-aside>
+                <h3>Filters</h3>
+                <!-- <content-placeholders>
+                    <content-placeholders-heading img />
+                </content-placeholders> -->
+            </el-aside>
+            <p v-if="!users.length">No users</p>
+            <el-row :gutter="15">
+                <el-col :span="4" :xs="8" :sm="6" :md="4" :lg="3" v-for="user in users">
+                    <el-card :body-style="cardStyle">
                         <router-link :to="{ name: 'user', params: { id: user.user } }">
                             <avatar :user-data="user" public />
                         </router-link>
-
-                        {{user.profile.firstName}}
-                        {{user.profile.lastName}}
-
-                        <!-- <img src="https://lipis.github.io/flag-icon-css/flags/4x3/us.svg" alt="" width="50"> -->
-                        <div class="languages">
-                            <i :class="'devicon-'+language+'-plain colored'" v-for="language in user.profile.languages"></i>
+                        <div class="card-content">
+                            <h3>{{user.user}}</h3>
+                            <div class="languages">
+                                <i :class="'devicon-'+language+'-plain colored'" v-for="language in user.profile.languages"></i>
+                            </div>
                         </div>
-                        <!-- <i class="devicon-javascript-plain colored"></i>
-                        <i class="devicon-ruby-plain colored"></i>
-                        <i class="devicon-python-plain colored"></i>
-                        <i class="devicon-mysql-plain colored"></i>
-                        <i class="devicon-cplusplus-plain colored"></i>
-                        <i class="devicon-csharp-plain colored"></i>
-                        <i class="devicon-csharp-plain colored"></i>
-                        <i class="devicon-angularjs-plain colored"></i> -->
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    </el-card>
+                </el-col>
+            </el-row>
+        </el-main>
+    </el-container>
 </template>
 
 <script>
@@ -43,6 +33,15 @@
     import { store } from '@/store';
 
     export default {
+        data() {
+            return {
+                currentDate: new Date(),
+                cardStyle: {
+                    padding: '0',
+                },
+            };
+        },
+
         mounted() {
             this.load();
         },
@@ -77,7 +76,20 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    .profile-pic {
+    @import "~styles/_variables";
+
+    .el-aside {
         width: 100%;
+
+        @media($md) {
+            background: #cf0;
+            width: 25%;
+        }
+        @media($lg) {
+            width: 20%;
+        }
     }
+    // .profile-pic {
+    //     width: 100%;
+    // }
 </style>

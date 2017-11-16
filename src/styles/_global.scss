@@ -3,23 +3,4 @@ body {
     -moz-osx-font-smoothing: grayscale;
     font-family: $font-stack;
     margin: 0;
-    background: $color-tan;
-    color: $color-light-gray;
-}
-
-// Override FA spin animation
-.fa-spin-fast {
-    -webkit-animation: fa-spin 0.75s infinite linear !important;
-    animation: fa-spin 0.75s infinite linear !important;
-}
-
-a {
-    cursor: pointer;
-    i {
-        margin-right: 5px;
-    }
-}
-
-h1, .h1, h2, .h2, h3, .h3 {
-    margin-top: 0;
 }

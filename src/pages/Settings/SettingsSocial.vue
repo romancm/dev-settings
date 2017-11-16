@@ -1,24 +1,24 @@
 <template>
-    <div>
-        <div class="col-md-4">
-                <h3>Social Networks</h3>
-                <form @submit.prevent="save">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label class="control-label">Twitter</label>
-                            <input type="text" class="form-control input-lg" v-model="session.user.socialNetworks.twitter">
-                        </div>
+    <div class="settings-social">
+        <h3>Social Networks</h3>
+        <el-form ref="form" @submit.native.prevent="save">
+            <el-row :gutter="15">
+                <el-col :span="12" :xs="24" :sm="12" :md="8">
+                    <el-form-item label="Twitter">
+                        <el-input v-model="session.user.socialNetworks.twitter"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12" :xs="24" :sm="12" :md="8">
+                    <el-form-item label="Facebook">
+                        <el-input v-model="session.user.socialNetworks.linkedin"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
 
-                        <div class="form-group">
-                            <label class="control-label">LinkedIn</label>
-                            <input type="text" class="form-control input-lg" v-model="session.user.socialNetworks.linkedin">
-                        </div>
-                    </div>
-
-                    <button name="button" type="submit" class="btn btn-success">Save</button>
-                </form>
-
-        </div>
+            <el-form-item>
+                <el-button type="primary" plain @click="save">Save</el-button>
+            </el-form-item>
+        </el-form>
     </div>
 </template>
 
@@ -27,21 +27,6 @@ import msg from '@/msg';
 import { store } from '@/store';
 
 export default {
-    data() {
-        return {
-            titleCheckboxes: [
-                { id: 'web', value: 'Web Development' },
-                { id: 'mobile', value: 'Mobile Development' },
-                { id: 'data-science', value: 'Data Science' },
-                { id: 'appdev', value: 'Application Development' },
-                { id: 'backend', value: 'Back-end Developement' },
-                { id: 'api', value: 'API Development' },
-                { id: 'other', value: 'Other' },
-                { id: 'hobby', value: 'Hobbyist' },
-            ],
-        };
-    },
-
     computed: {
         session() { return store.getters.session; },
         environment() { return store.getters.environment; },
@@ -58,23 +43,19 @@ export default {
             this.$http.put(`${this.environment.baseUrl}/profile/social`, payload)
             .then(() => {
                 store.commit('reloadUserData');
-                this.$toasted.success('Updated');
+                this.$notify({
+                    title: 'Success',
+                    message: 'This is a success message',
+                    type: 'success',
+                });
             }).catch(() => {
-                this.$toasted.error(msg.errors.settings.social);
+                this.$notify({
+                    title: 'Error',
+                    message: msg.errors.settings.social,
+                    type: 'error',
+                });
             });
         },
     },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-    .job-title {
-        height: auto;
-        float: left;
-    }
-
-    h3, form {
-        float: left;
-        width: 100%;
-    }
-</style>
