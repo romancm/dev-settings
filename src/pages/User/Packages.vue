@@ -1,5 +1,5 @@
 <template lang="html">
-    <el-container>
+    <el-container class="user-packages">
         <el-aside width="200px">
             <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isMobile" @select="selectPackage">
                 <el-menu-item :index="name" v-for="{name, version} in packages">
@@ -87,34 +87,20 @@ export default {
 };
 </script>
 
-<style lang="scss" rel="stylesheet/scss" scoped>
-    .el-menu-item {
-        // padding: 0 !important;
-        height: 36px !important;
-        line-height: 36px !important;
-    }
-    // .package-list {
-    //     max-height: calc(100vh - 40px);
-    //     overflow: auto;
-    //     .package-btn {
-    //         margin-bottom: 5px;
-    //         width: 100%;
-    //         text-align: left;
-    //     }
-    // }
-    //
-    // .package-preview {
-    //     max-height: calc(100vh - 40px);
-    //     overflow: auto;
-    //     background: #fff;
-    //     overflow: auto;
-    // }
+<style lang="scss" rel="stylesheet/scss">
+    .user-packages {
+        .el-menu-item {
+            // padding: 0 !important;
+            height: 36px !important;
+            line-height: 36px !important;
+        }
 
-    .el-aside {
-        background: #cfc;
-        // height: calc(100vh - 300px);
+        img {
+            max-width: 100%;
+        }
+        .el-aside, .el-main {
+            height: calc(100vh - 300px);
+        }
     }
-    img {
-        max-width: 100%;
-    }
+
 </style>

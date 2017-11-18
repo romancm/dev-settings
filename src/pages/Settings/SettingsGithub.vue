@@ -1,28 +1,67 @@
 <template>
     <div class="col-xs-12">
-        <h3>Sync Atom</h3>
+        <h3>Github</h3>
+        <h4>Select gist to share your settings </h4>
 
-        <div class="row">
-            <div class="col-xs-12">
-                <p>{{filteredGists.length}} compatible settings gist found, {{gists.length}} gists found total.</p>
-                <div class="col-xs-6 col-md-3 panel" v-for="{id, owner, created_at, updated_at} in filteredGists" @click="selectGist(id)">
-                    <button class="btn btn-success" v-if="session.user.gistId == id">
-                        <i class="fa fa-check-circle fa-3x " aria-hidden="true" />
-                        Compatible
-                    </button>
-                    <i class="fa fa-cog fa-5x" aria-hidden="true" />
-                    Settings / {{owner.login}}
+        <el-alert
+            title="Public Gists Warning"
+            show-icon
+            type="warning"
+            closable="false"
+            description="If you use certain packages, storing auth-tokens, a malicious party could abuse them.">
+        </el-alert>
+        <p>{{filteredGists.length}} compatible settings gist found, {{gists.length}} gists found total.</p>
+
+
+        <el-row gutter="20">
+            <el-col :xs="8" :sm="6" :md="12" :lg="8" :xl="6" v-for="gist in gists">
+                <el-card class="box-card" >
+                    <h4>{{gist.description}}</h4>
+
+                    <el-tag type="primary">
+                        <strong>Gist Id:</strong> {{gist.id}}
+                    </el-tag>
+
+                    <el-tag type="info">
+                        Created {{ moment(gist.created_at).format('MMM/DD/Y') }}
+                    </el-tag>
+
+                    <el-tag type="info">
+                        Last Updated {{ moment(gist.updated_at).format('MMM/DD/Y') }}
+                    </el-tag>
+
+                    <hr>
+
+                    <el-button type="success" plain size="small" v-if="gist.id === session.user.gistId">
+                        <i class="fa fa-check" aria-hidden="true" />
+                        Selected
+                    </el-button>
+
+                    <el-button type="success" plain size="small" @click="selectGist(gist.id)" v-else>
+                        Select gist
+                    </el-button>
+                </el-card>
+            </el-col>
+
+            <el-col :xs="8" :sm="6" :md="4" :lg="6" :xl="6" v-if="session.user.gistId">
+                <el-card class="box-card" >
+                    <el-button type="danger" plain size="small" @click="selectGist(null)">
+                        <i class="fa fa-remove" aria-hidden="true" />
+                        Deselect gist
+                    </el-button>
+
                     <br>
-                    <img :src="owner.avatar_url" alt="" width="20">
-                    Last Updated {{ moment(updated_at).fromNow() }}
-                </div>
-                <div class="col-xs-6 col-md-3 text-center thumbnail gist" @click="selectGist(null)" :class="{ 'text-danger': session.user.gistId === null }" >
-                    Remove
-                </div>
-            </div>
-        </div>
+                    <br>
 
-        <div class="panel panel-default">
+                    <el-alert
+                        type="info"
+                        description="Deselecting your gist will automatically remove you from browse results.">
+                    </el-alert>
+                </el-card>
+            </el-col>
+        </el-row>
+
+        <!-- <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Not seeing your Gist?</h3>
             </div>
@@ -34,7 +73,7 @@
                     <i class="fa fa-external-link" aria-hidden="true"></i>
                 </a>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -82,7 +121,11 @@ export default {
             this.$http.put(`${this.environment.baseUrl}/profile/gist`, payload)
                 .then(() => {
                     store.commit('reloadUserData');
-                    this.$toasted.success('Boom!');
+                    this.$notify({
+                        title: 'Success',
+                        message: 'This is a success message',
+                        type: 'success',
+                    });
                 })
                 .catch(() => {
                     this.$toasted.error(msg.errors.settings.gist);
