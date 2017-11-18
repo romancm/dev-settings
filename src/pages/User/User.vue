@@ -1,12 +1,5 @@
 <template lang="html">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12">
-                <profile :gist-data="gistData" :user-data="userData"/>
-                <hr>
-            </div>
-        </div>
-    </div>
+    <profile :gist-data="gistData" :user-data="userData"/>
 </template>
 
 <script>
@@ -62,6 +55,3 @@ export default {
     },
 };
 </script>
-
-<style lang="css">
-</style>

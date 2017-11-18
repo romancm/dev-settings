@@ -13,6 +13,11 @@
                         <span slot="title">{{title}}</span>
                     </el-menu-item>
                 </el-menu>
+
+                <el-button type="info" size="small" plain @click="logout">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    Logout
+                </el-button>
             </el-row>
         </el-aside>
         <el-main>
@@ -70,6 +75,11 @@ export default {
         select(routeName) {
             this.$router.push({ name: routeName });
         },
+        logout() {
+            store.commit('logout');
+            this.$toasted.success('Successfully logged out');
+            this.$router.push({ path: '/logout' });
+        },
     },
 
     computed: {
@@ -86,14 +96,21 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
-    .fa {
-        margin: 0 10px;
 
-        @media($xs) {
-            margin: 0;
-            text-align: center;
-            font-size: 20px;
-            width: 100%;
+    .el-menu-item {
+        .fa {
+            margin: 0 10px;
+
+            @media($xs) {
+                margin: 0;
+                text-align: center;
+                font-size: 20px;
+                width: 100%;
+            }
         }
+    }
+
+    .el-button {
+        margin: $gp $gp * 2;
     }
 </style>

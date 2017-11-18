@@ -1,7 +1,7 @@
 <template>
     <main id="app">
         <el-container>
-            <nav-header/>
+            <nav-header v-if="!$route.meta.hideNav" />
             <router-view/>
             <el-footer />
         </el-container>

@@ -54,9 +54,6 @@ const routes = new Router({
             path: '/logout',
             component: Logout,
             name: 'logout',
-            meta: {
-                hideNav: true,
-            },
         },
         {
             path: '/admin',
@@ -113,6 +110,13 @@ const routes = new Router({
                 {
                     path: 'packages',
                     component: UserPackages,
+                    children: [
+                        {
+                            name: 'package',
+                            path: ':packageName',
+                            component: UserPackages,
+                        },
+                    ],
                 },
                 {
                     path: 'init-script',

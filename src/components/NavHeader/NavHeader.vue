@@ -1,32 +1,19 @@
 <template>
     <el-menu
-        :default-active="1"
-        class="el-menu-demo"
         mode="horizontal"
-        @select="handleSelect"
+        @select="handleNavItem"
         background-color="#409EFF"
         text-color="#fff"
-        active-text-color="#fff"
+        active-text-color="#fc0"
     >
-        <el-menu-item v-for="({name, title, isButton, auth, titleAuth}, index) in menuItems" :index="index">
-            <span v-if="isButton">
-                <el-button type="success">
-                    <span v-if="!session.token">
-                        {{title}}
-                    </span>
-                    <span v-else>
-                        {{titleAuth}}
-                    </span>
-                </el-button>
-            </span>
-            <span v-else>
-                <span>
-                    {{title}}
-                </span>
-            </span>
-
+        <el-menu-item index="dashboard">Atom Settings</el-menu-item>
+        <el-menu-item index="browse">Browse</el-menu-item>
+        <el-menu-item index="login" class="right" v-if="!session.token">
+            <el-button type="success" plain>Login</el-button>
         </el-menu-item>
-         <!-- v-if="!session.token && !auth" -->
+        <el-menu-item index="settingsGetStarted" class="right settings" v-else>
+            <i class="el-icon-setting" aria-hidden="true"></i>
+        </el-menu-item>
     </el-menu>
 </template>
 
@@ -48,36 +35,12 @@
             },
         },
 
-        data() {
-            return {
-                active: false,
-                hideNav: false,
-                menuItems: [
-                    { name: 'dashboard', title: 'AtomSettings' },
-                    { name: 'browse', title: 'Browse' },
-                    { name: 'settingsGetStarted', title: 'Settings', auth: true },
-                    { name: 'session', title: 'Login with GitHub', titleAuth: 'Logout', isButton: true },
-                ],
-            };
-        },
-
         methods: {
-            logout() {
-                store.commit('logout');
-                this.$toasted.success('Successfully logged out');
-                this.$router.push({ path: '/logout' });
-            },
-
-            handleSelect(i) {
-                const name = this.menuItems[i].name;
-                if (name === 'session') {
-                    if (this.session && this.session.token) {
-                        this.$router.push({ name: 'logout' });
-                    } else {
-                        window.location.href = this.githuburl;
-                    }
+            handleNavItem(routeName) {
+                if (routeName === 'login') {
+                    window.location.href = this.githuburl;
                 } else {
-                    this.$router.push({ name });
+                    this.$router.push({ name: routeName });
                 }
             },
         },
@@ -86,20 +49,19 @@
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
-    .userMenu {
-        background: #cf0;
-        float: right;
-        color: #fff;
-        .el-submenu__title i {
-            color: #fff;
+    .el-menu--horizontal {
+        .el-menu-item {
+            border-bottom: none !important;
+            background: transparent !important;
         }
-        .avatar {
-            float: left;
+        .settings {
+            i {
+                color: #fff !important;
+                margin-right: 0;
+            }
+        }
+        .right {
+            float: right;
         }
     }
-
-    // .el-menu {
-    //     right: $gp;
-    //     left: auto;
-    // }
 </style>

@@ -1,50 +1,18 @@
 <template lang="html">
     <el-container>
         <el-aside width="200px">
-            <el-card class="box-card">
-                <span v-for="{name, version} in packages" @click="getPackage(name)"
-                    :class="['text-success', { 'btn-primary' : isActive(name)}]"
-                >
-                    {{name}}
-                    <span class="label label-info">{{version}}</span>
-                </span>
-            </el-card>
-
-            <div class="col-xs-4 col-lg-3 package-list">
-                <p class="text-normal text-warning">Test</p>
-
-                <div class="panel panel-default">
-                    <div class="panel-body">
-
-                    </div>
-                </div>
-            </div>
+            <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isMobile" @select="selectPackage">
+                <el-menu-item :index="name" v-for="{name, version} in packages">
+                    <span slot="title">{{name}}</span>
+                </el-menu-item>
+            </el-menu>
         </el-aside>
         <el-main>
-            <div class="packages">
-
-                <div class="col-xs-8" v-if="activePackage">
-                    <div class="panel panel-default package-preview">
-                        <div class="panel-body" v-loading="loading"
-                        >
-                            <vue-markdown :source="activePackage.readme" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xs-8" v-else>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="panel panel-default package-preview">
-                                <div class="panel-body">
-                                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                                    Select a package
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <vue-markdown :source="packageData.readme" v-if="packageData" />
+            <span v-if="!packageName">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                Select a package
+            </span>
         </el-main>
     </el-container>
 </template>
@@ -59,43 +27,72 @@ export default {
 
     data() {
         return {
-            activePackage: null,
+            packageData: null,
             loading: false,
         };
     },
 
     props: {
         gistData: Object,
-        userData: Object,
     },
 
     computed: {
         packages() {
             return JSON.parse(this.gistData.files['packages.json'].content);
         },
+        packageName() {
+            return this.$route.params.packageName;
+        },
+        isMobile() {
+            return this.$mq.resize && this.$mq.below(768);
+        },
+    },
+
+    watch: {
+        packageName() {
+            this.loadPackage();
+        },
+    },
+
+    mounted() {
+        this.loadPackage();
     },
 
     methods: {
-        isActive(packageName) {
-            return this.activePackage && this.activePackage.name === packageName;
+        selectPackage(name) {
+            const params = {
+                ...this.$route.params,
+                packageName: name,
+            };
+
+            this.$router.push({ name: 'package', params });
         },
 
-        getPackage(packageName) {
-            this.loading = true;
-            this.$http.get(`https://www.atom.io/api/packages/${packageName}`)
+        loadPackage() {
+            if (this.packageName) {
+                this.loading = true;
+                this.$http.get(`https://www.atom.io/api/packages/${this.packageName}`)
                 .then(({ data }) => {
                     this.loading = false;
-                    this.activePackage = data;
+                    this.packageData = data;
                 })
                 .catch(() => {
                     console.log('err');
                 });
+            } else {
+                this.packageData = null;
+            }
         },
     },
 };
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss" rel="stylesheet/scss" scoped>
+    .el-menu-item {
+        // padding: 0 !important;
+        height: 36px !important;
+        line-height: 36px !important;
+    }
     // .package-list {
     //     max-height: calc(100vh - 40px);
     //     overflow: auto;
@@ -112,6 +109,11 @@ export default {
     //     background: #fff;
     //     overflow: auto;
     // }
+
+    .el-aside {
+        background: #cfc;
+        // height: calc(100vh - 300px);
+    }
     img {
         max-width: 100%;
     }

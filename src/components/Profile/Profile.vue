@@ -1,28 +1,32 @@
 <template lang="html">
     <div class="profile row" v-if="userData && gistData">
         <el-container>
-            <el-header>
-                <el-col :span="2">
-                    <avatar :user-data="userData" public />
-                    <h3>{{gistData.owner.login}}</h3>
-                    <p>Last updated {{moment(gistData.lastUpdated).fromNow()}}</p>
-                    <a :href="gistData.owner.html_url" class="btn btn-default" target="_blank">
-                        Github Profile <i class="fa fa-external-link" aria-hidden="true"></i>
-                    </a>
-                </el-col>
-                <el-col :span="20">
-                    <el-tabs v-model="activeName" @tab-click="handleClick">
-                        <el-tab-pane name="packages" label="Packages"></el-tab-pane>
-                        <el-tab-pane name="init-script" label="Init Script"></el-tab-pane>
-                        <el-tab-pane name="keymaps" label="Keymaps"></el-tab-pane>
-                        <el-tab-pane name="settings" label="Settings"></el-tab-pane>
-                        <el-tab-pane name="snippets" label="Snippets"></el-tab-pane>
-                        <el-tab-pane name="styles" label="Styles"></el-tab-pane>
-                    </el-tabs>
-                </el-col>
+            <el-header height="auto">
+                <el-card :body-style="{ padding: '0px' }">
+                    <el-col :span="3" :xs="6">
+                        <avatar :user-data="userData" public />
+                    </el-col>
+                    <el-col :span="21" :xs="18">
+                        <h3>{{userData.user}}</h3>
+                        <!-- <p>Last updated {{moment(gistData.lastUpdated).fromNow()}}</p> -->
+                        <el-button size="mini">Github</el-button>
+                        <!-- <a :href="gistData.owner.html_url" class="btn btn-default" target="_blank">
+                            Github Profile <i class="fa fa-external-link" aria-hidden="true"></i>
+                        </a> -->
+                    </el-col>
+                </el-card>
             </el-header>
 
             <el-main>
+                <el-tabs v-model="activeName" @tab-click="handleClick">
+                    <el-tab-pane name="packages" label="Packages"></el-tab-pane>
+                    <el-tab-pane name="init-script" label="Init Script"></el-tab-pane>
+                    <el-tab-pane name="keymaps" label="Keymaps"></el-tab-pane>
+                    <el-tab-pane name="settings" label="Settings"></el-tab-pane>
+                    <el-tab-pane name="snippets" label="Snippets"></el-tab-pane>
+                    <el-tab-pane name="styles" label="Styles"></el-tab-pane>
+                </el-tabs>
+
                 <router-view :gist-data="gistData" :user-data="userData"></router-view>
             </el-main>
         </el-container>
@@ -97,8 +101,6 @@ export default {
     methods: {
         handleClick({ name }) {
             this.$router.push({ path: `/browse/${this.$route.params.id}/${name}` });
-
-            // this.$router.push({ to: {} });
         },
 
         moment() {
@@ -117,39 +119,14 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    .el-header {
-        overflow: hidden;
+    @import "~styles/_variables";
+    .avatar {
+        background: #cf0;
+        margin: $gp;
     }
 
-    .active {
-        color: #c66;
-    }
-
-    .el-row {
-      margin-bottom: 20px;
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-    .el-col {
-      border-radius: 4px;
-    }
-    .bg-purple-dark {
-      background: #99a9bf;
-    }
-    .bg-purple {
-      background: #d3dce6;
-    }
-    .bg-purple-light {
-      background: #e5e9f2;
-    }
-    .grid-content {
-      border-radius: 4px;
-      min-height: 36px;
-    }
-    .row-bg {
-      padding: 10px 0;
-      background-color: #f9fafc;
+    .el-container {
+        margin-top: -15px;
     }
 
 </style>
