@@ -2,11 +2,14 @@
     <el-menu
         mode="horizontal"
         @select="handleNavItem"
-        background-color="#409EFF"
+        background-color="#665656"
         text-color="#fff"
-        active-text-color="#fc0"
+        active-text-color="#fff"
     >
-        <el-menu-item index="dashboard">Atom Settings</el-menu-item>
+        <el-menu-item index="dashboard">
+            <img src="../../../static/img/logo.png" alt="" width="40">
+            Atom Settings
+        </el-menu-item>
         <el-menu-item index="browse">Browse</el-menu-item>
         <el-menu-item index="login" class="right" v-if="!session.token">
             <el-button type="success" plain>Login</el-button>
