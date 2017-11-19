@@ -2,16 +2,7 @@
     <div class="col-xs-12">
         <h3>Github</h3>
         <h4>Select gist to share your settings </h4>
-
-        <el-alert
-            title="Public Gists Warning"
-            show-icon
-            type="warning"
-            closable="false"
-            description="If you use certain packages, storing auth-tokens, a malicious party could abuse them.">
-        </el-alert>
-        <p>{{filteredGists.length}} compatible settings gist found, {{gists.length}} gists found total.</p>
-
+        <!-- <p>{{filteredGists.length}} compatible settings gist found, {{gists.length}} gists found total.</p> -->
 
         <el-row gutter="20">
             <el-col :xs="8" :sm="6" :md="12" :lg="8" :xl="6" v-for="gist in gists">
@@ -60,6 +51,14 @@
                 </el-card>
             </el-col>
         </el-row>
+
+        <el-alert
+            title="Public Gists Warning"
+            show-icon
+            type="warning"
+            closable="false"
+            description="If you use certain packages, storing auth-tokens, a malicious party could abuse them.">
+        </el-alert>
 
         <!-- <div class="panel panel-default">
             <div class="panel-heading">

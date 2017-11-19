@@ -4,16 +4,18 @@
         <!-- <pre>{{session.user}}</pre> -->
         <el-form ref="form">
             <!-- <avatar size="xl" /> -->
-            <el-col :span="11">
-                <el-form-item label="First name">
-                    <el-input v-model="session.user.profile.firstName"></el-input>
-                </el-form-item>
-            </el-col>
-            <el-col :span="11" :offset="2">
-                <el-form-item label="Last name">
-                    <el-input v-model="session.user.profile.lastName"></el-input>
-                </el-form-item>
-            </el-col>
+            <el-row>
+                <el-col :span="11">
+                    <el-form-item label="First name">
+                        <el-input v-model="session.user.profile.firstName"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="11" :offset="2">
+                    <el-form-item label="Last name">
+                        <el-input v-model="session.user.profile.lastName"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
 
             <el-form-item label="Location">
                 <el-input v-model="session.user.profile.location"></el-input>
