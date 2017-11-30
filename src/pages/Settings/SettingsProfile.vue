@@ -106,7 +106,7 @@ export default {
                     this.$notify({
                         title: 'Saved',
                         message: 'This is a success message',
-                        type: 'error',
+                        type: 'success',
                     });
                 }).catch(() => {
                     this.$notify.error({

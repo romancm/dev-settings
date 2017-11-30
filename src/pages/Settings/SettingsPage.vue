@@ -85,7 +85,7 @@ export default {
     @import "~styles/_variables";
 
     .el-main {
-        height: 100vh;
+        // height: 100vh;
         border-left: 1px solid $color-base-border;
     }
 

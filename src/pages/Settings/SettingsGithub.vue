@@ -46,6 +46,7 @@
 
                     <el-alert
                         type="info"
+                        title="test"
                         description="Deselecting your gist will automatically remove you from browse results.">
                     </el-alert>
                 </el-card>

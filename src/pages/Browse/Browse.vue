@@ -65,18 +65,6 @@
                 </el-row>
 
                 {{session.user.profile}}
-
-                <div>
-                    <el-card class="box-card" v-for="job in jobs.jobs" :key="job.name">
-                        <a :href="job.url">
-                            {{job.name}}
-                        </a>
-                        <p>{{job.hiring_company.name}} | {{job.posted_time_friendly}} | {{job.location}}</p>
-
-                        <p v-html="job.snippet" />
-                    </el-card>
-                </div>
-                <a href="https://www.ziprecruiter.com/jobs" id="jobs_widget_link"><span>Job Search by</span> <span id="zr_logo_container"><img id="zr_logo" src="https://www.ziprecruiter.com/img/logos/logo-sm-black-304px.png" alt="ZipRecruiter" width="120" /></span></a>
             </el-main>
         </el-container>
         <el-footer>
