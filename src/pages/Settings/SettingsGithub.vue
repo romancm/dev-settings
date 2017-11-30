@@ -127,7 +127,10 @@ export default {
                     });
                 })
                 .catch(() => {
-                    this.$toasted.error(msg.errors.settings.gist);
+                    this.$notify.error({
+                        title: 'Error',
+                        message: msg.errors.settings.gist,
+                    });
                 })
                 .then(() => {
                     this.loading = false;
@@ -143,8 +146,10 @@ export default {
                     this.gists = data;
                 })
                 .catch(() => {
-                    this.$toasted.error(msg.errors.user);
-                    this.$toasted.error(':(');
+                    this.$notify.error({
+                        title: 'Error',
+                        message: msg.errors.user,
+                    });
                 })
                 .then(() => {
                     this.loadingGists = false;
@@ -164,10 +169,17 @@ export default {
             this.$http.put(`${this.environment.baseUrl}/profile/gist/`, payload)
                 .then(() => {
                     store.commit('reloadUserData');
-                    this.$toasted.success('Boom!');
+                    this.$notify({
+                        title: 'Success',
+                        message: 'This is a success message',
+                        type: 'success',
+                    });
                 })
                 .catch(() => {
-                    this.$toasted.error(':(');
+                    this.$notify.error({
+                        title: 'Error',
+                        message: 'Error',
+                    });
                 })
                 .then(() => {
                     this.loading = false;

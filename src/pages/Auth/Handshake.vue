@@ -28,7 +28,10 @@
                         this.login(res);
                     })
                     .catch(() => {
-                        this.$toasted.error(msg.errors.handshake.validation);
+                        this.$notify.error({
+                            title: 'Error',
+                            message: msg.errors.handshake.validation,
+                        });
                         this.$router.push({ path: '/' });
                     });
                 }
@@ -47,7 +50,10 @@
                         this.$router.push({ path: '/dashboard' });
                     })
                     .catch((error) => {
-                        this.$toasted.error(error.response.data.message);
+                        this.$notify.error({
+                            title: 'Error',
+                            message: error.response.data.message,
+                        });
                         this.$router.push({ path: '/' });
                     })
                     .then(() => {

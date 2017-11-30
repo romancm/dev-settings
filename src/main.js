@@ -7,7 +7,6 @@ import vMediaQuery from 'v-media-query';
 import FastClick from 'fastclick';
 import VueContentPlaceholders from 'vue-content-placeholders';
 import axios from 'axios';
-import Toasted from 'vue-toasted';
 import vmodal from 'vue-js-modal';
 
 import 'prismjs';
@@ -23,7 +22,6 @@ Vue.use(ElementUI);
 Vue.use(vMediaQuery);
 Vue.use(VueContentPlaceholders);
 Vue.use(vmodal);
-Vue.use(Toasted, { duration: 2000 });
 
 Vue.config.productionTip = false;
 

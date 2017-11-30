@@ -102,9 +102,17 @@ export default {
             this.$http.put(`${this.environment.baseUrl}/profile/`, payload)
                 .then(() => {
                     store.commit('reloadUserData');
-                    this.$toasted.success('Updated');
+
+                    this.$notify({
+                        title: 'Saved',
+                        message: 'This is a success message',
+                        type: 'error',
+                    });
                 }).catch(() => {
-                    this.$toasted.error(msg.errors.settings.profile);
+                    this.$notify.error({
+                        title: 'Error',
+                        message: msg.errors.settings.profile,
+                    });
                 }).then(() => {
                     this.loading = false;
                 });

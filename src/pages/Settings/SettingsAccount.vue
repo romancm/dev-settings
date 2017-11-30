@@ -58,13 +58,20 @@ export default {
                 this.$router.push({ name: 'exit-page' });
             })
             .catch(() => {
-                this.$toasted.error(msg.errors.settings.account);
+                this.$notify.error({
+                    title: 'Error',
+                    message: msg.errors.settings.account,
+                });
             });
         },
 
         logout() {
             store.commit('logout');
-            this.$toasted.success('Successfully logged out');
+            this.$notify({
+                title: 'Success',
+                message: 'This is a success message',
+                type: 'success',
+            });
             this.$router.push({ path: '/logout' });
         },
     },

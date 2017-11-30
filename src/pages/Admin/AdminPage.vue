@@ -70,7 +70,10 @@ export default {
                     this.users = data;
                 })
                 .catch((error) => {
-                    this.$toasted.error(error.response.data.message);
+                    this.$notify.error({
+                        title: 'Error',
+                        message: error.response.data.message,
+                    });
                 })
                 .then(() => {
                     this.loading = false;

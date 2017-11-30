@@ -31,7 +31,10 @@ export default {
             this.getGist(data.gistId);
         })
         .catch(() => {
-            this.$toasted.error(msg.errors.user);
+            this.$notify.error({
+                title: 'Error',
+                message: msg.errors.user,
+            });
         })
         .then(() => {
             this.loading = false;
@@ -43,10 +46,12 @@ export default {
             const url = `https://api.github.com/gists/${id}`;
             this.$http.get(url).then(({ data }) => {
                 this.gistData = data;
-                // TODO: cache this data?
             })
             .catch(() => {
-                this.$toasted.error('error');
+                this.$notify.error({
+                    title: 'Error',
+                    message: 'Error',
+                });
             })
             .then(() => {
                 this.loading = false;
