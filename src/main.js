@@ -13,6 +13,7 @@ import vmodal from 'vue-js-modal';
 import 'prismjs';
 import 'prismjs/themes/prism.css';
 import 'font-awesome/css/font-awesome.css';
+import './styles/_variables.scss';
 
 import App from './App';
 import router from './router';

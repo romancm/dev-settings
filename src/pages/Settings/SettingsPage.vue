@@ -1,23 +1,18 @@
 <template>
     <el-container>
-        <el-aside :width="sidebarWidth">
+        <el-aside width="auto">
             <el-row>
                 <el-menu
                     default-active="settingsGetStarted"
                     @select="select"
                     :collapse="isMobile"
                 >
-                    <el-menu-item v-for="({icon, name, path, title}, index) in settingsRoutes" :index="name">
+                    <el-menu-item v-for="({icon, name, path, title}, index) in settingsRoutes" :index="name" :key="index">
                         <i :class="['fa', `fa-warning`]" aria-hidden="true" v-if="isMissingGist(name)"></i>
                         <i :class="['fa', `fa-${icon}`]" aria-hidden="true" v-else></i>
                         <span slot="title">{{title}}</span>
                     </el-menu-item>
                 </el-menu>
-
-                <el-button type="info" size="small" plain @click="logout">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    Logout
-                </el-button>
             </el-row>
         </el-aside>
         <el-main>
@@ -46,7 +41,7 @@ export default {
                 },
                 {
                     name: 'settingsProfile',
-                    title: 'Profile',
+                    title: 'About You',
                     icon: 'user',
                 },
                 {
@@ -75,20 +70,12 @@ export default {
         select(routeName) {
             this.$router.push({ name: routeName });
         },
-        logout() {
-            store.commit('logout');
-            this.$toasted.success('Successfully logged out');
-            this.$router.push({ path: '/logout' });
-        },
     },
 
     computed: {
         session() { return store.getters.session; },
         isMobile() {
             return this.$mq.resize && this.$mq.below(768);
-        },
-        sidebarWidth() {
-            return this.isMobile ? 'auto' : '240px';
         },
     },
 };
@@ -97,20 +84,28 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
 
-    .el-menu-item {
-        .fa {
-            margin: 0 10px;
-
-            @media($xs) {
-                margin: 0;
-                text-align: center;
-                font-size: 20px;
-                width: 100%;
-            }
-        }
+    .el-main {
+        height: 100vh;
+        border-left: 1px solid $color-base-border;
     }
 
-    .el-button {
-        margin: $gp $gp * 2;
+    .el-aside {
+        height: 100%;
+
+        .el-menu {
+            border-right: 0;
+            .el-menu-item {
+                .fa {
+                    margin: 0 10px;
+
+                    @media($xs) {
+                        margin: 0;
+                        text-align: center;
+                        font-size: 20px;
+                        width: 100%;
+                    }
+                }
+            }
+        }
     }
 </style>

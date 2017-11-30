@@ -2,7 +2,7 @@
     <el-container class="user-packages">
         <el-aside width="200px">
             <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isMobile" @select="selectPackage">
-                <el-menu-item :index="name" v-for="{name, version} in packages">
+                <el-menu-item :index="name" v-for="{name, version} in packages" :key="version">
                     <span slot="title">{{name}}</span>
                 </el-menu-item>
             </el-menu>

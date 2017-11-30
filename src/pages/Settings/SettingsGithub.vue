@@ -5,7 +5,7 @@
         <!-- <p>{{filteredGists.length}} compatible settings gist found, {{gists.length}} gists found total.</p> -->
 
         <el-row gutter="20">
-            <el-col :xs="8" :sm="6" :md="12" :lg="8" :xl="6" v-for="gist in gists">
+            <el-col :xs="24" :sm="6" :md="12" :lg="8" :xl="6" v-for="gist in gists" :key="gist.id">
                 <el-card class="box-card" >
                     <h4>{{gist.description}}</h4>
 

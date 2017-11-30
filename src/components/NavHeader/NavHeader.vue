@@ -2,14 +2,11 @@
     <el-menu
         mode="horizontal"
         @select="handleNavItem"
-        background-color="#665656"
+        background-color="#409eff"
         text-color="#fff"
         active-text-color="#fff"
     >
-        <el-menu-item index="dashboard">
-            <img src="../../../static/img/logo.png" alt="" width="40">
-            Atom Settings
-        </el-menu-item>
+        <el-menu-item index="dashboard" class="logo">Atom Settings</el-menu-item>
         <el-menu-item index="browse">Browse</el-menu-item>
         <el-menu-item index="login" class="right" v-if="!session.token">
             <el-button type="success" plain>Login</el-button>
@@ -52,6 +49,10 @@
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
+    .logo {
+        font-size: 18px;
+        font-weight: bold;
+    }
     .el-menu--horizontal {
         .el-menu-item {
             border-bottom: none !important;

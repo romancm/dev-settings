@@ -15,6 +15,13 @@
                 <el-button type="danger" @click="deleteAccount">Confirm</el-button>
             </span>
         </el-dialog>
+
+        <h3>Logout</h3>
+
+        <el-button type="info" plain @click="logout">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            Logout
+        </el-button>
     </div>
 </template>
 
@@ -53,6 +60,12 @@ export default {
             .catch(() => {
                 this.$toasted.error(msg.errors.settings.account);
             });
+        },
+
+        logout() {
+            store.commit('logout');
+            this.$toasted.success('Successfully logged out');
+            this.$router.push({ path: '/logout' });
         },
     },
 };
