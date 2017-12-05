@@ -10,4 +10,4 @@ mv dist/* ../atom-settings-prod/
 echo "Pushing files to Heroku"
 git add .
 git commit -am "Deploying"
-git push herok umaster
+git push heroku master

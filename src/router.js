@@ -221,24 +221,17 @@ routes.beforeEach((to, from, next) => {
                 next('/dashboard');
             }
 
-            console.log(to);
-            console.log(to.name);
+            const url = window.location.href;
+            const base = window.location.origin;
 
-            next();
-            // const url = window.location.href;
-            //
-            // if (url.indexOf('code') !== -1) {
-            //     Vue.nextTick(() => {
-            //         const code = url.split('code=')[1].split('#')[0];
-            //         next({
-            //             name: 'handshake',
-            //             query: {
-            //                 code,
-            //             },
-            //         });
-            //     });
-            // } else {
-            // }
+            if (url.indexOf('handshake') !== -1) {
+                Vue.nextTick(() => {
+                    const code = url.split('code=')[1].split('#')[0];
+                    window.location.replace(`${base}/#/auth/handshake?code=${code}`);
+                });
+            } else {
+                next();
+            }
         }
     });
 
