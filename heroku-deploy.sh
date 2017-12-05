@@ -8,6 +8,7 @@ rm -rf ../atom-settings-prod/service-worker.js
 echo "Moving new dist files and folder"
 mv dist/* ../atom-settings-prod/
 echo "Pushing files to Heroku"
+cd ../atom-settings-prod
 git add .
 git commit -am "Deploying"
 git push heroku master
