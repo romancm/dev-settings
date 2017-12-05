@@ -10,8 +10,8 @@
                 <p v-html="job.snippet" />
             </el-card>
         </div> -->
-        <a href="https://www.ziprecruiter.com/jobs" id="jobs_widget_link"><span>Job Search by</span> <span id="zr_logo_container"><img id="zr_logo" src="https://www.ziprecruiter.com/img/logos/logo-sm-black-304px.png" alt="ZipRecruiter" width="120" /></span></a>
-        <el-row>
+        <!-- <a href="https://www.ziprecruiter.com/jobs" id="jobs_widget_link"><span>Job Search by</span> <span id="zr_logo_container"><img id="zr_logo" src="https://www.ziprecruiter.com/img/logos/logo-sm-black-304px.png" alt="ZipRecruiter" width="120" /></span></a> -->
+        <!-- <el-row>
             <el-col :span="24"><div class="grid-content bg-purple"></div></el-col>
         </el-row>
         <el-row :gutter="20">
@@ -28,7 +28,7 @@
             <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
             <el-col :span="16"><div class="grid-content bg-purple"></div></el-col>
             <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-        </el-row>
+        </el-row> -->
     </el-footer>
 </template>
 

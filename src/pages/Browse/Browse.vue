@@ -64,10 +64,10 @@
 
                 </el-row>
 
-                {{session.user.profile}}
+                <!-- {{session.user.profile}} -->
             </el-main>
         </el-container>
-        <el-footer>
+        <!-- <el-footer>
             <div class="block">
                 <span class="demonstration">When you have more than 7 pages</span>
                 <el-pagination
@@ -75,7 +75,7 @@
                     :total="1000">
                 </el-pagination>
             </div>
-        </el-footer>
+        </el-footer> -->
     </el-container>
 </template>
 

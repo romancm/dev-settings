@@ -6,9 +6,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.hello {
+/*.hello {
     min-height: 100vh;
     background: url('/static/img/home.jpg') no-repeat top center;
-}
+}*/
 </style>
 
