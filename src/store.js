@@ -33,7 +33,7 @@ export const store = new Vuex.Store({
             if (Object.keys(state.environment).length === 0) {
                 // baseUrl: environment === 'development' ? 'http://localhost:3333' : 'https://atom-settings-api.herokuapp.com',
                 state.environment = {
-                    baseUrl: environment === 'development' ? 'http://localhost:3333' : 'http://api.atomsettings.com/',
+                    baseUrl: environment === 'development' ? 'http://localhost:3333' : 'http://api.atomsettings.com',
                     githubClientId: environment === 'development' ? '5aeeffcd5b5afb0043fa' : '5a92b9da5f2017553b90',
                 };
             }
