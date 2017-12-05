@@ -140,12 +140,12 @@
                         });
                     });
 
-                this.$http.get('https://api.ziprecruiter.com/jobs/v1?search=javascript%20angular%20front%20end&location=&radius_miles=100&days_ago=&jobs_per_page=1&page=1&api_key=gii6sj3dk8hetjbv4qdw4bjafftedd4x')
-                    .then(({ data }) => {
-                        this.jobs = data;
-                    })
-                    .catch(() => {
-                    });
+                // this.$http.get('https://api.ziprecruiter.com/jobs/v1?search=javascript%20angular%20front%20end&location=&radius_miles=100&days_ago=&jobs_per_page=1&page=1&api_key=gii6sj3dk8hetjbv4qdw4bjafftedd4x')
+                //     .then(({ data }) => {
+                //         this.jobs = data;
+                //     })
+                //     .catch(() => {
+                //     });
             },
 
             url(id) {

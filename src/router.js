@@ -40,7 +40,7 @@ import { store } from '@/store';
 Vue.use(Router);
 
 const routes = new Router({
-    mode: 'history',
+    // mode: 'history',
     routes: [
         {
             path: '/',
@@ -67,6 +67,7 @@ const routes = new Router({
         {
             path: '/auth/handshake',
             component: Handshake,
+            name: 'handshake',
             meta: {
                 title: 'Auth',
                 auth: false,
@@ -199,6 +200,7 @@ const routes = new Router({
 });
 
 routes.beforeEach((to, from, next) => {
+    document.title = to.meta.title ? to.meta.title : 'Atom Settings';
     const session = store.getters.session;
     const isAuth = session && session.lastLogin;
 
@@ -218,10 +220,26 @@ routes.beforeEach((to, from, next) => {
             if (isAuth && to.meta.unAuth) {
                 next('/dashboard');
             }
-            next();
-        }
 
-        document.title = to.meta.title ? to.meta.title : 'Atom Settings';
+            console.log(to);
+            console.log(to.name);
+
+            next();
+            // const url = window.location.href;
+            //
+            // if (url.indexOf('code') !== -1) {
+            //     Vue.nextTick(() => {
+            //         const code = url.split('code=')[1].split('#')[0];
+            //         next({
+            //             name: 'handshake',
+            //             query: {
+            //                 code,
+            //             },
+            //         });
+            //     });
+            // } else {
+            // }
+        }
     });
 
     next();
