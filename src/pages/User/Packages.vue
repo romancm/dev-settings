@@ -99,7 +99,7 @@ export default {
             max-width: 100%;
         }
         .el-aside, .el-main {
-            height: calc(100vh - 300px);
+            height: calc(100vh - 320px);
         }
     }
 

@@ -120,13 +120,11 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
-    .avatar {
-        // background: #cf0;
-        margin: $gp;
+    .el-header {
+        margin: $gp * 2 0 0;
     }
-
-    .el-container {
-        margin-top: -15px;
+    .avatar {
+        margin: $gp;
     }
 
 </style>

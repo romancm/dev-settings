@@ -22,5 +22,9 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="scss" rel="stylesheet/scss">
+    pre {
+        background: rgba(255, 255, 255, 0.8) !important;
+        border-radius: 5px;
+    }
 </style>
