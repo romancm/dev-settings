@@ -5,6 +5,8 @@
                 <el-col :span="24">
                     <el-alert title="Welcome!" description="AtomSettings is an easy way to share your Atom settings with other developers, discover packages, themes, and everything related to customizing Atom" :closable="false" type="success" show-icon />
                 </el-col>
+            </el-row>
+            <el-row :gutter="20">
                 <el-col :span="24">
                     <el-alert title="Link Settings Gist" :closable="false" type="info" show-icon description="AtomSettings is an easy way to share your Atom settings with other developers, discover packages, themes, and everything related to customizing Atom">
                     </el-alert>

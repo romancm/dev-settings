@@ -4,13 +4,13 @@
             <h2>Browse Settings</h2>
         </el-header>
         <el-container>
-            <el-aside width="250px">
+            <!-- <el-aside width="250px">
                 <h3>Filters</h3>
-                <!-- Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab blanditiis veniam illum amet atque! Est doloribus vero beatae praesentium nostrum, explicabo, laboriosam nobis debitis pariatur. Possimus labore quod, minus! -->
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab blanditiis veniam illum amet atque! Est doloribus vero beatae praesentium nostrum, explicabo, laboriosam nobis debitis pariatur. Possimus labore quod, minus!
                 <h5>Job Title</h5>
-                <!-- <content-placeholders>
+                <content-placeholders>
                     <content-placeholders-heading img />
-                </content-placeholders> -->
+                </content-placeholders>
                 <el-select v-model="value5" multiple placeholder="Job title">
                     <el-option
                         v-for="item in options"
@@ -28,9 +28,9 @@
                     </el-option>
                 </el-select>
 
-            </el-aside>
+            </el-aside> -->
             <el-main>
-                <el-switch
+                <!-- <el-switch
                     v-model="value3"
                     active-text="Pay by month"
                     inactive-text="Pay by year">
@@ -44,7 +44,7 @@
                         <el-dropdown-item command="c">Action 3</el-dropdown-item>
                         <el-dropdown-item command="e" divided>Clear</el-dropdown-item>
                     </el-dropdown-menu>
-                </el-dropdown>
+                </el-dropdown> -->
 
                 <p v-if="!users.length">No users</p>
                 <el-row :gutter="15">

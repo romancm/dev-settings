@@ -85,7 +85,8 @@ export default {
     @import "~styles/_variables";
 
     .el-main {
-        // height: 100vh;
+        background: rgba(255, 255, 255, 0.7);
+        height: calc(100vh - 60px);
         border-left: 1px solid $color-base-border;
     }
 
@@ -94,6 +95,7 @@ export default {
 
         .el-menu {
             border-right: 0;
+            background: transparent;
             .el-menu-item {
                 .fa {
                     margin: 0 10px;

@@ -2,7 +2,6 @@
     <el-menu
         mode="horizontal"
         @select="handleNavItem"
-        background-color="#409eff"
         text-color="#fff"
         active-text-color="#fff"
     >
@@ -49,6 +48,10 @@
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
+    .el-menu {
+        background: rgba(0, 125, 255, 0.70);
+        border-bottom: none;
+    }
     .logo {
         font-size: 18px;
         font-weight: bold;
