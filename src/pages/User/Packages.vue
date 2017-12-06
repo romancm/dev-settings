@@ -1,20 +1,23 @@
 <template lang="html">
-    <el-container class="user-packages">
-        <el-aside width="200px">
-            <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isMobile" @select="selectPackage">
-                <el-menu-item :index="name" v-for="{name, version} in packages" :key="version">
-                    <span slot="title">{{name}}</span>
-                </el-menu-item>
-            </el-menu>
-        </el-aside>
-        <el-main>
-            <vue-markdown :source="packageData.readme" v-if="packageData" />
-            <span v-if="!packageName">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                Select a package
-            </span>
-        </el-main>
-    </el-container>
+    <div>
+        <h2>Packages</h2>
+        <el-container class="user-packages">
+            <el-aside width="200px">
+                <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isMobile" @select="selectPackage">
+                    <el-menu-item :index="name" v-for="{name, version} in packages" :key="version">
+                        <span slot="title">{{name}}</span>
+                    </el-menu-item>
+                </el-menu>
+            </el-aside>
+            <el-main>
+                <vue-markdown :source="packageData.readme" v-if="packageData" />
+                <span v-if="!packageName">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    Select a package
+                </span>
+            </el-main>
+        </el-container>
+    </div>
 </template>
 
 <script>

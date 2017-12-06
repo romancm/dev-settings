@@ -86,10 +86,8 @@ export default {
         };
     },
 
-    computed: {
-        tabName() {
-            return this.$route.meta.tabName;
-        },
+    mounted() {
+        this.activeName = this.$route.path.split(`${this.$route.params.id}/`)[1];
     },
 
     props: {
