@@ -53,12 +53,12 @@
                             <router-link :to="{ name: 'user', params: { id: user.user } }">
                                 <avatar :user-data="user" public />
                             </router-link>
-                            <div class="card-content">
+                            <!-- <div class="card-content">
                                 <h3>{{user.user}}</h3>
                                 <div class="languages">
                                     <i :class="'devicon-'+language+'-plain colored'" v-for="language in user.profile.languages"></i>
                                 </div>
-                            </div>
+                            </div> -->
                         </el-card>
                     </el-col>
 

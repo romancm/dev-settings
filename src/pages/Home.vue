@@ -1,11 +1,11 @@
 <template>
     <div class="hello">
-        <h2>Welcome home, developers</h2>
-        <p>AtomSettings is inspired by the way you work. From software architects to hobbyist, you can share and view atom settings, discover workspaces, and build software alongside millions of other developers.</p>
+        <!-- <h2>Welcome home, developers</h2> -->
+        <!-- <p>AtomSettings is inspired by the way you work. From software architects to hobbyist, you can share and view atom settings, discover workspaces, and build software alongside millions of other developers.</p> -->
 
-        <el-button type="success" plain>Login</el-button>
-        or
-        <el-button type="success" plain>Register</el-button>
+        <!-- <el-button type="success" plain>Login</el-button> -->
+        <!-- or -->
+        <!-- <el-button type="success" plain>Register</el-button> -->
         <!-- <h2>Succeed together.</h2> -->
         <!-- <p>Meet Evernote, your second brain. Capture, organize, and share notes from anywhere. Your best ideas are always with you and always in sync.</p> -->
     </div>

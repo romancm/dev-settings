@@ -121,7 +121,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
     .avatar {
-        background: #cf0;
+        // background: #cf0;
         margin: $gp;
     }
 
