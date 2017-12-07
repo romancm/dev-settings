@@ -67,11 +67,6 @@ export default {
 
         logout() {
             store.commit('logout');
-            this.$notify({
-                title: 'Success',
-                message: 'This is a success message',
-                type: 'success',
-            });
             this.$router.push({ path: '/logout' });
         },
     },
@@ -90,7 +85,7 @@ export default {
     .el-alert {
         margin-top: $gp * 2;
         padding: $gp * 2;
-        
+
         h4 {
             margin-top: 0;
         }
