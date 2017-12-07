@@ -43,7 +43,7 @@
             </el-form-item>
 
             <el-form-item>
-                <el-button type="primary" plain @click="updateProfile">Save</el-button>
+                <el-button type="primary" plain :loading="loading" @click="updateProfile">Save</el-button>
             </el-form-item>
         </el-form>
 

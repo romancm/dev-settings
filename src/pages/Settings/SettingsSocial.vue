@@ -16,7 +16,7 @@
             </el-row>
 
             <el-form-item>
-                <el-button type="primary" plain @click="save">Save</el-button>
+                <el-button type="primary" plain :loading="loading" @click="save">Save</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -32,8 +32,15 @@ export default {
         environment() { return store.getters.environment; },
     },
 
+    data() {
+        return {
+            loading: false,
+        };
+    },
+
     methods: {
         save() {
+            this.loading = true;
             const payload = {
                 userName: this.session.user.user,
                 token: this.session.token,
@@ -42,6 +49,7 @@ export default {
 
             this.$http.put(`${this.environment.baseUrl}/profile/social`, payload)
             .then(() => {
+                this.loading = false;
                 store.commit('reloadUserData');
                 this.$notify({
                     title: 'Success',

@@ -92,6 +92,10 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
 
+    h2 {
+        margin-top: 0;
+    }
+
     .el-main {
         background: rgba(255, 255, 255, 0.7);
         height: calc(100vh - 60px);
