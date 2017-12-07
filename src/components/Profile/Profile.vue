@@ -1,32 +1,24 @@
 <template lang="html">
     <div class="profile row" v-if="userData && gistData">
+        <div class="user-card">
+            <div class="info">
+                <img :src="userData.avatar" :alt="userData.user" class="avatar">
+                <h2>{{userData.user}}</h2>
+                <!-- <i class="fa fa-map-marker" aria-hidden="true"></i> -->
+
+                <!-- {{userData.profile.location}} -->
+            </div>
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tab-pane name="packages" label="Packages"></el-tab-pane>
+                <el-tab-pane name="init-script" label="Init Script"></el-tab-pane>
+                <el-tab-pane name="keymaps" label="Keymaps"></el-tab-pane>
+                <el-tab-pane name="settings" label="Settings"></el-tab-pane>
+                <el-tab-pane name="snippets" label="Snippets"></el-tab-pane>
+                <el-tab-pane name="styles" label="Styles"></el-tab-pane>
+            </el-tabs>
+        </div>
         <el-container>
-            <el-header height="auto">
-                <el-card :body-style="{ padding: '0px' }">
-                    <el-col :span="3" :xs="6">
-                        <avatar :user-data="userData" public />
-                    </el-col>
-                    <el-col :span="21" :xs="18">
-                        <h3>{{userData.user}}</h3>
-                        <!-- <p>Last updated {{moment(gistData.lastUpdated).fromNow()}}</p> -->
-                        <el-button size="mini">Github</el-button>
-                        <!-- <a :href="gistData.owner.html_url" class="btn btn-default" target="_blank">
-                            Github Profile <i class="fa fa-external-link" aria-hidden="true"></i>
-                        </a> -->
-                    </el-col>
-                </el-card>
-            </el-header>
-
             <el-main>
-                <el-tabs v-model="activeName" @tab-click="handleClick">
-                    <el-tab-pane name="packages" label="Packages"></el-tab-pane>
-                    <el-tab-pane name="init-script" label="Init Script"></el-tab-pane>
-                    <el-tab-pane name="keymaps" label="Keymaps"></el-tab-pane>
-                    <el-tab-pane name="settings" label="Settings"></el-tab-pane>
-                    <el-tab-pane name="snippets" label="Snippets"></el-tab-pane>
-                    <el-tab-pane name="styles" label="Styles"></el-tab-pane>
-                </el-tabs>
-
                 <router-view :gist-data="gistData" :user-data="userData"></router-view>
             </el-main>
         </el-container>
@@ -116,13 +108,40 @@ export default {
 };
 </script>
 
-<style lang="scss" rel="stylesheet/scss" scoped>
+<style lang="scss" rel="stylesheet/scss">
     @import "~styles/_variables";
-    .el-header {
-        margin: $gp * 2 0 0;
+    .user-card {
+        display: flex;
+        @media($xs) {
+            flex-direction: column;
+        }
+        padding: 0;
+        margin: $gp * 2 $gp * 2 0;
+        .info {
+            @media($xs) {
+                background: #fff;
+                border-bottom: 1px solid #ccc;
+                align-items: center;
+            }
+            padding-right: $gp;
+            display: flex;
+            h2 {
+                line-height: 1.5em;
+                margin: 0;
+            }
+            .avatar {
+                margin-right: $gp;
+                width: 50px;
+                height: 50px;
+            }
+        }
     }
-    .avatar {
-        margin: $gp;
+    .el-tabs__header {
+        margin-bottom: 0;
+    }
+    .el-main {
+        margin-top: 0;
+        padding-top: 0;
     }
 
 </style>

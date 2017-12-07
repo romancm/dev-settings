@@ -2,8 +2,13 @@
     <div>
         <h2>Packages</h2>
         <el-container class="user-packages">
-            <el-aside width="200px">
-                <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isMobile" @select="selectPackage">
+            <!-- <el-menu default-active="2" class="el-menu-vertical-demo" @select="selectPackage">
+                <el-menu-item :index="name" v-for="{name, version} in packages" :key="version">
+                    <span slot="title">{{name}}</span>
+                </el-menu-item>
+            </el-menu> -->
+            <el-aside v-if="!isMobile">
+                <el-menu default-active="2" class="el-menu-vertical-demo" @select="selectPackage">
                     <el-menu-item :index="name" v-for="{name, version} in packages" :key="version">
                         <span slot="title">{{name}}</span>
                     </el-menu-item>
@@ -91,6 +96,8 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+    @import "~styles/variables";
+
     .user-packages {
         .el-menu-item {
             // padding: 0 !important;
@@ -101,8 +108,20 @@ export default {
         img {
             max-width: 100%;
         }
+
+        .el-aside, .el-menu {
+            width: 200px !important;
+            @media($xs) {
+                width: 100% !important;
+            }
+        }
+
         .el-aside, .el-main {
-            height: calc(100vh - 320px);
+            height: calc(100vh - 260px);
+            @media($xs) {
+                padding: 0;
+                height: auto;
+            }
         }
     }
 
