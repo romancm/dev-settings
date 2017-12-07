@@ -1,44 +1,72 @@
 <template lang="html">
-    <div class="container text-center">
-        <i class="fa fa-cog fa-spin fa-5x" aria-hidden="true"></i>
-        <p class="lead">Authorizing</p>
+    <div class="handshake" :class="{ error }">
+        <span v-if="error">
+            <i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true"></i>
+            <h2>Uh Oh!</h2>
+            <p>There was a problem while <br />authenticating your <strong>Github</strong> account.</p>
+            <el-button type="primary" @click="goHome">Home</el-button>
+            <el-button type="info" @click="tryAgain">Try again</el-button>
+        </span>
+
+        <span v-else>
+            <i class="fa fa-cog fa-spin fa-5x" aria-hidden="true"></i>
+            <h2>Authorizing</h2>
+        </span>
     </div>
 </template>
 
 <script>
-    import msg from '@/msg';
     import { store } from '@/store';
 
     export default {
         computed: {
             environment() { return store.getters.environment; },
+            githuburl() {
+                return `https://github.com/login/oauth/authorize?scope=user:email&client_id=${this.environment.githubClientId}`;
+            },
+        },
+
+        data() {
+            return {
+                error: false,
+            };
         },
 
         mounted() {
-            this.validateGithubCode();
+            if (this.$route.query.code) {
+                this.validateGithubCode();
+            }
         },
 
         methods: {
+            goHome() {
+                this.$router.push({ path: '/' });
+            },
+
+            tryAgain() {
+                window.location.href = this.githuburl;
+            },
+
             validateGithubCode() {
-                if (this.$route.query.code) {
-                    this.$http.post(`${this.environment.baseUrl}/auth/`, {
-                        code: this.$route.query.code,
-                    })
+                const payload = {
+                    code: this.$route.query.code,
+                };
+
+                const url = `${this.environment.baseUrl}/auth/`;
+
+                this.$http.post(url, payload)
                     .then((res) => {
                         this.login(res);
                     })
                     .catch(() => {
-                        this.$notify.error({
-                            title: 'Error',
-                            message: msg.errors.handshake.validation,
-                        });
-                        this.$router.push({ path: '/' });
+                        this.error = true;
                     });
-                }
             },
 
             login(user) {
-                this.$http.post(`${this.environment.baseUrl}/auth/register`, user)
+                const url = `${this.environment.baseUrl}/auth/register`;
+
+                this.$http.post(url, user)
                     .then((res) => {
                         const session = {
                             user: res.data,
@@ -47,7 +75,7 @@
                         };
 
                         store.commit('updateSession', session);
-                        this.$router.push({ path: '/dashboard' });
+                        this.$router.push({ path: '/settings' });
                     })
                     .catch((error) => {
                         this.$notify.error({
@@ -65,4 +93,28 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+    @import "~styles/variables";
+    .handshake {
+        height: 120px;
+        width: 300px;
+        z-index: 15;
+        top: 50%;
+        left: 50%;
+        margin: -60px 0 0 -150px;
+
+        text-align: center;
+        color: $color-primary;
+        position: absolute;
+        overflow: hidden;
+
+        &.error {
+            height: 230px;
+            margin: -115px 0 0 -150px;
+            color: $color-danger;
+        }
+
+        h2 {
+            margin: 0;
+        }
+    }
 </style>
