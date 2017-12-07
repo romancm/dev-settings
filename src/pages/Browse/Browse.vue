@@ -1,6 +1,6 @@
 <template lang="html">
     <el-container>
-        <el-header>
+        <el-header height="auto">
             <h2>Browse Settings</h2>
         </el-header>
         <el-container>
@@ -162,5 +162,9 @@
         padding: 0 $gp * 2;
         @media($md) {}
         @media($lg) {}
+    }
+
+    .el-header {
+        // background: #cf0;
     }
 </style>
