@@ -109,6 +109,10 @@ export default {
             border-right: 0;
             background: transparent;
             .el-menu-item {
+                &.is-active {
+                    background: #fff;
+                }
+
                 .fa {
                     margin: 0 10px;
 

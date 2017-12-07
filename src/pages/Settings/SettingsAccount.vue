@@ -1,9 +1,16 @@
 <template>
     <div class="settings-account">
         <h3>Account</h3>
-        <p>Once you delete your account, your data will be permanently removed.</p>
+        <el-button type="info" plain @click="logout">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            Logout
+        </el-button>
 
-        <el-button type="danger" plain @click="toggleDeleteModal">Delete Account</el-button>
+        <el-alert type="info" :closable="false">
+            <h4>Delete your account</h4>
+            <p>Once you delete your account, your data will be permanently removed.</p>
+            <el-button type="info" plain @click="toggleDeleteModal">Delete Account</el-button>
+        </el-alert>
 
         <el-dialog title="Confirm Account Deletion" :visible.sync="showConfirmDialog">
             <div class="content">
@@ -15,13 +22,6 @@
                 <el-button type="danger" @click="deleteAccount">Confirm</el-button>
             </span>
         </el-dialog>
-
-        <h3>Logout</h3>
-
-        <el-button type="info" plain @click="logout">
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
-            Logout
-        </el-button>
     </div>
 </template>
 
@@ -77,3 +77,22 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" >
+    @import "~styles/_variables";
+
+    .el-dialog {
+        @media($xs) {
+            width: 90%;
+        }
+    }
+
+    .el-alert {
+        margin-top: $gp * 2;
+        padding: $gp * 2;
+        
+        h4 {
+            margin-top: 0;
+        }
+    }
+</style>
