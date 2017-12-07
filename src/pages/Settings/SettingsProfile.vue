@@ -3,12 +3,12 @@
         <h3>Profile</h3>
         <el-form ref="form">
             <el-row>
-                <el-col :span="11">
+                <el-col :xs="{ span: 24, offset: 0}" :sm="{ span: 11 }">
                     <el-form-item label="First name">
                         <el-input v-model="session.user.profile.firstName"></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="11" :offset="2">
+                <el-col :xs="{ span: 24, offset: 0}" :sm="{ span: 11, offset: 2 }">
                     <el-form-item label="Last name">
                         <el-input v-model="session.user.profile.lastName"></el-input>
                     </el-form-item>
@@ -123,6 +123,10 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 @import "~styles/_variables";
+
+.el-row {
+    margin-bottom: 0;
+}
 
 .el-popover {
     img {
