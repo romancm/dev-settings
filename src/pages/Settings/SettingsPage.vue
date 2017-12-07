@@ -3,7 +3,7 @@
         <el-aside width="auto">
             <el-row>
                 <el-menu
-                    default-active="settingsGetStarted"
+                    :default-active="activeName"
                     @select="select"
                     :collapse="isMobile"
                 >
@@ -28,6 +28,10 @@ import { store } from '@/store';
 export default {
     data() {
         return {
+            activeName: {
+                type: String,
+                default: 'settingsGetStarted',
+            },
             settingsRoutes: [
                 {
                     name: 'settingsGetStarted',
@@ -56,6 +60,10 @@ export default {
                 },
             ],
         };
+    },
+
+    mounted() {
+        this.activeName = this.$route.name;
     },
 
     methods: {
