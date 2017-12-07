@@ -2,6 +2,12 @@
     <el-container>
         <el-aside width="auto">
             <el-row>
+                <div class="userInfo">
+                    <img :src="user.avatar" alt="user.user">
+                    <strong class="userName">
+                        {{user.user}}
+                    </strong>
+                </div>
                 <el-menu
                     :default-active="activeName"
                     @select="select"
@@ -15,6 +21,7 @@
                 </el-menu>
             </el-row>
         </el-aside>
+
         <el-main>
             <h2>Settings</h2>
             <router-view />
@@ -72,7 +79,7 @@ export default {
         },
 
         isMissingGist(name) {
-            return name === 'settingsGithub' && !this.session.user.gistId;
+            return name === 'settingsGithub' && !this.user.gistId;
         },
 
         select(routeName) {
@@ -81,7 +88,7 @@ export default {
     },
 
     computed: {
-        session() { return store.getters.session; },
+        user() { return store.getters.session.user; },
         isMobile() {
             return this.$mq.resize && this.$mq.below(768);
         },
@@ -91,6 +98,32 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
+
+    .userInfo {
+        display: flex;
+        flex-direction: column;
+        width: 156px;
+        margin-bottom: $gp;
+
+        @media($xs) {
+            width: 44px;
+        }
+
+        img {
+            width: 100%;
+            margin: $gp;
+        }
+
+        .userName {
+            text-align: center;
+            width: 100%;
+            overflow-x: auto;
+            margin-left: $gp;
+            @media($xs) {
+                display: none;
+            }
+        }
+    }
 
     h2 {
         margin-top: 0;
