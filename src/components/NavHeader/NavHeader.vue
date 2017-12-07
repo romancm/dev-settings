@@ -5,13 +5,13 @@
         text-color="#fff"
         active-text-color="#fff"
     >
-        <el-menu-item index="dashboard" class="logo">Atom Settings</el-menu-item>
+        <el-menu-item index="home" class="logo">Atom Settings</el-menu-item>
         <el-menu-item index="browse">Browse</el-menu-item>
         <el-menu-item index="login" class="right" v-if="!session.token">
             <el-button type="success" plain>Login</el-button>
         </el-menu-item>
         <el-menu-item index="settingsGetStarted" class="right settings" v-else>
-            <i class="el-icon-setting" aria-hidden="true"></i>
+            <i class="fa fa-cog fa-2x" aria-hidden="true" />
         </el-menu-item>
     </el-menu>
 </template>
