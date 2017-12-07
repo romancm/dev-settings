@@ -3,7 +3,6 @@ import Router from 'vue-router';
 
 // Pages
 import Browse from '@/pages/Browse/Browse';
-import Dashboard from '@/pages/Dashboard/Dashboard';
 import Home from '@/pages/Home';
 import Logout from '@/pages/Logout/Logout';
 import ExitPage from '@/pages/ExitPage/ExitPage';
@@ -72,15 +71,6 @@ const routes = new Router({
                 title: 'Auth',
                 auth: false,
                 hideNav: true,
-            },
-        },
-        {
-            path: '/dashboard',
-            component: Dashboard,
-            name: 'dashboard',
-            meta: {
-                title: 'Atom Settings Dashboard',
-                auth: true,
             },
         },
         {
@@ -218,7 +208,7 @@ routes.beforeEach((to, from, next) => {
             }
         } else {
             if (isAuth && to.meta.unAuth) {
-                next('/dashboard');
+                next('/settings');
             }
 
             const url = window.location.href;
