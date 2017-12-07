@@ -45,6 +45,7 @@ export default {
     },
 
     computed: {
+        id() { return this.$route.params.id; },
         packages() {
             return JSON.parse(this.gistData.files['packages.json'].content);
         },
@@ -63,6 +64,8 @@ export default {
     },
 
     mounted() {
+        document.title = `${this.id} Packages | Atom Settings`;
+
         this.loadPackage();
     },
 

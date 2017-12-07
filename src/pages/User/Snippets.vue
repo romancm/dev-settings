@@ -22,6 +22,14 @@ export default {
         gistData: Object,
         userData: Object,
     },
+
+    computed: {
+        id() { return this.$route.params.id; },
+    },
+
+    mounted() {
+        document.title = `${this.id} Snippets | Atom Settings`;
+    },
 };
 </script>
 

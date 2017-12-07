@@ -25,6 +25,8 @@ export default {
     },
 
     mounted() {
+        document.title = `${this.id} Settings | Atom Settings`;
+
         this.$http.get(`${this.environment.baseUrl}/browse/${this.id}`)
         .then(({ data }) => {
             this.userData = data;

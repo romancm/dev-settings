@@ -19,6 +19,14 @@ export default {
     props: {
         gistData: Object,
     },
+
+    computed: {
+        id() { return this.$route.params.id; },
+    },
+
+    mounted() {
+        document.title = `${this.id} Settings | Atom Settings`;
+    },
 };
 </script>
 

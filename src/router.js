@@ -53,13 +53,16 @@ const routes = new Router({
             path: '/logout',
             component: Logout,
             name: 'logout',
+            meta: {
+                title: 'Logged out | Atom Settings',
+            },
         },
         {
             path: '/admin',
             component: AdminPage,
             name: 'admin',
             meta: {
-                title: 'Atom Settings Admin',
+                title: 'Admin | Atom Settings',
                 auth: true,
             },
         },
@@ -68,7 +71,7 @@ const routes = new Router({
             component: Handshake,
             name: 'handshake',
             meta: {
-                title: 'Auth',
+                title: 'Logging in | Atom Settings',
                 auth: false,
                 hideNav: true,
             },
@@ -78,7 +81,7 @@ const routes = new Router({
             component: ExitPage,
             name: 'exit-page',
             meta: {
-                title: 'Atom Settings',
+                title: 'Account deleted | Atom Settings',
             },
         },
         {
@@ -86,16 +89,13 @@ const routes = new Router({
             component: Browse,
             name: 'browse',
             meta: {
-                title: 'Browse Atom Settings',
+                title: 'Browse | Atom Settings',
             },
         },
         {
             path: '/browse/:id',
             component: User,
             name: 'user',
-            meta: {
-                title: 'Browse {{User}} Atom Settings',
-            },
             redirect: '/browse/:id/packages',
             children: [
                 {
@@ -135,7 +135,7 @@ const routes = new Router({
             path: '/settings',
             component: SettingsPage,
             meta: {
-                title: 'Atom Settings',
+                title: 'Settings | Atom Settings',
                 auth: true,
             },
             children: [
@@ -144,7 +144,7 @@ const routes = new Router({
                     component: SettingsGetStarted,
                     name: 'settingsGetStarted',
                     meta: {
-                        title: 'Atom Settings | Get Started',
+                        title: 'Get Started | Atom Settings',
                         auth: true,
                     },
                 },
@@ -153,7 +153,7 @@ const routes = new Router({
                     component: SettingsGithub,
                     name: 'settingsGithub',
                     meta: {
-                        title: 'Atom Settings | Sync',
+                        title: 'Sync | Atom Settings',
                         auth: true,
                     },
                 },
@@ -162,7 +162,7 @@ const routes = new Router({
                     component: SettingsProfile,
                     name: 'settingsProfile',
                     meta: {
-                        title: 'Atom Settings | Profile',
+                        title: 'Profile | Atom Settings',
                         auth: true,
                     },
                 },
@@ -171,7 +171,7 @@ const routes = new Router({
                     component: SettingsSocial,
                     name: 'settingsSocial',
                     meta: {
-                        title: 'Atom Settings | Social',
+                        title: 'Social | Atom Settings',
                         auth: true,
                     },
                 },
@@ -180,7 +180,7 @@ const routes = new Router({
                     component: SettingsAccount,
                     name: 'settingsAccount',
                     meta: {
-                        title: 'Atom Settings | Account',
+                        title: 'Account | Atom Settings',
                         auth: true,
                     },
                 },
@@ -216,8 +216,10 @@ routes.beforeEach((to, from, next) => {
 
             if (url.indexOf('handshake') !== -1) {
                 Vue.nextTick(() => {
-                    const code = url.split('code=')[1].split('#')[0];
-                    window.location.replace(`${base}/#/auth/handshake?code=${code}`);
+                    if (url.indexOf('code=') !== -1) {
+                        const code = url.split('code=')[1].split('#')[0];
+                        window.location.replace(`${base}/#/auth/handshake?code=${code}`);
+                    }
                 });
             } else {
                 next();

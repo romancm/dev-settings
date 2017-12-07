@@ -16,8 +16,16 @@ export default {
         Prism,
     },
 
+    computed: {
+        id() { return this.$route.params.id; },
+    },
+
     props: {
         gistData: Object,
+    },
+
+    mounted() {
+        document.title = `${this.id} Init Script | Atom Settings`;
     },
 };
 </script>
