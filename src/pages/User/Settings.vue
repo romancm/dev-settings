@@ -1,11 +1,8 @@
 <template lang="html">
-    <div>
-        <h2>Settings</h2>
-        <prism
-            language="json"
-            :code="gistData.files['settings.json'].content"
-        />
-    </div>
+    <prism
+        language="json"
+        :code="gistData.files['settings.json'].content"
+    />
 </template>
 
 <script>

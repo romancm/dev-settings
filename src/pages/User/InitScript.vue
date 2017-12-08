@@ -1,11 +1,8 @@
 <template lang="html">
-    <div>
-        <h2>Init Script</h2>
-        <prism
-            language="coffeescript"
-            :code="gistData.files['init.coffee'].content"
-        />
-    </div>
+    <prism
+        language="coffeescript"
+        :code="gistData.files['init.coffee'].content"
+    />
 </template>
 
 <script>

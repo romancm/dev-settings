@@ -116,15 +116,19 @@ export default {
             flex-direction: column;
         }
         padding: 0;
-        margin: $gp * 2 $gp * 2 0;
+        margin: $gp * 2;
+
         .info {
+            padding-right: $gp * 2;
+            display: flex;
+
             @media($xs) {
+                padding-right: 0;
                 background: #fff;
                 border-bottom: 1px solid #ccc;
                 align-items: center;
             }
-            padding-right: $gp;
-            display: flex;
+
             h2 {
                 line-height: 1.5em;
                 margin: 0;

@@ -1,13 +1,8 @@
 <template lang="html">
-    <div>
-        <h2>Snippets</h2>
-
-        <prism
-            language="coffeescript"
-            :code="gistData.files['snippets.cson'].content"
-            :plugins="[]"
-        />
-    </div>
+    <prism
+        language="coffeescript"
+        :code="gistData.files['snippets.cson'].content"
+    />
 </template>
 
 <script>

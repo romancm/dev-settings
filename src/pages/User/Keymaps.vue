@@ -1,11 +1,8 @@
 <template lang="html">
-    <div>
-        <h2>Keymaps</h2>
-        <prism
-            language="coffeescript"
-            :code="gistData.files['keymap.cson'].content"
-        />
-    </div>
+    <prism
+        language="coffeescript"
+        :code="gistData.files['keymap.cson'].content"
+    />
 </template>
 
 <script>

@@ -1,20 +1,28 @@
 <template lang="html">
-    <div>
-        <h2>Packages</h2>
-        <el-container class="user-packages">
-            <!-- <el-menu default-active="2" class="el-menu-vertical-demo" @select="selectPackage">
-                <el-menu-item :index="name" v-for="{name, version} in packages" :key="version">
-                    <span slot="title">{{name}}</span>
-                </el-menu-item>
-            </el-menu> -->
-            <el-aside v-if="!isMobile">
-                <el-menu default-active="2" class="el-menu-vertical-demo" @select="selectPackage">
+    <div class="user-packages">
+        <el-button
+            type="primary"
+            plain
+            @click="togglePackageMenu"
+            v-if="isMobile && !showPackageMenu"
+        >
+            <i class="fa fa-archive" aria-hidden="true"></i>
+            Select Package
+        </el-button>
+
+        <el-container>
+            <el-aside :class="{ show: showPackageMenu }">
+                <el-menu
+                    :default-active="packageName"
+                    class="el-menu-vertical-demo"
+                    @select="selectPackage"
+                >
                     <el-menu-item :index="name" v-for="{name, version} in packages" :key="version">
                         <span slot="title">{{name}}</span>
                     </el-menu-item>
                 </el-menu>
             </el-aside>
-            <el-main>
+            <el-main :class="{ hide: showPackageMenu }" v-loading="loading">
                 <vue-markdown :source="packageData.readme" v-if="packageData" />
                 <span v-if="!packageName">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
@@ -37,6 +45,7 @@ export default {
         return {
             packageData: null,
             loading: false,
+            showPackageMenu: true,
         };
     },
 
@@ -71,12 +80,18 @@ export default {
 
     methods: {
         selectPackage(name) {
+            this.showPackageMenu = false;
+
             const params = {
                 ...this.$route.params,
                 packageName: name,
             };
 
             this.$router.push({ name: 'package', params });
+        },
+
+        togglePackageMenu() {
+            this.showPackageMenu = !this.showPackageMenu;
         },
 
         loadPackage() {
@@ -101,28 +116,62 @@ export default {
 <style lang="scss" rel="stylesheet/scss">
     @import "~styles/variables";
 
+    .el-button {
+        margin-bottom: $gp;
+    }
     .user-packages {
-        .el-menu-item {
-            // padding: 0 !important;
-            height: 36px !important;
-            line-height: 36px !important;
+
+        .el-menu {
+            background: transparent;
+            border-right: none;
+            .el-menu-item {
+                &.is-active {
+                    background: #fff;
+                    border-top-left-radius: 5px;
+                    border-bottom-left-radius: 5px;
+                }
+                height: 36px !important;
+                line-height: 36px !important;
+            }
         }
 
-        img {
-            max-width: 100%;
-        }
+        .el-main {
+            padding: $gp $gp * 2;
+            background: #fff;
+            border-radius: $border-radius;
 
-        .el-aside, .el-menu {
-            width: 200px !important;
+            img {
+                max-width: 100%;
+            }
+
             @media($xs) {
-                width: 100% !important;
+                &.hide {
+                    display: none;
+                    // width: 100% !important;
+                }
+            }
+        }
+
+        .el-aside {
+            overflow-x: hidden;
+            width: auto !important;
+            max-width: 33%;
+
+            @media($xs) {
+                max-width: 100%;
+                background: #fff;
+                display: none;
+                &.show {
+                    display: block;
+                    width: 100% !important;
+                }
             }
         }
 
         .el-aside, .el-main {
-            height: calc(100vh - 260px);
+            height: calc(100vh - 170px);
+
             @media($xs) {
-                padding: 0;
                 height: auto;
             }
         }

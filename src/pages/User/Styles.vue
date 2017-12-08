@@ -1,11 +1,8 @@
 <template lang="html">
-    <div>
-        <h2>Styles</h2>
-        <prism
-            language="less"
-            :code="gistData.files['styles.less'].content"
-        />
-    </div>
+    <prism
+        language="less"
+        :code="gistData.files['styles.less'].content"
+    />
 </template>
 
 <script>
