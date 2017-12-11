@@ -3,84 +3,86 @@
         <el-header height="auto">
             <h2>Browse Settings</h2>
         </el-header>
+
         <el-container>
-            <!-- <el-aside width="250px">
-                <h3>Filters</h3>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab blanditiis veniam illum amet atque! Est doloribus vero beatae praesentium nostrum, explicabo, laboriosam nobis debitis pariatur. Possimus labore quod, minus!
+            <el-aside width="250px">
+                <h3>Filter by</h3>
+
                 <h5>Job Title</h5>
-                <content-placeholders>
-                    <content-placeholders-heading img />
-                </content-placeholders>
-                <el-select v-model="value5" multiple placeholder="Job title">
+                <el-select
+                    v-model="selectedJobTitles"
+                    multiple
+                    placeholder="Filter by Job title"
+                    filterable
+                    no-match-text="No results"
+                >
                     <el-option
-                        v-for="item in options"
+                        v-for="item in jobTitles"
                         :key="item.value"
                         :label="item.label"
                         :value="item.value">
                     </el-option>
                 </el-select>
-                <el-select v-model="value5" multiple placeholder="Language">
+
+                <h5>Languages</h5>
+                <el-select
+                    v-model="selectedLanguages"
+                    multiple
+                    placeholder="Filter by language"
+                    filterable
+                    no-match-text="No results"
+                >
                     <el-option
-                        v-for="item in options"
+                        v-for="item in languages"
                         :key="item.value"
                         :label="item.label"
                         :value="item.value">
                     </el-option>
                 </el-select>
+            </el-aside>
 
-            </el-aside> -->
-            <el-main>
-                <!-- <el-switch
-                    v-model="value3"
-                    active-text="Pay by month"
-                    inactive-text="Pay by year">
-                </el-switch>
-
-                <el-dropdown split-button type="primary" @command="handleCommand">
-                    Sort by
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item command="a">Action 1</el-dropdown-item>
-                        <el-dropdown-item command="b">Action 2</el-dropdown-item>
-                        <el-dropdown-item command="c">Action 3</el-dropdown-item>
-                        <el-dropdown-item command="e" divided>Clear</el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown> -->
-
-                <p v-if="!users.length">No users</p>
-                <el-row :gutter="15">
-                    <el-col :span="4" :xs="8" :sm="6" :md="4" :lg="3" v-for="user in users" :key="user.user">
-                        <el-card :body-style="cardStyle">
-                            <router-link :to="{ name: 'user', params: { id: user.user } }">
-                                <avatar :user-data="user" public />
-                            </router-link>
-                            <!-- <div class="card-content">
-                                <h3>{{user.user}}</h3>
-                                <div class="languages">
-                                    <i :class="'devicon-'+language+'-plain colored'" v-for="language in user.profile.languages"></i>
-                                </div>
-                            </div> -->
-                        </el-card>
-                    </el-col>
-
+            <el-main v-loading="loading">
+                <el-row>
+                    <el-pagination
+                        v-if="users.totalPages > 1"
+                        layout="prev, pager, next"
+                        :page-size="users.pageSize"
+                        :current-page.sync="currentPage"
+                        :total="users.totalUserCount"
+                        @currentChange="test"
+                        >
+                    </el-pagination>
                 </el-row>
 
-                <!-- {{session.user.profile}} -->
+                <el-row :gutter="20">
+                    <p v-if="!users.results.length">No users</p>
+                    <el-col :xs="12" :sm="8" :md="6" :lg="4" v-for="user in users.results" :key="user.user">
+                        <router-link :to="{ name: 'user', params: { id: user.user } }" class="user-card">
+                            <img :src="user.avatar" alt="user.user" width="200" height="200">
+                        </router-link>
+                    </el-col>
+                </el-row>
+
+                <el-row>
+                    <el-pagination
+                        v-if="users.totalPages > 1"
+                        layout="prev, pager, next"
+                        :page-size="users.pageSize"
+                        :current-page.sync="currentPage"
+                        :total="users.totalUserCount"
+                        @currentChange="test"
+                        >
+                    </el-pagination>
+                </el-row>
+
             </el-main>
         </el-container>
-        <!-- <el-footer>
-            <div class="block">
-                <span class="demonstration">When you have more than 7 pages</span>
-                <el-pagination
-                    layout="prev, pager, next"
-                    :total="1000">
-                </el-pagination>
-            </div>
-        </el-footer> -->
     </el-container>
 </template>
 
 <script>
     import msg from '@/msg';
+    import { JOB_TITLES, LANGUAGES_FRAMEWORKS } from '@/shared';
     import Avatar from '@/components/Avatar/Avatar';
     import { store } from '@/store';
 
@@ -88,31 +90,15 @@
         data() {
             return {
                 jobs: {},
-                currentDate: new Date(),
-                cardStyle: {
-                    padding: '0',
-                },
-                options: [{
-                    value: 'Option1',
-                    label: 'Option1',
-                }, {
-                    value: 'Option2',
-                    label: 'Option2',
-                }, {
-                    value: 'Option3',
-                    label: 'Option3',
-                }, {
-                    value: 'Option4',
-                    label: 'Option4',
-                }, {
-                    value: 'Option5',
-                    label: 'Option5',
-                }],
-                value5: [],
+                currentPage: 1,
+                selectedJobTitles: [],
+                selectedLanguages: [],
+                loading: true,
             };
         },
 
         mounted() {
+            // TODO: save params in storage and preload them on mount
             this.load();
         },
 
@@ -120,18 +106,37 @@
             users() { return store.getters.users; },
             session() { return store.getters.session; },
             environment() { return store.getters.environment; },
+            // page() { return this.$route.query.p; },
+            jobTitles() { return JOB_TITLES; },
+            languages() { return LANGUAGES_FRAMEWORKS; },
         },
 
         components: {
             Avatar,
         },
 
+        watch: {
+            currentPage() {
+                // this.$router.push({ query: { p: this.currentPage } });
+                this.load();
+            },
+            selectedJobTitles() {
+                this.currentPage = 1;
+                this.load();
+            },
+            selectedLanguages() {
+                this.currentPage = 1;
+                this.load();
+            },
+        },
+
         methods: {
             load() {
-                // TODO: enhance this logic so endpoint isn't hit every time
-                this.$http.get(`${this.environment.baseUrl}/browse/`)
+                this.loading = true;
+                this.$http.get(`${this.environment.baseUrl}/browse/?page=${this.currentPage}&title=${this.selectedJobTitles}&languages=${this.selectedLanguages}`)
                     .then(({ data }) => {
                         store.commit('updateBrowseData', data);
+                        this.loading = false;
                     })
                     .catch(() => {
                         this.$notify.error({
@@ -146,6 +151,10 @@
                 //     })
                 //     .catch(() => {
                 //     });
+            },
+
+            remoteMethod(query) {
+                console.log(query);
             },
 
             url(id) {
@@ -163,6 +172,27 @@
         @media($md) {}
         @media($lg) {}
     }
+
+    .user-card {
+        border-radius: $border-radius;
+        overflow: hidden;
+        background: $color-white;
+        float: left;
+        margin: $gp 0;
+
+        img {
+            float: left;
+            max-height: 100%;
+            max-width: 100%;
+            // height: auto;
+            // height: auto;
+        }
+    }
+
+    .el-pagination {
+        padding: $gp 0;
+    }
+
 
     .el-header {
         // background: #cf0;
