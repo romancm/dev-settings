@@ -126,9 +126,9 @@ export default {
             border-right: none;
             .el-menu-item {
                 &.is-active {
-                    background: #fff;
-                    border-top-left-radius: 5px;
-                    border-bottom-left-radius: 5px;
+                    background: $color-white;
+                    border-top-left-radius: $border-radius;
+                    border-bottom-left-radius: $border-radius;
                 }
                 height: 36px !important;
                 line-height: 36px !important;
@@ -137,7 +137,7 @@ export default {
 
         .el-main {
             padding: $gp $gp * 2;
-            background: #fff;
+            background: $color-white;
             border-radius: $border-radius;
 
             img {
@@ -159,7 +159,7 @@ export default {
 
             @media($xs) {
                 max-width: 100%;
-                background: #fff;
+                background: $color-white;
                 display: none;
                 &.show {
                     display: block;

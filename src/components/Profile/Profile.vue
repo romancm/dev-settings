@@ -124,7 +124,7 @@ export default {
 
             @media($xs) {
                 padding-right: 0;
-                background: #fff;
+                background: $color-white;
                 border-bottom: 1px solid #ccc;
                 align-items: center;
             }

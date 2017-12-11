@@ -143,7 +143,7 @@ export default {
             background: transparent;
             .el-menu-item {
                 &.is-active {
-                    background: #fff;
+                    background: $color-white;
                 }
 
                 .fa {

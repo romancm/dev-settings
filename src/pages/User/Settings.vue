@@ -28,8 +28,9 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+    @import "~styles/variables";
     pre {
         background: rgba(255, 255, 255, 0.8) !important;
-        border-radius: 5px;
+        border-radius: $border-radius;
     }
 </style>

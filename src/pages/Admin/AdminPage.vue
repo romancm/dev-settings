@@ -71,7 +71,9 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+    @import "~styles/variables";
+
     .table {
-        background: #fff;
+        background: $color-white;
     }
 </style>
