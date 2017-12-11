@@ -26,23 +26,6 @@ export default {
     data() {
         return {
             users: null,
-            tableData: [{
-                date: '2016-05-03',
-                name: 'Tom',
-                address: 'No. 189, Grove St, Los Angeles',
-            }, {
-                date: '2016-05-02',
-                name: 'Tom',
-                address: 'No. 189, Grove St, Los Angeles',
-            }, {
-                date: '2016-05-04',
-                name: 'Tom',
-                address: 'No. 189, Grove St, Los Angeles',
-            }, {
-                date: '2016-05-01',
-                name: 'Tom',
-                address: 'No. 189, Grove St, Los Angeles',
-            }],
         };
     },
 
@@ -65,8 +48,11 @@ export default {
                 userId: this.session.user._id,
             };
 
-            axios.post(`${this.environment.baseUrl}/admin/users/`, payLoad)
+            const url = `${this.environment.baseUrl}/admin/users/`;
+
+            axios.post(url, payLoad)
                 .then(({ data }) => {
+                    this.loading = false;
                     this.users = data;
                 })
                 .catch((error) => {
@@ -74,9 +60,6 @@ export default {
                         title: 'Error',
                         message: error.response.data.message,
                     });
-                })
-                .then(() => {
-                    this.loading = false;
                 });
         },
 

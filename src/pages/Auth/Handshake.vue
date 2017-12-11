@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="handshake" :class="{ error }">
         <span v-if="error">
-            <i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true"></i>
+            <i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true" />
             <h2>Uh Oh!</h2>
             <p>There was a problem while <br />authenticating your <strong>Github</strong> account.</p>
             <el-button type="primary" @click="goHome">Home</el-button>
@@ -9,7 +9,7 @@
         </span>
 
         <span v-else>
-            <i class="fa fa-cog fa-spin fa-5x" aria-hidden="true"></i>
+            <i class="fa fa-cog fa-spin fa-5x" aria-hidden="true" />
             <h2>Authorizing</h2>
         </span>
     </div>
@@ -101,7 +101,6 @@
         top: 50%;
         left: 50%;
         margin: -60px 0 0 -150px;
-
         text-align: center;
         color: $color-primary;
         position: absolute;
