@@ -4,6 +4,7 @@ import Router from 'vue-router';
 // Pages
 import Browse from '@/pages/Browse/Browse';
 import Home from '@/pages/Home';
+import NotFound from '@/pages/NotFound/NotFound';
 import Logout from '@/pages/Logout/Logout';
 import ExitPage from '@/pages/ExitPage/ExitPage';
 
@@ -47,6 +48,14 @@ const routes = new Router({
             name: 'home',
             meta: {
                 title: 'Atom Settings',
+            },
+        },
+        {
+            path: '/404',
+            component: NotFound,
+            name: '404',
+            meta: {
+                title: 'Uh Oh! | Atom Settings',
             },
         },
         {
@@ -185,6 +194,10 @@ const routes = new Router({
                     },
                 },
             ],
+        },
+        {
+            path: '*',
+            redirect: '/404',
         },
     ],
 });
