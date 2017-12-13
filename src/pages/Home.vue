@@ -75,15 +75,9 @@
         computed: {
             session() { return store.getters.session; },
             environment() { return store.getters.environment; },
-            isMobile() {
-                return this.$mq.resize && this.$mq.below(768);
-            },
-            buttonSize() {
-                return this.isMobile ? 'small' : '';
-            },
-            githuburl() {
-                return `https://github.com/login/oauth/authorize?scope=user:email&client_id=${this.environment.githubClientId}`;
-            },
+            isMobile() { return this.$mq.resize && this.$mq.below(768); },
+            buttonSize() { return this.isMobile ? 'small' : ''; },
+            githuburl() { return `https://github.com/login/oauth/authorize?scope=user:email&client_id=${this.environment.githubClientId}`; },
         },
 
         methods: {

@@ -1,57 +1,50 @@
 <template lang="html">
     <el-container>
-        <el-header height="auto">
-            <h2>Browse Settings</h2>
-        </el-header>
-
         <el-container>
-            <el-aside width="250px">
-                <h3>Filter by</h3>
-
-                <h5>Job Title</h5>
-                <el-select
-                    v-model="selectedJobTitles"
-                    multiple
-                    placeholder="Filter by Job title"
-                    filterable
-                    no-match-text="No results"
-                >
-                    <el-option
-                        v-for="item in jobTitles"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
-                    </el-option>
-                </el-select>
-
-                <h5>Languages</h5>
-                <el-select
-                    v-model="selectedLanguages"
-                    multiple
-                    placeholder="Filter by language"
-                    filterable
-                    no-match-text="No results"
-                >
-                    <el-option
-                        v-for="item in languages"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
-                    </el-option>
-                </el-select>
-            </el-aside>
-
-            <el-main v-loading="loading">
-                <el-row>
-                    <el-pagination
-                        v-if="users.totalPages > 1"
-                        layout="prev, pager, next"
-                        :page-size="users.pageSize"
-                        :current-page.sync="currentPage"
-                        :total="users.totalUserCount"
-                        @currentChange="test"
+            <el-main>
+                <h2>Browse Settings</h2>
+                <el-row :gutter="20">
+                    <el-col :xs="24" :sm="12">
+                        <el-select
+                            v-model="selectedJobTitles"
+                            multiple
+                            placeholder="Filter by Job title"
+                            filterable
+                            no-match-text="No results"
                         >
-                    </el-pagination>
+                            <el-option
+                                v-for="item in jobTitles"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+
+                        <el-select
+                            v-model="selectedLanguages"
+                            multiple
+                            placeholder="Filter by language"
+                            filterable
+                            no-match-text="No results"
+                        >
+                            <el-option
+                                v-for="item in languages"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-col>
+                    <el-col :xs="24" :sm="12">
+                        <el-pagination
+                            v-if="users.totalPages > 1"
+                            layout="prev, pager, next"
+                            :page-size="users.pageSize"
+                            :current-page.sync="currentPage"
+                            :total="users.totalUserCount"
+                            @currentChange="test"
+                        />
+                    </el-col>
                 </el-row>
 
                 <el-row :gutter="20">
@@ -62,19 +55,6 @@
                         </router-link>
                     </el-col>
                 </el-row>
-
-                <el-row>
-                    <el-pagination
-                        v-if="users.totalPages > 1"
-                        layout="prev, pager, next"
-                        :page-size="users.pageSize"
-                        :current-page.sync="currentPage"
-                        :total="users.totalUserCount"
-                        @currentChange="test"
-                        >
-                    </el-pagination>
-                </el-row>
-
             </el-main>
         </el-container>
     </el-container>
@@ -107,6 +87,7 @@
             session() { return store.getters.session; },
             environment() { return store.getters.environment; },
             // page() { return this.$route.query.p; },
+            isMobile() { return this.$mq.resize && this.$mq.below(768); },
             jobTitles() { return JOB_TITLES; },
             languages() { return LANGUAGES_FRAMEWORKS; },
         },
@@ -184,17 +165,11 @@
             float: left;
             max-height: 100%;
             max-width: 100%;
-            // height: auto;
-            // height: auto;
         }
     }
 
     .el-pagination {
-        padding: $gp 0;
-    }
+        float: right;
 
-
-    .el-header {
-        // background: #cf0;
     }
 </style>
