@@ -103,18 +103,22 @@ export default {
         display: flex;
         flex-direction: column;
         width: 156px;
-        margin-bottom: $gp;
 
         @media($xs) {
-            width: 44px;
+            width: 64px;
         }
 
         img {
             width: 100%;
             margin: $gp;
+
+            @media($xs) {
+                margin: 0;
+            }
         }
 
         .userName {
+            margin-bottom: $gp;
             text-align: center;
             width: 100%;
             overflow-x: auto;

@@ -116,10 +116,10 @@ export default {
 <style lang="scss" rel="stylesheet/scss">
     @import "~styles/variables";
 
-    .el-button {
-        margin-bottom: $gp;
-    }
     .user-packages {
+        .el-button {
+            margin-bottom: $gp;
+        }
 
         .el-menu {
             background: transparent;

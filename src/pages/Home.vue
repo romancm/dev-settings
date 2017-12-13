@@ -16,7 +16,7 @@
 
             <div class="features">
                 <el-row :gutter="0">
-                    <el-col :lg="8" :md="12" :sm="12" :xs="12" v-for="({ icon, desc }, name) in features">
+                    <el-col :lg="8" :md="12" :sm="12" :xs="12" v-for="({ icon, desc }, name) in features" :key="name">
                         <div :class="name" class="feature">
                             <i class="fa" :class="icon" aria-hidden="true"></i>
                             <div>

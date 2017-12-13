@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="profile row" v-if="userData && gistData">
-        <div class="user-card">
+        <div class="profile-card">
             <div class="info">
                 <img :src="userData.avatar" :alt="userData.user" class="avatar">
                 <h2>{{userData.user}}</h2>
@@ -110,42 +110,44 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss">
     @import "~styles/_variables";
-    .user-card {
-        display: flex;
-        @media($xs) {
-            flex-direction: column;
-        }
-        padding: 0;
-        margin: $gp * 2;
-
-        .info {
-            padding-right: $gp * 2;
+    .profile {
+        .profile-card {
             display: flex;
-
             @media($xs) {
-                padding-right: 0;
-                background: $color-white;
-                border-bottom: 1px solid #ccc;
-                align-items: center;
+                flex-direction: column;
             }
+            padding: 0;
+            margin: $gp * 2;
 
-            h2 {
-                line-height: 1.5em;
-                margin: 0;
-            }
-            .avatar {
-                margin-right: $gp;
-                width: 50px;
-                height: 50px;
+            .info {
+                padding-right: $gp * 2;
+                display: flex;
+
+                @media($xs) {
+                    padding-right: 0;
+                    background: $color-white;
+                    border-bottom: 1px solid #ccc;
+                    align-items: center;
+                }
+
+                h2 {
+                    line-height: 1.5em;
+                    margin: 0;
+                }
+                .avatar {
+                    margin-right: $gp;
+                    width: 50px;
+                    height: 50px;
+                }
             }
         }
-    }
-    .el-tabs__header {
-        margin-bottom: 0;
-    }
-    .el-main {
-        margin-top: 0;
-        padding-top: 0;
-    }
 
+        .el-tabs__header {
+            margin-bottom: 0;
+        }
+        .el-main {
+            margin-top: 0;
+            padding-top: 0;
+        }
+    }
 </style>

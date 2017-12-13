@@ -1,60 +1,62 @@
 <template lang="html">
-    <el-container>
+    <el-container class="browse">
         <el-container>
             <el-main>
-                <h2>Browse Settings</h2>
-                <el-row :gutter="20">
-                    <el-col :xs="24" :sm="12">
-                        <el-select
-                            v-model="selectedJobTitles"
-                            multiple
-                            placeholder="Filter by Job title"
-                            filterable
-                            no-match-text="No results"
-                        >
-                            <el-option
-                                v-for="item in jobTitles"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
-                            </el-option>
-                        </el-select>
-
-                        <el-select
-                            v-model="selectedLanguages"
-                            multiple
-                            placeholder="Filter by language"
-                            filterable
-                            no-match-text="No results"
-                        >
-                            <el-option
-                                v-for="item in languages"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </el-col>
-                    <el-col :xs="24" :sm="12">
+                <header>
+                    <h2>Browse Settings</h2>
+                    <div class="header-options">
                         <el-pagination
                             v-if="users.totalPages > 1"
                             layout="prev, pager, next"
                             :page-size="users.pageSize"
                             :current-page.sync="currentPage"
                             :total="users.totalUserCount"
-                            @currentChange="test"
                         />
-                    </el-col>
-                </el-row>
 
-                <el-row :gutter="20">
-                    <p v-if="!users.results.length">No users</p>
-                    <el-col :xs="12" :sm="8" :md="6" :lg="4" v-for="user in users.results" :key="user.user">
-                        <router-link :to="{ name: 'user', params: { id: user.user } }" class="user-card">
-                            <img :src="user.avatar" alt="user.user" width="200" height="200">
+                        <div class="filters">
+                            <el-select
+                                v-model="selectedJobTitles"
+                                filterable
+                                placeholder="Filter by Job title"
+                            >
+                                <el-option
+                                    v-for="item in jobTitles"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                />
+                            </el-select>
+
+                            <el-select
+                                v-model="selectedLanguages"
+                                filterable
+                                placeholder="Filter by language"
+                            >
+                                <el-option
+                                    v-for="item in languages"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                />
+                            </el-select>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="user-list" v-if="users.results.length">
+                    <div class="user-card" v-for="user in users.results" :key="user.user">
+                        <router-link :to="{ name: 'user', params: { id: user.user } }">
+                            <img :src="user.avatar" alt="user.user">
                         </router-link>
-                    </el-col>
-                </el-row>
+                    </div>
+                </div>
+
+                <div class="no-results" v-else>
+                    <i class="fa fa-frown-o fa-5x" aria-hidden="true" />
+                    <h3>No results were found for given criteria</h3>
+                    <p>Please try selecting different filters</p>
+                    <p>You can also <el-button size="mini" @click="clearFilters">Clear filters</el-button></p>
+                </div>
             </el-main>
         </el-container>
     </el-container>
@@ -74,11 +76,11 @@
                 selectedJobTitles: [],
                 selectedLanguages: [],
                 loading: true,
+                pageSize: 12,
             };
         },
 
         mounted() {
-            // TODO: save params in storage and preload them on mount
             this.load();
         },
 
@@ -86,7 +88,6 @@
             users() { return store.getters.users; },
             session() { return store.getters.session; },
             environment() { return store.getters.environment; },
-            // page() { return this.$route.query.p; },
             isMobile() { return this.$mq.resize && this.$mq.below(768); },
             jobTitles() { return JOB_TITLES; },
             languages() { return LANGUAGES_FRAMEWORKS; },
@@ -98,7 +99,6 @@
 
         watch: {
             currentPage() {
-                // this.$router.push({ query: { p: this.currentPage } });
                 this.load();
             },
             selectedJobTitles() {
@@ -112,9 +112,14 @@
         },
 
         methods: {
+            clearFilters() {
+                this.selectedJobTitles = [];
+                this.selectedLanguages = [];
+            },
+
             load() {
                 this.loading = true;
-                this.$http.get(`${this.environment.baseUrl}/browse/?page=${this.currentPage}&title=${this.selectedJobTitles}&languages=${this.selectedLanguages}`)
+                this.$http.get(`${this.environment.baseUrl}/browse/?page=${this.currentPage}&title=${this.selectedJobTitles}&languages=${this.selectedLanguages}&pageSize=${this.pageSize}`)
                     .then(({ data }) => {
                         store.commit('updateBrowseData', data);
                         this.loading = false;
@@ -133,43 +138,93 @@
                 //     .catch(() => {
                 //     });
             },
-
-            remoteMethod(query) {
-                console.log(query);
-            },
-
-            url(id) {
-                return `/browse/${id}/packages`;
-            },
         },
     };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
+    header {
+        display: flex;
 
-    .el-aside {
-        padding: 0 $gp * 2;
-        @media($md) {}
-        @media($lg) {}
-    }
+        @media($xs) {
+            flex-direction: column;
+        }
 
-    .user-card {
-        border-radius: $border-radius;
-        overflow: hidden;
-        background: $color-white;
-        float: left;
-        margin: $gp 0;
+        .header-options {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
 
-        img {
-            float: left;
-            max-height: 100%;
-            max-width: 100%;
+            @media($md) {
+                flex: 1;
+                flex-direction: column-reverse;
+                align-items: flex-end;
+                .filters {
+                    margin-bottom: $gp;
+                }
+            }
+
+            @media($sm) {
+                flex: 1;
+                flex-direction: column-reverse;
+                align-items: flex-end;
+                .filters {
+                    margin-bottom: $gp;
+                }
+            }
+
+            @media($xs) {
+                flex: 1;
+                flex-direction: column-reverse;
+                align-items: flex-start;
+                margin-left: 0;
+                margin-bottom: $gp * 2;
+                .filters {
+                    margin-bottom: $gp;
+                }
+            }
+
+            .el-pagination {
+                padding: 0;
+            }
+
+            .el-select {
+                margin-left: $gp * 2;
+
+                @media($xs) {
+                    margin: 0 0 $gp;
+                    // width: 100%;
+                }
+            }
         }
     }
 
-    .el-pagination {
-        float: right;
+    .user-list {
+        display: grid;
+        grid-gap: $gp * 2;
 
+        @media($xs){ grid-template-columns: 1fr 1fr 1fr; }
+        @media($sm){ grid-template-columns: 1fr 1fr 1fr 1fr; }
+        @media($md){ grid-template-columns: 1fr 1fr 1fr 1fr 1fr; }
+        @media($lg){ grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; }
+
+        .user-card {
+            background: $color-white;
+            display: flex;
+            width: 100%;
+            a {
+                width: 100%;
+            }
+            img {
+                background: $color-white;
+                display: flex;
+                width: 100%;
+            }
+        }
+    }
+
+    .no-results {
+        text-align: center;
     }
 </style>
