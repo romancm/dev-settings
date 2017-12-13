@@ -4,6 +4,7 @@
         @select="handleNavItem"
         text-color="#fff"
         active-text-color="#fff"
+        :class="{ isHome }"
     >
         <el-menu-item index="home" class="logo">Atom Settings</el-menu-item>
         <el-menu-item index="browse">Browse</el-menu-item>
@@ -28,6 +29,7 @@
         computed: {
             session() { return store.getters.session; },
             meta() { return this.$route.meta; },
+            isHome() { return this.$route.name === 'home'; },
             environment() { return store.getters.environment; },
             githuburl() {
                 return `https://github.com/login/oauth/authorize?scope=user:email&client_id=${this.environment.githubClientId}`;
@@ -49,13 +51,19 @@
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
     .el-menu {
-        background: rgba(0, 125, 255, 0.70);
+        background: linear-gradient(to right,  rgba(23, 165, 255, .7) 0%, rgba(255, 55, 169, .7) 100%);
         border-bottom: none;
+
+        &.isHome {
+            background: transparent;
+        }
     }
+
     .logo {
         font-size: 18px;
         font-weight: bold;
     }
+    
     .el-menu--horizontal {
         .el-menu-item {
             border-bottom: none !important;
