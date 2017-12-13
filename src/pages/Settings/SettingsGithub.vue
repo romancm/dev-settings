@@ -35,21 +35,19 @@
             </el-col>
 
             <el-col :xs="8" :sm="6" :md="4" :lg="6" :xl="6" v-if="session.user.gistId">
-                <el-card class="box-card" >
-                    <el-button type="danger" plain size="small" @click="selectGist(null)">
-                        <i class="fa fa-remove" aria-hidden="true" />
-                        Deselect gist
-                    </el-button>
+                <el-button type="danger" plain size="small" @click="selectGist(null)">
+                    <i class="fa fa-remove" aria-hidden="true" />
+                    Deselect gist
+                </el-button>
 
-                    <br>
-                    <br>
+                <br>
+                <br>
 
-                    <el-alert
-                        type="info"
-                        title="test"
-                        description="Deselecting your gist will automatically remove you from browse results.">
-                    </el-alert>
-                </el-card>
+                <el-alert
+                type="info"
+                title="test"
+                description="Deselecting your gist will automatically remove you from browse results.">
+            </el-alert>
             </el-col>
         </el-row>
 
@@ -191,6 +189,11 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+    @import "~styles/variables";
+
+    .box-card {
+        margin-bottom: $gp;
+    }
 // .gist {
 //     display: flex;
 //     align-items: center;
