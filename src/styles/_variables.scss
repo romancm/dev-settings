@@ -20,6 +20,14 @@ $color-danger: #fa5555;
 $color-info: #878d99;
 $color-white: #fff;
 
+// Sections
+$color-settings: #3FB8AF;
+$color-packages: #7F4F8D;
+$color-scripts: #FF6E3A;
+$color-snippets: #692139;
+$color-keymaps: #FF3D7F;
+$color-styles: #2262af;
+
 .text-success { color: $color-success; }
 .text-warning { color: $color-warning; }
 .text-danger { color: $color-danger; }
@@ -30,6 +38,8 @@ $xs: "max-width: 767px";
 $sm: "min-width: 768px) and (max-width: 991px";
 $md: "min-width: 992px) and (max-width: 1199px";
 $lg: "min-width: 1200px";
+$short: "max-height: 740px";
+$mobile-landscape: "min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape";
 
 // Usage
 // @media($xs) { ... }
