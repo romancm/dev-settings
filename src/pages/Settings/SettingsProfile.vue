@@ -1,5 +1,9 @@
 <template>
     <div class="settings-profile">
+        <!-- <div role="alert" class="el-message el-message--success is-center" style="z-index: 2013;">
+            <i class="el-message__icon el-icon-success"></i>
+            <p class="el-message__content">Congrats, this is a success message.</p>
+        </div> -->
         <h3>Profile</h3>
         <el-form ref="form">
             <el-row>
@@ -100,17 +104,19 @@ export default {
             this.loading = true;
 
             this.$http.put(`${this.environment.baseUrl}/profile/`, payload)
-                .then(() => {
+                .then(({ data }) => {
                     store.commit('reloadUserData');
 
-                    this.$notify({
-                        title: 'Saved',
-                        message: 'This is a success message',
+                    this.$message({
+                        showClose: false,
+                        center: true,
+                        message: data.message,
                         type: 'success',
                     });
                 }).catch(() => {
-                    this.$notify.error({
-                        title: 'Error',
+                    this.$message({
+                        center: true,
+                        type: 'error',
                         message: msg.errors.settings.profile,
                     });
                 }).then(() => {

@@ -48,19 +48,21 @@ export default {
             };
 
             this.$http.put(`${this.environment.baseUrl}/profile/social`, payload)
-            .then(() => {
+            .then(({ data }) => {
                 this.loading = false;
                 store.commit('reloadUserData');
-                this.$notify({
-                    title: 'Success',
-                    message: 'This is a success message',
+
+                this.$message({
+                    showClose: false,
+                    center: true,
+                    message: data.message,
                     type: 'success',
                 });
             }).catch(() => {
-                this.$notify({
-                    title: 'Error',
-                    message: msg.errors.settings.social,
+                this.$message({
+                    center: true,
                     type: 'error',
+                    message: msg.errors.settings.profile,
                 });
             });
         },

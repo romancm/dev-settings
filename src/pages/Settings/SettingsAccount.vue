@@ -6,7 +6,7 @@
             Logout
         </el-button>
 
-        <el-alert type="info" :closable="false">
+        <el-alert type="info" :closable="false" title>
             <h4>Delete your account</h4>
             <p>Once you delete your account, your data will be permanently removed.</p>
             <el-button type="info" plain @click="toggleDeleteModal">Delete Account</el-button>

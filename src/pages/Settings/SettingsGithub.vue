@@ -4,7 +4,7 @@
         <h4>Select gist to share your settings </h4>
         <!-- <p>{{filteredGists.length}} compatible settings gist found, {{gists.length}} gists found total.</p> -->
 
-        <el-row gutter="20">
+        <el-row :gutter="20">
             <el-col :xs="24" :sm="6" :md="12" :lg="8" :xl="6" v-for="gist in gists" :key="gist.id">
                 <el-card class="box-card" >
                     <h4>{{gist.description}}</h4>
@@ -55,7 +55,7 @@
             title="Public Gists Warning"
             show-icon
             type="warning"
-            closable="false"
+            :closable="false"
             description="If you use certain packages, storing auth-tokens, a malicious party could abuse them.">
         </el-alert>
 
@@ -117,17 +117,20 @@ export default {
             };
 
             this.$http.put(`${this.environment.baseUrl}/profile/gist`, payload)
-                .then(() => {
+                .then(({ data }) => {
                     store.commit('reloadUserData');
-                    this.$notify({
-                        title: 'Success',
-                        message: 'This is a success message',
+
+                    this.$message({
+                        showClose: false,
+                        center: true,
+                        message: data.message,
                         type: 'success',
                     });
                 })
                 .catch(() => {
-                    this.$notify.error({
-                        title: 'Error',
+                    this.$message({
+                        center: true,
+                        type: 'error',
                         message: msg.errors.settings.gist,
                     });
                 })

@@ -35,10 +35,7 @@ import { store } from '@/store';
 export default {
     data() {
         return {
-            activeName: {
-                type: String,
-                default: 'settingsGetStarted',
-            },
+            activeName: 'settingsGetStarted',
             settingsRoutes: [
                 {
                     name: 'settingsGetStarted',
