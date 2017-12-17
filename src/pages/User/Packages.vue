@@ -23,6 +23,12 @@
                 </el-menu>
             </el-aside>
             <el-main :class="{ hide: showPackageMenu }" v-loading="loading">
+                <div class="package-toolbar" v-if="!loading">
+                    <gh-btns-watch :slug="formattedRepository" show-count></gh-btns-watch>
+            		<gh-btns-star :slug="formattedRepository" show-count></gh-btns-star>
+            		<gh-btns-fork :slug="formattedRepository" show-count></gh-btns-fork>
+                </div>
+                
                 <vue-markdown :source="packageData.readme" v-if="packageData" />
                 <span v-if="!packageName">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
@@ -63,6 +69,9 @@ export default {
         },
         isMobile() {
             return this.$mq.resize && this.$mq.below(768);
+        },
+        formattedRepository() {
+            return !this.loading && this.packageData && this.packageData.repository ? this.packageData.repository.url.split('github.com/')[1] : 'atom/about';
         },
     },
 
@@ -106,6 +115,7 @@ export default {
                     console.log('err');
                 });
             } else {
+                // TODO: load default package?
                 this.packageData = null;
             }
         },
@@ -115,6 +125,15 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss">
     @import "~styles/variables";
+
+    .package-toolbar {
+        display: flex;
+        align-items: center;
+
+        .gh-button-container {
+            margin: $gp $gp 0 0;
+        }
+    }
 
     .user-packages {
         .el-button {
