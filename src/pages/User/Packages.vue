@@ -23,12 +23,12 @@
                 </el-menu>
             </el-aside>
             <el-main :class="{ hide: showPackageMenu }" v-loading="loading">
-                <div class="package-toolbar" v-if="!loading">
+                <div class="package-toolbar" v-if="!loading && packageData">
                     <gh-btns-watch :slug="formattedRepository" show-count></gh-btns-watch>
             		<gh-btns-star :slug="formattedRepository" show-count></gh-btns-star>
             		<gh-btns-fork :slug="formattedRepository" show-count></gh-btns-fork>
                 </div>
-                
+
                 <vue-markdown :source="packageData.readme" v-if="packageData" />
                 <span v-if="!packageName">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
