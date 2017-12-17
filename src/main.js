@@ -8,9 +8,11 @@ import FastClick from 'fastclick';
 import VueContentPlaceholders from 'vue-content-placeholders';
 import axios from 'axios';
 import vmodal from 'vue-js-modal';
+import VueGitHubButtons from 'vue-github-buttons'; // Component plugin
 
 import 'prismjs';
 import 'prismjs/themes/prism.css';
+import 'vue-github-buttons/dist/vue-github-buttons.css'; // Stylesheet
 import 'font-awesome/css/font-awesome.css';
 import './styles/_variables.scss';
 
@@ -18,6 +20,7 @@ import App from './App';
 import router from './router';
 import { store } from './store';
 
+Vue.use(VueGitHubButtons, { useCache: true });
 Vue.use(ElementUI);
 Vue.use(vMediaQuery);
 Vue.use(VueContentPlaceholders);
