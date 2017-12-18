@@ -1,64 +1,62 @@
 <template lang="html">
     <el-container class="browse">
-        <el-container>
-            <el-main>
-                <header>
-                    <h2>Browse Settings</h2>
-                    <div class="header-options">
-                        <el-pagination
-                            v-if="users.totalPages > 1"
-                            layout="prev, pager, next"
-                            :page-size="users.pageSize"
-                            :current-page.sync="currentPage"
-                            :total="users.totalUserCount"
-                        />
+        <el-main>
+            <header>
+                <h2>Browse Settings</h2>
+                <div class="header-options">
+                    <el-pagination
+                        v-if="users.totalPages > 1"
+                        layout="prev, pager, next"
+                        :page-size="users.pageSize"
+                        :current-page.sync="currentPage"
+                        :total="users.totalUserCount"
+                    />
 
-                        <div class="filters">
-                            <el-select
-                                v-model="selectedJobTitles"
-                                filterable
-                                placeholder="Filter by Job title"
-                            >
-                                <el-option
-                                    v-for="item in jobTitles"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value"
-                                />
-                            </el-select>
+                    <div class="filters">
+                        <el-select
+                            v-model="selectedJobTitles"
+                            filterable
+                            placeholder="Filter by Job title"
+                        >
+                            <el-option
+                                v-for="item in jobTitles"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                            />
+                        </el-select>
 
-                            <el-select
-                                v-model="selectedLanguages"
-                                filterable
-                                placeholder="Filter by language"
-                            >
-                                <el-option
-                                    v-for="item in languages"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value"
-                                />
-                            </el-select>
-                        </div>
-                    </div>
-                </header>
-
-                <div class="user-list" v-if="users.results.length">
-                    <div class="user-card" v-for="user in users.results" :key="user.user">
-                        <router-link :to="{ name: 'user', params: { id: user.user } }">
-                            <img :src="user.avatar" alt="user.user">
-                        </router-link>
+                        <el-select
+                            v-model="selectedLanguages"
+                            filterable
+                            placeholder="Filter by language"
+                        >
+                            <el-option
+                                v-for="item in languages"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                            />
+                        </el-select>
                     </div>
                 </div>
+            </header>
 
-                <div class="no-results" v-else>
-                    <i class="fa fa-frown-o fa-5x" aria-hidden="true" />
-                    <h3>No results were found for given criteria</h3>
-                    <p>Please try selecting different filters</p>
-                    <p>You can also <el-button size="mini" @click="clearFilters">Clear filters</el-button></p>
+            <div class="user-list" v-if="users.results.length">
+                <div class="user-card" v-for="user in users.results" :key="user.user">
+                    <router-link :to="{ name: 'profile', params: { id: user.user } }">
+                        <img :src="user.avatar" alt="user.user">
+                    </router-link>
                 </div>
-            </el-main>
-        </el-container>
+            </div>
+
+            <div class="no-results" v-else>
+                <i class="fa fa-frown-o fa-5x" aria-hidden="true" />
+                <h3>No results were found for given criteria</h3>
+                <p>Please try selecting different filters</p>
+                <p>You can also <el-button size="mini" @click="clearFilters">Clear filters</el-button></p>
+            </div>
+        </el-main>
     </el-container>
 </template>
 
