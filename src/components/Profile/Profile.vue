@@ -1,3 +1,4 @@
+// deprecated
 <template lang="html">
     <div class="profile row" v-if="userData && gistData">
         <div class="profile-card">

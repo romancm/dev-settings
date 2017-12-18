@@ -8,14 +8,14 @@ import NotFound from '@/pages/NotFound/NotFound';
 import Logout from '@/pages/Logout/Logout';
 import ExitPage from '@/pages/ExitPage/ExitPage';
 
-// User Profile
-import User from '@/pages/User/User';
-import UserPackages from '@/pages/User/Packages';
-import UserScripts from '@/pages/User/InitScript';
-import UserKeymaps from '@/pages/User/Keymaps';
-import UserSettings from '@/pages/User/Settings';
-import UserSnippets from '@/pages/User/Snippets';
-import UserStyles from '@/pages/User/Styles';
+// Profile
+import Profile from '@/pages/Profile/Profile';
+import UserPackages from '@/pages/Profile/Packages';
+import UserScripts from '@/pages/Profile/InitScript';
+import UserKeymaps from '@/pages/Profile/Keymaps';
+import UserSettings from '@/pages/Profile/Settings';
+import UserSnippets from '@/pages/Profile/Snippets';
+import UserStyles from '@/pages/Profile/Styles';
 
 // Admin
 import AdminPage from '@/pages/Admin/AdminPage';
@@ -103,8 +103,8 @@ const routes = new Router({
         },
         {
             path: '/browse/:id',
-            component: User,
-            name: 'user',
+            component: Profile,
+            name: 'profile',
             redirect: '/browse/:id/packages',
             children: [
                 {

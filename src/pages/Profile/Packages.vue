@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { store } from '@/store';
 import VueMarkdown from 'vue-markdown';
 
 export default {
@@ -55,12 +56,10 @@ export default {
         };
     },
 
-    props: {
-        gistData: Object,
-    },
 
     computed: {
         id() { return this.$route.params.id; },
+        gistData() { return store.getters.gistCache[this.id]; },
         packages() {
             return JSON.parse(this.gistData.files['packages.json'].content);
         },

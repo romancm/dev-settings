@@ -4,24 +4,24 @@ import moment from 'moment';
 import axios from 'axios';
 import createPersistedState from 'vuex-persistedstate';
 
-// TODO: find more suitable names for methods
-
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
         users: {},
+        userCache: {},
+        gistCache: {},
         session: {},
         environment: {},
     },
 
     mutations: {
-        updateSession(state, session) {
+        setSession(state, session) {
             session.lastLogin = moment().format();
             state.session = session;
         },
 
-        updateUser(state, user) {
+        updateSessionUser(state, user) {
             state.session.user = user;
         },
 
@@ -29,9 +29,20 @@ export const store = new Vuex.Store({
             state.users = users;
         },
 
+        cacheUser(state, data) {
+            data.userDataCachedDate = moment().format();
+            Vue.set(state.userCache, data.user, data);
+            console.log('user data cached!');
+        },
+
+        cacheUserGistData(state, data) {
+            data.gistCachedDate = moment().format();
+            Vue.set(state.gistCache, data.owner.login, data);
+            console.log('gist data cached!');
+        },
+
         setEnvironment(state, environment) {
             if (Object.keys(state.environment).length === 0) {
-                // baseUrl: environment === 'development' ? 'http://localhost:3333' : 'https://atom-settings-api.herokuapp.com',
                 state.environment = {
                     baseUrl: environment === 'development' ? 'http://localhost:3333' : 'http://api.atomsettings.com',
                     githubClientId: environment === 'development' ? '5aeeffcd5b5afb0043fa' : '5a92b9da5f2017553b90',
@@ -47,10 +58,7 @@ export const store = new Vuex.Store({
 
             axios.post(`${state.environment.baseUrl}/account/get/`, payload)
                 .then(({ data }) => {
-                    store.commit('updateUser', data);
-                })
-                .catch((err) => {
-                    console.log(err);
+                    store.commit('updateSessionUser', data);
                 });
         },
 
@@ -60,6 +68,8 @@ export const store = new Vuex.Store({
     },
 
     getters: {
+        gistCache(state) { return state.gistCache; },
+        userCache(state) { return state.userCache; },
         session(state) { return state.session; },
         users(state) { return state.users; },
         environment(state) { return state.environment; },

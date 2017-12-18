@@ -74,7 +74,7 @@
                             github: user.data,
                         };
 
-                        store.commit('updateSession', session);
+                        store.commit('setSession', session);
                         this.$router.push({ path: '/settings' });
                     })
                     .catch((error) => {
