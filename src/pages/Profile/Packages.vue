@@ -60,18 +60,10 @@ export default {
     computed: {
         id() { return this.$route.params.id; },
         gistData() { return store.getters.gistCache[this.id]; },
-        packages() {
-            return JSON.parse(this.gistData.files['packages.json'].content);
-        },
-        packageName() {
-            return this.$route.params.packageName;
-        },
-        isMobile() {
-            return this.$mq.resize && this.$mq.below(768);
-        },
-        formattedRepository() {
-            return !this.loading && this.packageData && this.packageData.repository ? this.packageData.repository.url.split('github.com/')[1] : 'atom/about';
-        },
+        packages() { return JSON.parse(this.gistData.files['packages.json'].content); },
+        packageName() { return this.$route.params.packageName; },
+        isMobile() { return this.$mq.resize && this.$mq.below(768); },
+        formattedRepository() { return !this.loading && this.packageData && this.packageData.repository ? this.packageData.repository.url.split('github.com/')[1] : 'atom/about'; },
     },
 
     watch: {
