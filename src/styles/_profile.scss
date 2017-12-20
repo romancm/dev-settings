@@ -1,0 +1,13 @@
+pre[class*="language-"] {
+	padding: $gp * 2;
+    font-size: 11px;
+	margin: 0;
+	overflow: auto;
+	border-radius: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+
+	@media($xs) {
+		padding: $gp;
+	}
+}

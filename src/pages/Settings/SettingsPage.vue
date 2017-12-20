@@ -35,21 +35,16 @@ import { store } from '@/store';
 export default {
     data() {
         return {
-            activeName: 'settingsGetStarted',
+            activeName: 'link',
             settingsRoutes: [
                 {
-                    name: 'settingsGetStarted',
-                    title: 'Get Started',
+                    name: 'settingsLink',
+                    title: 'Link Settings',
                     icon: 'home',
                 },
                 {
-                    name: 'settingsGithub',
-                    title: 'Github',
-                    icon: 'github',
-                },
-                {
                     name: 'settingsProfile',
-                    title: 'About You',
+                    title: 'Profile',
                     icon: 'user',
                 },
                 {

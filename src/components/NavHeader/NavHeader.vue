@@ -11,7 +11,7 @@
         <el-menu-item index="login" class="right" v-if="!session.token">
             <el-button type="success" plain>Login</el-button>
         </el-menu-item>
-        <el-menu-item index="settingsGetStarted" class="right settings" v-else>
+        <el-menu-item index="settingsLink" class="right settings" v-else>
             <i class="fa fa-cog fa-2x" aria-hidden="true" />
         </el-menu-item>
     </el-menu>
@@ -63,7 +63,7 @@
         font-size: 18px;
         font-weight: bold;
     }
-    
+
     .el-menu--horizontal {
         .el-menu-item {
             border-bottom: none !important;

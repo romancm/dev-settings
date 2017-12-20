@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { store } from '@/store';
 import Prism from 'vue-prismjs';
 
 export default {
@@ -15,10 +16,7 @@ export default {
 
     computed: {
         id() { return this.$route.params.id; },
-    },
-
-    props: {
-        gistData: Object,
+        gistData() { return store.getters.gistCache[this.id]; },
     },
 
     mounted() {
@@ -26,10 +24,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss">
-    pre {
-        background: rgba(255, 255, 255, 0.8) !important;
-        border-radius: 5px;
-    }
-</style>

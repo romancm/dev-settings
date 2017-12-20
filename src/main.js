@@ -11,7 +11,7 @@ import vmodal from 'vue-js-modal';
 import VueGitHubButtons from 'vue-github-buttons'; // Component plugin
 
 import 'prismjs';
-import 'prismjs/themes/prism.css';
+import 'prism-themes/themes/prism-atom-dark.css';
 import 'vue-github-buttons/dist/vue-github-buttons.css'; // Stylesheet
 import 'font-awesome/css/font-awesome.css';
 import './styles/_variables.scss';

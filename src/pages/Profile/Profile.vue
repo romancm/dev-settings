@@ -1,80 +1,62 @@
 <template lang="html">
     <div class="profile">
-            <div class="profile-card" v-if="user">
-                <div class="info">
-                    <img :src="user.avatar" :alt="user.user" class="avatar">
-                    <h2>{{user.user}}</h2>
-                </div>
-                <el-tabs v-model="activeName" @tab-click="handleClick">
-                    <el-tab-pane name="packages" label="Packages"></el-tab-pane>
-                    <el-tab-pane name="init-script" label="Init Script"></el-tab-pane>
-                    <el-tab-pane name="keymaps" label="Keymaps"></el-tab-pane>
-                    <el-tab-pane name="settings" label="Settings"></el-tab-pane>
-                    <el-tab-pane name="snippets" label="Snippets"></el-tab-pane>
-                    <el-tab-pane name="styles" label="Styles"></el-tab-pane>
-                </el-tabs>
-            </div>
+        <aside>
+            <user-card />
+            <el-menu :default-active="activeName" class="el-menu-vertical-demo" collapse @select="handleMenuClick">
+                <el-submenu index="1">
+                    <template slot="title">
+                        <i class="fa fa-archive" aria-hidden="true" />
+                        <span slot="title">Packages</span>
+                    </template>
+                    <el-menu-item-group>
+                        <span slot="title">
+                            Packages
+                        </span>
+                        <el-menu-item :index="name" v-for="{ name } in packages">{{name}}</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+                <el-menu-item index="init-script">
+                    <i class="fa fa-terminal" aria-hidden="true" />
+                    <span slot="title">Init Script</span>
+                </el-menu-item>
+                <el-menu-item index="keymaps">
+                    <i class="fa fa-keyboard-o" aria-hidden="true" />
+                    <span slot="title">Keymaps</span>
+                </el-menu-item>
+                <el-menu-item index="settings">
+                    <i class="fa fa-cogs" aria-hidden="true" />
+                    <span slot="title">Settings</span>
+                </el-menu-item>
+                <el-menu-item index="snippets">
+                    <i class="fa fa-code" aria-hidden="true" />
+                    <span slot="title">Snippets</span>
+                </el-menu-item>
+                <el-menu-item index="styles">
+                    <i class="fa fa-css3" aria-hidden="true" />
+                    <span slot="title">Styles</span>
+                </el-menu-item>
+            </el-menu>
+        </aside>
 
-            <el-container>
-                <el-main>
-                    <router-view />
-                </el-main>
-            </el-container>
+        <router-view />
     </div>
 </template>
 
 <script>
 import msg from '@/msg';
-import moment from 'moment';
-import Avatar from '@/components/Avatar/Avatar';
 import { store } from '@/store';
+import moment from 'moment';
+import UserCard from './UserCard';
 
 export default {
     components: {
-        Avatar,
+        UserCard,
     },
 
     data() {
         return {
             activeName: '',
-            sections: [
-                {
-                    title: 'Packages',
-                    routeName: 'packages',
-                    tab: 'Packages',
-                    icon: 'fa-archive',
-                },
-                {
-                    title: 'Init Script',
-                    routeName: 'init-script',
-                    tab: 'Init Script',
-                    icon: 'fa-terminal',
-                },
-                {
-                    title: 'Keymaps',
-                    routeName: 'keymaps',
-                    tab: 'Keymaps',
-                    icon: 'fa-keyboard-o',
-                },
-                {
-                    title: 'Settings',
-                    routeName: 'settings',
-                    tab: 'Settings',
-                    icon: 'fa-cog',
-                },
-                {
-                    title: 'Snippets',
-                    routeName: 'snippets',
-                    tab: 'Snippets',
-                    icon: 'fa-file-code-o',
-                },
-                {
-                    title: 'Styles',
-                    routeName: 'styles',
-                    tab: 'Styles',
-                    icon: 'fa-css3',
-                },
-            ],
+            sections: ['packages', 'init-script', 'keymaps', 'settings', 'snippets', 'styles'],
         };
     },
 
@@ -83,6 +65,8 @@ export default {
         user() { return store.getters.userCache[this.id]; },
         gistData() { return store.getters.gistCache[this.id]; },
         environment() { return store.getters.environment; },
+        isMobile() { return this.$mq.resize && this.$mq.below(768); },
+        packages() { return JSON.parse(this.gistData.files['packages.json'].content); },
     },
 
     mounted() {
@@ -91,18 +75,14 @@ export default {
 
     methods: {
         init() {
-            this.setActive();
+            document.title = `${this.id} Settings | Atom Settings`;
 
+            // TODO: clean up this logic
             if (!this.user) {
                 this.getUser();
             } else if (!this.gistData) {
                 this.getGistData();
             }
-        },
-
-        setActive() {
-            document.title = `${this.id} Settings | Atom Settings`;
-            this.activeName = this.$route.path.split(`${this.$route.params.id}/`)[1];
         },
 
         getUser() {
@@ -138,8 +118,12 @@ export default {
             }
         },
 
-        handleClick({ name }) {
-            this.$router.push({ path: `/browse/${this.$route.params.id}/${name}` });
+        handleMenuClick(name) {
+            if (this.sections.includes(name)) {
+                this.$router.push({ path: `/browse/${this.$route.params.id}/${name}` });
+            } else {
+                this.$router.push({ path: `/browse/${this.$route.params.id}/packages/${name}` });
+            }
         },
 
         moment() {
@@ -155,45 +139,71 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss">
     @import "~styles/_variables";
+    @import "~styles/_profile";
+
+    aside {
+        background: #fff;
+    }
+
     .profile {
-        .profile-card {
-            background: $color-white;
-            display: flex;
-            @media($xs) {
-                flex-direction: column;
-            }
-            padding: $gp;
-            // margin: $gp * 2;
+        display: flex;
+        // align-items: center;
+        // flex-direction: column;
+    }
 
-            .info {
-                padding-right: $gp * 2;
+    .el-menu {
+        border-right: none;
+        > li {
+            text-align: center;
+        }
+    }
+
+    .el-submenu {
+        .el-menu {
+            // display: block !important;
+            background: transparent;
+            margin-left: 0 !important;
+            border: 0 !important;
+            box-shadow: none !important;
+
+            .el-menu-item-group {
+                .el-menu-item-group__title {
+                background: #ccc;
+                height: 30px;
+                margin-top: 13px;
                 display: flex;
+                color: $color-white;
+                align-items: center;
+                font-size: 14px;
+                color: $color-primary-text;
+                padding: 0 $gp * 2 !important;
+                }
 
-                @media($xs) {
-                    padding-right: 0;
+                > ul {
+                    height: calc(100vh - 300px);
+                    overflow-y: auto;
+                    // margin-top: $gp;
                     background: $color-white;
-                    border-bottom: 1px solid #ccc;
-                    align-items: center;
-                }
+                    margin-left: $gp;
 
-                h2 {
-                    line-height: 1.5em;
-                    margin: 0;
-                }
-                .avatar {
-                    margin-right: $gp;
-                    width: 50px;
-                    height: 50px;
+                    li {
+                        height: auto;
+                        text-align: left;
+                        line-height: normal;
+                        padding: $gp / 2 $gp !important;
+
+                        font-size: 13px;
+                        min-width: 200px;
+                    }
                 }
             }
-        }
 
-        .el-tabs__header {
-            margin-bottom: 0;
+
         }
-        .el-main {
-            margin-top: 0;
-            padding-top: 0;
+        &.is-active, &.is-opened {
+            .el-submenu__title i {
+                color: $color-primary;
+            }
         }
     }
 </style>

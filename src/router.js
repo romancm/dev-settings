@@ -10,12 +10,12 @@ import ExitPage from '@/pages/ExitPage/ExitPage';
 
 // Profile
 import Profile from '@/pages/Profile/Profile';
-import UserPackages from '@/pages/Profile/Packages';
-import UserScripts from '@/pages/Profile/InitScript';
-import UserKeymaps from '@/pages/Profile/Keymaps';
-import UserSettings from '@/pages/Profile/Settings';
-import UserSnippets from '@/pages/Profile/Snippets';
-import UserStyles from '@/pages/Profile/Styles';
+import UserPackages from '@/pages/Profile/Sections/Packages';
+import UserScripts from '@/pages/Profile/Sections/InitScript';
+import UserKeymaps from '@/pages/Profile/Sections/Keymaps';
+import UserSettings from '@/pages/Profile/Sections/Settings';
+import UserSnippets from '@/pages/Profile/Sections/Snippets';
+import UserStyles from '@/pages/Profile/Sections/Styles';
 
 // Admin
 import AdminPage from '@/pages/Admin/AdminPage';
@@ -25,10 +25,9 @@ import Handshake from '@/pages/Auth/Handshake';
 
 // Settings
 import SettingsPage from '@/pages/Settings/SettingsPage';
-import SettingsGetStarted from '@/pages/Settings/SettingsGetStarted';
+import SettingsLink from '@/pages/Settings/SettingsLink';
 import SettingsProfile from '@/pages/Settings/SettingsProfile';
 import SettingsSocial from '@/pages/Settings/SettingsSocial';
-import SettingsGithub from '@/pages/Settings/SettingsGithub';
 import SettingsAccount from '@/pages/Settings/SettingsAccount';
 
 // 3rd party
@@ -105,7 +104,7 @@ const routes = new Router({
             path: '/browse/:id',
             component: Profile,
             name: 'profile',
-            redirect: '/browse/:id/packages',
+            redirect: '/browse/:id/packages/about',
             children: [
                 {
                     path: 'packages',
@@ -149,20 +148,11 @@ const routes = new Router({
             },
             children: [
                 {
-                    path: '',
-                    component: SettingsGetStarted,
-                    name: 'settingsGetStarted',
+                    path: 'link',
+                    component: SettingsLink,
+                    name: 'settingsLink',
                     meta: {
-                        title: 'Get Started | Atom Settings',
-                        auth: true,
-                    },
-                },
-                {
-                    path: 'github',
-                    component: SettingsGithub,
-                    name: 'settingsGithub',
-                    meta: {
-                        title: 'Sync | Atom Settings',
+                        title: 'Link your Atom Settings | Atom Settings',
                         auth: true,
                     },
                 },

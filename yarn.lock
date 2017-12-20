@@ -2610,6 +2610,10 @@ form-data@~2.1.1:
     combined-stream "^1.0.5"
     mime-types "^2.1.12"
 
+format-thousands@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/format-thousands/-/format-thousands-1.1.1.tgz#7975bee30338d9006390da5831db0b41c323fbfa"
+
 formatio@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/formatio/-/formatio-1.2.0.tgz#f3b2167d9068c4698a8d51f4f760a39a54d818eb"
@@ -5022,6 +5026,10 @@ pretty-error@^2.0.2:
     renderkid "^2.0.1"
     utila "~0.4"
 
+prism-themes@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/prism-themes/-/prism-themes-1.0.0.tgz#58089547ed39df273e5195e1628c69177341bf88"
+
 prismjs@^1.6.0, prismjs@^1.8.3:
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.8.3.tgz#4a3d140be5f2614a8987ca2330733a40d8ad207b"
@@ -6350,6 +6358,13 @@ void-elements@^2.0.0:
 vue-content-placeholders@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/vue-content-placeholders/-/vue-content-placeholders-0.2.1.tgz#5876bda4577c80ff6d396fb33b2dbbf8b8cc140f"
+
+vue-github-buttons@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/vue-github-buttons/-/vue-github-buttons-2.0.5.tgz#f4da325fb397a5b703084394f35acd63dfc33ee1"
+  dependencies:
+    axios "^0.16.2"
+    format-thousands "^1.1.1"
 
 vue-hot-reload-api@^2.1.0:
   version "2.1.0"
