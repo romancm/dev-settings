@@ -42,7 +42,7 @@
                 </div>
             </header>
 
-            <div class="user-list" v-if="users.results.length">
+            <div class="user-list" v-if="users && users.results && users.results.length">
                 <div class="user-card" v-for="user in users.results" :key="user.user">
                     <router-link :to="{ name: 'profile', params: { id: user.user } }">
                         <img :src="user.avatar" alt="user.user">
@@ -116,19 +116,20 @@
             },
 
             load() {
-                this.loading = true;
-                this.$http.get(`${this.environment.baseUrl}/browse/?page=${this.currentPage}&title=${this.selectedJobTitles}&languages=${this.selectedLanguages}&pageSize=${this.pageSize}`)
-                    .then(({ data }) => {
-                        store.commit('updateBrowseData', data);
-                        this.loading = false;
-                    })
-                    .catch(() => {
-                        this.$notify.error({
-                            title: 'Error',
-                            message: msg.errors.browse,
+                if (this.environment.baseUrl) {
+                    this.loading = true;
+                    this.$http.get(`${this.environment.baseUrl}/browse/?page=${this.currentPage}&title=${this.selectedJobTitles}&languages=${this.selectedLanguages}&pageSize=${this.pageSize}`)
+                        .then(({ data }) => {
+                            store.commit('updateBrowseData', data);
+                            this.loading = false;
+                        })
+                        .catch(() => {
+                            this.$notify.error({
+                                title: 'Error',
+                                message: msg.errors.browse,
+                            });
                         });
-                    });
-
+                }
                 // this.$http.get('https://api.ziprecruiter.com/jobs/v1?search=javascript%20angular%20front%20end&location=&radius_miles=100&days_ago=&jobs_per_page=1&page=1&api_key=ajafmiw3ax7ntws6iui8iiqnvjb8wiwy')
                 //     .then(({ data }) => {
                 //         this.jobs = data;

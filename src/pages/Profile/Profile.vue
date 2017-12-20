@@ -66,7 +66,7 @@ export default {
         gistData() { return store.getters.gistCache[this.id]; },
         environment() { return store.getters.environment; },
         isMobile() { return this.$mq.resize && this.$mq.below(768); },
-        packages() { return JSON.parse(this.gistData.files['packages.json'].content); },
+        packages() { return this.gistData ? JSON.parse(this.gistData.files['packages.json'].content) : null; },
     },
 
     mounted() {
