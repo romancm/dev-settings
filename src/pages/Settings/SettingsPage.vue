@@ -1,46 +1,43 @@
 <template>
-    <el-container>
-        <el-aside width="auto">
-            <el-row>
-                <div class="userInfo">
-                    <img :src="user.avatar" alt="user.user">
-                    <strong class="userName">
-                        {{user.user}}
-                    </strong>
-                </div>
-                <el-menu
-                    :default-active="activeName"
-                    @select="select"
-                    :collapse="isMobile"
-                >
-                    <el-menu-item v-for="({icon, name, path, title}, index) in settingsRoutes" :index="name" :key="index">
-                        <i :class="['fa', `fa-warning`]" aria-hidden="true" v-if="isMissingGist(name)"></i>
-                        <i :class="['fa', `fa-${icon}`]" aria-hidden="true" v-else></i>
-                        <span slot="title">{{title}}</span>
-                    </el-menu-item>
-                </el-menu>
-            </el-row>
-        </el-aside>
+    <div class="settings-page">
+        <aside>
+            <user-card />
 
-        <el-main>
+            <img :src="user.avatar" alt="user.user" width="64" height="64">
+
+            <el-menu :default-active="activeName" @select="select" collapse>
+                <el-menu-item v-for="({icon, name, path, title}, index) in settingsRoutes" :index="name" :key="index">
+                    <i :class="['fa', `fa-warning`]" aria-hidden="true" v-if="isMissingGist(name)"></i>
+                    <i :class="['fa', `fa-${icon}`]" aria-hidden="true" v-else></i>
+                    <span slot="title">{{title}}</span>
+                </el-menu-item>
+            </el-menu>
+        </aside>
+
+        <main>
             <h2>Settings</h2>
             <router-view />
-        </el-main>
-    </el-container>
+        </main>
+    </div>
 </template>
 
 <script>
 import { store } from '@/store';
+import UserCard from '../Profile/UserCard';
 
 export default {
+    components: {
+        UserCard,
+    },
+
     data() {
         return {
-            activeName: 'link',
+            activeName: '',
             settingsRoutes: [
                 {
                     name: 'settingsLink',
                     title: 'Link Settings',
-                    icon: 'home',
+                    icon: 'github',
                 },
                 {
                     name: 'settingsProfile',
@@ -91,68 +88,35 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
 
-    .userInfo {
+
+    .settings-page {
         display: flex;
-        flex-direction: column;
-        width: 156px;
 
-        @media($xs) {
-            width: 64px;
-        }
+        aside {
+            display: flex;
+            flex-direction: column;
+            background: $color-white;
+            height: calc(100vh - 60px);
 
-        img {
-            width: 100%;
-            margin: $gp;
+            .el-menu {
+                border-right: none;
+                .el-menu-item, .el-submenu {
+                    text-align: center;
 
-            @media($xs) {
-                margin: 0;
-            }
-        }
-
-        .userName {
-            margin-bottom: $gp;
-            text-align: center;
-            width: 100%;
-            overflow-x: auto;
-            margin-left: $gp;
-            @media($xs) {
-                display: none;
-            }
-        }
-    }
-
-    h2 {
-        margin-top: 0;
-    }
-
-    .el-main {
-        background: rgba(255, 255, 255, 0.7);
-        height: calc(100vh - 60px);
-        border-left: 1px solid $color-base-border;
-    }
-
-    .el-aside {
-        height: 100%;
-
-        .el-menu {
-            border-right: 0;
-            background: transparent;
-            .el-menu-item {
-                &.is-active {
-                    background: $color-white;
-                }
-
-                .fa {
-                    margin: 0 10px;
-
-                    @media($xs) {
-                        margin: 0;
-                        text-align: center;
-                        font-size: 20px;
-                        width: 100%;
+                    i {
+                        font-size: $menu-icon-size;
                     }
                 }
             }
+        }
+
+        main {
+            background: rgba(255, 255, 255, 0.7);
+            width: 100%;
+            padding: 0 $gp * 2;
+            height: calc(100vh - 60px);
+            overflow: auto;
+            // border-left: 1px solid $color-base-border;
         }
     }
 </style>

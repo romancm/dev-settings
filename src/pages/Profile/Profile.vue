@@ -139,71 +139,87 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss">
     @import "~styles/_variables";
-    @import "~styles/_profile";
-
-    aside {
-        background: #fff;
-    }
-
     .profile {
         display: flex;
-        // align-items: center;
-        // flex-direction: column;
-    }
 
-    .el-menu {
-        border-right: none;
-        > li {
-            text-align: center;
+        pre[class*="language-"] {
+            padding: $gp * 2;
+            font-size: 11px;
+            margin: 0;
+            overflow: auto;
+            border-radius: 0;
+            width: 100%;
+            height: calc(100vh - 80px);
+
+            @media($xs) {
+                padding: $gp;
+            }
         }
-    }
 
-    .el-submenu {
-        .el-menu {
-            // display: block !important;
-            background: transparent;
-            margin-left: 0 !important;
-            border: 0 !important;
-            box-shadow: none !important;
 
-            .el-menu-item-group {
-                .el-menu-item-group__title {
-                background: #ccc;
-                height: 30px;
-                margin-top: 13px;
-                display: flex;
-                color: $color-white;
-                align-items: center;
-                font-size: 14px;
-                color: $color-primary-text;
-                padding: 0 $gp * 2 !important;
+        aside {
+            background: $color-white;
+
+            .el-menu {
+                border-right: none;
+                .el-menu-item, .el-submenu {
+                    text-align: center;
+
+                    i {
+                        font-size: $menu-icon-size;
+                    }
                 }
+                .el-submenu {
+                    .el-menu {
+                        // display: block !important;
+                        background: transparent;
+                        margin-left: 0 !important;
+                        border: 0 !important;
+                        box-shadow: none !important;
 
-                > ul {
-                    height: calc(100vh - 300px);
-                    overflow-y: auto;
-                    // margin-top: $gp;
-                    background: $color-white;
-                    margin-left: $gp;
+                        .el-menu-item-group {
+                            .el-menu-item-group__title {
+                                background: #ccc;
+                                height: 30px;
+                                margin-top: 13px;
+                                display: flex;
+                                color: $color-white;
+                                align-items: center;
+                                font-size: 14px;
+                                color: $color-primary-text;
+                                padding: 0 $gp * 2 !important;
+                            }
 
-                    li {
-                        height: auto;
-                        text-align: left;
-                        line-height: normal;
-                        padding: $gp / 2 $gp !important;
+                            > ul {
+                                height: calc(100vh - 300px);
+                                overflow-y: auto;
+                                // margin-top: $gp;
+                                background: $color-white;
+                                margin-left: $gp;
 
-                        font-size: 13px;
-                        min-width: 200px;
+                                li {
+                                    height: auto;
+                                    text-align: left;
+                                    line-height: normal;
+                                    padding: $gp / 2 $gp !important;
+
+                                    font-size: 13px;
+                                    min-width: 200px;
+                                }
+                            }
+                        }
+
+
+                    }
+                    &.is-active, &.is-opened {
+                        .el-submenu__title i {
+                            color: $color-primary;
+                        }
                     }
                 }
             }
-
-
-        }
-        &.is-active, &.is-opened {
-            .el-submenu__title i {
-                color: $color-primary;
-            }
         }
     }
+
+
 </style>
