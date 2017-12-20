@@ -32,13 +32,11 @@ export const store = new Vuex.Store({
         cacheUser(state, data) {
             data.userDataCachedDate = moment().format();
             Vue.set(state.userCache, data.user, data);
-            console.log('user data cached!');
         },
 
         cacheUserGistData(state, data) {
             data.gistCachedDate = moment().format();
             Vue.set(state.gistCache, data.owner.login, data);
-            console.log('gist data cached!');
         },
 
         setEnvironment(state, environment) {
