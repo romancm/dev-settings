@@ -11,7 +11,7 @@
         <el-menu-item index="login" class="right" v-if="!session.token">
             <el-button type="" plain>Login</el-button>
         </el-menu-item>
-        <el-menu-item index="settingsLink" class="right settings" v-else>
+        <el-menu-item :index="settingsRoute" class="right settings" v-else>
             <i class="fa fa-cog fa-2x" aria-hidden="true" />
         </el-menu-item>
     </el-menu>
@@ -31,9 +31,8 @@
             meta() { return this.$route.meta; },
             isHome() { return this.$route.name === 'home'; },
             environment() { return store.getters.environment; },
-            githuburl() {
-                return `https://github.com/login/oauth/authorize?scope=user:email&client_id=${this.environment.githubClientId}`;
-            },
+            settingsRoute() { return this.session.user.gistId ? 'settingsProfile' : 'settingsLink'; },
+            githuburl() { return `https://github.com/login/oauth/authorize?scope=user:email&client_id=${this.environment.githubClientId}`; },
         },
 
         methods: {
