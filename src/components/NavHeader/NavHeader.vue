@@ -9,7 +9,7 @@
         <el-menu-item index="home" class="logo">Atom Settings</el-menu-item>
         <el-menu-item index="browse">Browse</el-menu-item>
         <el-menu-item index="login" class="right" v-if="!session.token">
-            <el-button type="success" plain>Login</el-button>
+            <el-button type="" plain>Login</el-button>
         </el-menu-item>
         <el-menu-item index="settingsLink" class="right settings" v-else>
             <i class="fa fa-cog fa-2x" aria-hidden="true" />
@@ -50,6 +50,11 @@
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
+
+    .el-button {
+        background: transparent;
+        color: $color-white;
+    }
     .el-menu {
         background: linear-gradient(to right,  rgba(23, 165, 255, .7) 0%, rgba(255, 55, 169, .7) 100%);
         border-bottom: none;
