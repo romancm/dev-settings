@@ -1,24 +1,17 @@
 <template lang="html">
     <div>
         <h4>Link gist to share your settings </h4>
+        <p>{{filteredGists.length}} compatible settings gist found, {{gists.length}} gists found total.</p>
         <el-row :gutter="20">
-            <el-col :xs="24" :sm="6" :md="12" :lg="8" :xl="6" v-for="gist in gists" :key="gist.id">
-                <el-card class="box-card" >
-                    <h4>{{gist.description}}</h4>
-
-                    <el-tag type="primary">
-                        <strong>Gist Id:</strong> {{gist.id}}
-                    </el-tag>
-
-                    <el-tag type="info">
-                        Created {{ moment(gist.created_at).format('MMM/DD/Y') }}
-                    </el-tag>
-
-                    <el-tag type="info">
-                        Last Updated {{ moment(gist.updated_at).format('MMM/DD/Y') }}
-                    </el-tag>
-
-                    <hr>
+            <el-col :xs="24" v-for="gist in gists" :key="gist.id">
+                <div class="gist">
+                    <i class="fa fa-cog fa-3x" aria-hidden="true" />
+                    <div class="info">
+                        <h5>{{gist.description}}</h5>
+                        <p><strong>ID:</strong> {{gist.id}}</p>
+                        <p><strong>Created</strong> {{ moment(gist.created_at).format('MMM/DD/Y') }}</p>
+                        <p><strong>Last Updated</strong> {{ moment(gist.updated_at).format('MMM/DD/Y') }}</p>
+                    </div>
 
                     <el-button type="success" plain size="small" v-if="gist.id === session.user.gistId">
                         <i class="fa fa-check" aria-hidden="true" />
@@ -26,20 +19,18 @@
                     </el-button>
 
                     <el-button type="success" plain size="small" @click="selectGist(gist.id)" v-else>
-                        Link gist
+                        Link
                     </el-button>
-                </el-card>
+                </div>
             </el-col>
 
             <el-col :xs="8" :sm="6" :md="4" :lg="6" :xl="24" v-if="session.user.gistId">
                 <el-button type="danger" plain size="small" @click="selectGist(null)">
                     <i class="fa fa-remove" aria-hidden="true" />
-                    Unlink gist
+                    Unlink
                 </el-button>
 
                 <br>
-
-
 
             </el-col>
         </el-row>
@@ -58,10 +49,6 @@
             :closable="false"
             description="If you use certain packages, storing auth-tokens, a malicious party could abuse them.">
         </el-alert>
-
-
-
-        <!-- <p>{{filteredGists.length}} compatible settings gist found, {{gists.length}} gists found total.</p> -->
 
 
         <!-- <div class="panel panel-default">
@@ -193,4 +180,42 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+@import "~styles/_variables";
+
+.gist {
+    background: $color-white;
+    padding: $gp;
+    border: 1px solid $color-base-border;
+    display: flex;
+    align-items: center;
+    color: $color-secondary-text;
+    margin-bottom: $gp;
+
+    @media($xs) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    i {
+        margin-right: $gp;
+    }
+
+    .info {
+        display: flex;
+        // align-items: center;
+        flex-direction: column;
+    }
+
+    .el-button {
+        margin-left:  auto;
+    }
+
+    h5 {
+        color: $color-primary;
+    }
+
+    h5, p {
+        margin: 0;
+    }
+}
 </style>
