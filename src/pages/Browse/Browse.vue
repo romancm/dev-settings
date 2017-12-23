@@ -42,20 +42,29 @@
                 </div>
             </header>
 
-            <div class="user-list" v-if="users && users.results && users.results.length">
-                <div class="user-card" v-for="user in users.results" :key="user.user">
-                    <router-link :to="{ name: 'profile', params: { id: user.user } }">
-                        <img :src="user.avatar" alt="user.user">
-                    </router-link>
+            <div class="users" v-if="!loading">
+                <div class="user-list" v-if="users && users.results && users.results.length">
+                    <div class="user-card" v-for="user in users.results" :key="user.user">
+                        <router-link :to="{ name: 'profile', params: { id: user.user } }">
+                            <img :src="user.avatar" alt="user.user">
+                        </router-link>
+                    </div>
+                </div>
+
+                <div class="no-results" v-else>
+                    <i class="fa fa-frown-o fa-5x" aria-hidden="true" />
+                    <h3>No results were found for given criteria</h3>
+                    <p>Please try selecting different filters</p>
+                    <p>You can also <el-button size="mini" @click="clearFilters">Clear filters</el-button></p>
                 </div>
             </div>
 
-            <div class="no-results" v-else>
-                <i class="fa fa-frown-o fa-5x" aria-hidden="true" />
-                <h3>No results were found for given criteria</h3>
-                <p>Please try selecting different filters</p>
-                <p>You can also <el-button size="mini" @click="clearFilters">Clear filters</el-button></p>
+            <div class="user-list" v-else>
+                <content-placeholders v-for="n in 12">
+                    <content-placeholders-img :lines="1" :img="true" />
+                </content-placeholders>
             </div>
+
         </el-main>
     </el-container>
 </template>
@@ -225,5 +234,21 @@
 
     .no-results {
         text-align: center;
+    }
+
+    .vue-content-placeholders-img {
+        width: 100%;
+        height: 15vw;
+
+
+        @media($sm) {
+            width: 100%;
+            height: 20vw;
+        }
+
+        @media($xs) {
+            width: 100%;
+            height: 30vw;
+        }
     }
 </style>
