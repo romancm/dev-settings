@@ -1,17 +1,21 @@
 <template lang="html">
     <div class="user-packages">
-        <ul class="package-list" v-if="!packageName">
-            <li v-for="package in packages" @click="goToPackage(package.name)">
+        <div class="package-list" v-if="!packageName">
+            <el-button type="text" plain v-for="package in packages" @click="goToPackage(package.name)">
+                <i class="fa fa-archive"></i>
                 {{package.name}}
-            </li>
-        </ul>
-        <div class="package-toolbar" :v-loading="!loading && packageData">
-            <gh-btns-watch :slug="formattedRepository" :show-count="!isMobile"/>
-            <gh-btns-star :slug="formattedRepository" :show-count="!isMobile"/>
-            <gh-btns-fork :slug="formattedRepository" :show-count="!isMobile"/>
+            </el-button>
         </div>
 
-        <vue-markdown :source="packageData.readme" v-if="packageData" />
+        <div v-else>
+            <div class="package-toolbar" :v-loading="!loading && packageData">
+                <gh-btns-watch :slug="formattedRepository" :show-count="!isMobile"/>
+                <gh-btns-star :slug="formattedRepository" :show-count="!isMobile"/>
+                <gh-btns-fork :slug="formattedRepository" :show-count="!isMobile"/>
+            </div>
+
+            <vue-markdown :source="packageData.readme" v-if="packageData" />
+        </div>
     </div>
 </template>
 
@@ -100,18 +104,26 @@ export default {
     .package-list {
         margin: 0;
         padding: 0;
-        height: 100vh;
+        height: calc(100vh -60px);
         -webkit-column-count: 4;
         -moz-column-count: 4;
         column-count: 4;
-        li {
-            list-style: none;
-            margin: 0;
-            // background: #cf0;
-            // display: inline-block; /*necessary*/
-            cursor: pointer;
-            color: $color-primary;
-            font-size: 14px;
+
+        @media($xs) {
+            column-count: 1;
+            // height: calc(100vh -30px);
+        }
+        @media($sm) {
+            column-count: 2;
+        }
+        .el-button {
+            width: 100%;
+            text-align: left;
+            padding-left: $gp;
+            // padding: 0 $gp;
+            &+.el-button {
+                margin: 0;
+            }
         }
     }
 
@@ -146,10 +158,10 @@ export default {
         height: calc(100vh - 100px);
         overflow-y: auto;
         background: rgba(255, 255, 255, 0.2) !important;
-        // border-top: 1px solid #ccc;
         padding: $gp * 2;
         width: 100%;
         @media($xs) {
+            height: calc(100vh - 80px);
             padding: $gp;
         }
         img {
