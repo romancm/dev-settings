@@ -104,7 +104,7 @@ const routes = new Router({
             path: '/browse/:id',
             component: Profile,
             name: 'profile',
-            redirect: '/browse/:id/packages/about',
+            redirect: '/browse/:id/packages/',
             children: [
                 {
                     path: 'packages',
