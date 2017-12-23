@@ -3,18 +3,12 @@
         <aside>
             <user-card />
             <el-menu :default-active="activeName" class="el-menu-vertical-demo" collapse @select="handleMenuClick">
-                <el-submenu index="1">
-                    <template slot="title">
-                        <i class="fa fa-archive" aria-hidden="true" />
-                        <span slot="title">Packages</span>
-                    </template>
-                    <el-menu-item-group>
-                        <span slot="title">
-                            Packages
-                        </span>
-                        <el-menu-item :index="name" v-for="{ name } in packages">{{name}}</el-menu-item>
-                    </el-menu-item-group>
-                </el-submenu>
+                <el-menu-item index="packages">
+                    <i class="fa fa-arrow-left" aria-hidden="true" v-if="isPackageSelected" />
+                    <i class="fa fa-archive" aria-hidden="true" v-else />
+
+                    <span slot="title">Packages</span>
+                </el-menu-item>
                 <el-menu-item index="init-script">
                     <i class="fa fa-terminal" aria-hidden="true" />
                     <span slot="title">Init Script</span>
@@ -67,6 +61,7 @@ export default {
         environment() { return store.getters.environment; },
         isMobile() { return this.$mq.resize && this.$mq.below(768); },
         packages() { return this.gistData ? JSON.parse(this.gistData.files['packages.json'].content) : null; },
+        isPackageSelected() { return this.$route.params.packageName; },
     },
 
     mounted() {
