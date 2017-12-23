@@ -1,5 +1,10 @@
 <template lang="html">
     <div class="user-packages">
+        <ul class="package-list" v-if="!packageName">
+            <li v-for="package in packages" @click="goToPackage(package.name)">
+                {{package.name}}
+            </li>
+        </ul>
         <div class="package-toolbar" :v-loading="!loading && packageData">
             <gh-btns-watch :slug="formattedRepository" :show-count="!isMobile"/>
             <gh-btns-star :slug="formattedRepository" :show-count="!isMobile"/>
@@ -11,6 +16,7 @@
 </template>
 
 <script>
+import { store } from '@/store';
 import VueMarkdown from 'vue-markdown';
 
 export default {
@@ -31,7 +37,10 @@ export default {
         id() { return this.$route.params.id; },
         packageName() { return this.$route.params.packageName; },
         isMobile() { return this.$mq.resize && this.$mq.below(768); },
-        formattedRepository() { return !this.loading && this.packageData && this.packageData.repository ? this.packageData.repository.url.split('github.com/')[1] : 'atom/about'; },
+        gistData() { return store.getters.gistCache[this.id]; },
+        packages() { return this.gistData ? JSON.parse(this.gistData.files['packages.json'].content) : null; }, // eslint-disable-line
+        formattedRepository() { return !this.loading && this.packageData && this.packageData.repository ? this.packageData.repository.url.split('github.com/')[1] : 'atom/about'; }, // eslint-disable-line
+        sections() { return Math.ceil(this.packages.length / 30); },
     },
 
     watch: {
@@ -62,6 +71,10 @@ export default {
             this.showPackageMenu = !this.showPackageMenu;
         },
 
+        goToPackage(name) {
+            this.$router.push({ path: `/browse/${this.$route.params.id}/packages/${name}` });
+        },
+
         loadPackage() {
             if (this.packageName) {
                 this.loading = true;
@@ -84,7 +97,23 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss">
     @import "~styles/variables";
-
+    .package-list {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+        li {
+            list-style: none;
+            margin: 0;
+            // background: #cf0;
+            // display: inline-block; /*necessary*/
+            cursor: pointer;
+            color: $color-primary;
+            font-size: 14px;
+        }
+    }
 
     .package-toolbar {
 
