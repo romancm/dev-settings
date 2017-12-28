@@ -104,11 +104,12 @@ const routes = new Router({
             path: '/browse/:id',
             component: Profile,
             name: 'profile',
-            redirect: '/browse/:id/packages/',
+            // redirect: '/browse/:id/packages/',
             children: [
                 {
                     path: 'packages',
                     component: UserPackages,
+                    name: 'packages',
                     children: [
                         {
                             name: 'package',
@@ -119,22 +120,27 @@ const routes = new Router({
                 },
                 {
                     path: 'init-script',
+                    name: 'init-script',
                     component: UserScripts,
                 },
                 {
                     path: 'keymaps',
+                    name: 'keymaps',
                     component: UserKeymaps,
                 },
                 {
                     path: 'settings',
+                    name: 'settings',
                     component: UserSettings,
                 },
                 {
                     path: 'snippets',
+                    name: 'snippets',
                     component: UserSnippets,
                 },
                 {
                     path: 'styles',
+                    name: 'styles',
                     component: UserStyles,
                 },
             ],

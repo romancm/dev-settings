@@ -26,7 +26,7 @@
         display: flex;
         background: $color-white;
         border-right: none;
-        
+
         .avatar {
             max-width: 100%;
         }

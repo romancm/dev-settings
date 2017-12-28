@@ -27,7 +27,7 @@
                 <el-input type="textarea" v-model="session.user.profile.bio"></el-input>
             </el-form-item>
 
-            <el-form-item label="Field of expertise">
+            <el-form-item label="Fields of expertise">
                 <br>
                 <el-checkbox-group v-model="session.user.profile.jobTitle">
                     <el-checkbox :label="value" border size="mini" name="type" v-for="{value, label} in jobTitles" :key="value">

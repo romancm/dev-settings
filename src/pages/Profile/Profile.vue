@@ -1,8 +1,12 @@
 <template lang="html">
     <div class="profile">
         <aside>
-            <user-card />
+            <!-- <img :src="user.avatar" :alt="user.user" class="avatar" @click="goToProfile"> -->
             <el-menu :default-active="activeName" class="el-menu-vertical-demo" collapse @select="handleMenuClick">
+                <el-menu-item index class="avatar">
+                    <img :src="user.avatar" :alt="user.user">
+                    <span slot="title">{{user.user}}</span>
+                </el-menu-item>
                 <el-menu-item index="packages">
                     <i class="fa fa-arrow-left" aria-hidden="true" v-if="isPackageSelected" />
                     <i class="fa fa-archive" aria-hidden="true" v-else />
@@ -32,6 +36,7 @@
             </el-menu>
         </aside>
 
+        <profile-home v-if="routeName === 'profile'" />
         <router-view />
     </div>
 </template>
@@ -41,10 +46,12 @@ import msg from '@/msg';
 import { store } from '@/store';
 import moment from 'moment';
 import UserCard from './UserCard';
+import ProfileHome from './Sections/ProfileHome';
 
 export default {
     components: {
         UserCard,
+        ProfileHome,
     },
 
     data() {
@@ -56,12 +63,19 @@ export default {
 
     computed: {
         id() { return this.$route.params.id; },
+        routeName() { return this.$route.name; },
         user() { return store.getters.userCache[this.id]; },
         gistData() { return store.getters.gistCache[this.id]; },
         environment() { return store.getters.environment; },
         isMobile() { return this.$mq.resize && this.$mq.below(768); },
         packages() { return this.gistData ? JSON.parse(this.gistData.files['packages.json'].content) : null; },
         isPackageSelected() { return this.$route.params.packageName; },
+    },
+
+    watch: {
+        routeName() {
+            this.activeName = this.routeName;
+        },
     },
 
     mounted() {
@@ -114,7 +128,7 @@ export default {
         },
 
         handleMenuClick(name) {
-            if (this.sections.includes(name)) {
+            if (this.sections.includes(name) || name === '') {
                 this.$router.push({ path: `/browse/${this.$route.params.id}/${name}` });
             } else {
                 this.$router.push({ path: `/browse/${this.$route.params.id}/packages/${name}` });
@@ -134,6 +148,24 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss">
     @import "~styles/_variables";
+
+    .avatar {
+        padding: 0;
+        height: 64px;
+
+        .el-tooltip  {
+            padding: 0 !important;
+        }
+
+        img {
+            cursor: pointer;
+            max-width: 100%;
+            height: 64px;
+            width: 64px;
+            display: flex;
+        }
+    }
+
     .profile {
         display: flex;
 
