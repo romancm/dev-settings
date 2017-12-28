@@ -80,12 +80,30 @@
             githuburl() { return `https://github.com/login/oauth/authorize?scope=user:email&client_id=${this.environment.githubClientId}`; },
         },
 
+        mounted() {
+            this.loadPackages();
+        },
+
         methods: {
             login() {
                 window.location.href = this.githuburl;
             },
             browse() {
                 this.$router.push('browse');
+            },
+            loadPackages() {
+                if (this.environment.baseUrl) {
+                    this.$http.get(`${this.environment.baseUrl}/browse/`)
+                        .then(({ data }) => {
+                            store.commit('updateBrowseData', data);
+                        });
+                }
+                // this.$http.get('https://api.ziprecruiter.com/jobs/v1?search=javascript%20angular%20front%20end&location=&radius_miles=100&days_ago=&jobs_per_page=1&page=1&api_key=ajafmiw3ax7ntws6iui8iiqnvjb8wiwy')
+                //     .then(({ data }) => {
+                //         this.jobs = data;
+                //     })
+                //     .catch(() => {
+                //     });
             },
         },
     };
