@@ -176,7 +176,7 @@ export default {
             overflow: auto;
             border-radius: 0;
             width: 100%;
-            height: calc(100vh - 80px);
+            min-height: calc(100vh - 360px);
 
             @media($xs) {
                 padding: $gp;

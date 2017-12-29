@@ -114,7 +114,7 @@ export default {
             background: rgba(255, 255, 255, 0.7);
             width: 100%;
             padding: 0 $gp * 2;
-            height: calc(100vh - 60px);
+            // height: calc(100vh - 60px);
             overflow: auto;
             // border-left: 1px solid $color-base-border;
         }

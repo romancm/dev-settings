@@ -152,6 +152,11 @@
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
+
+    .browse {
+        // background: #cfc;
+        height: calc(100vh - 300px) !important;
+    }
     header {
         display: flex;
 

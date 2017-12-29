@@ -1,9 +1,9 @@
 <template lang="html">
     <div class="user-packages">
         <div class="package-list" v-if="!packageName">
-            <el-button type="text" plain v-for="package in packages" @click="goToPackage(package.name)">
-                <i class="fa fa-archive"></i>
-                {{package.name}}
+            <el-button type="text" plain v-for="{ name } in packages" @click="goToPackage(name)">
+                <i class="fa" :class="getPackageIcon(name)"></i>
+                {{name}}
             </el-button>
         </div>
 
@@ -60,6 +60,15 @@ export default {
     },
 
     methods: {
+        getPackageIcon(name) {
+            if (name.includes('language')) { return 'fa-language'; }
+            if (name.includes('theme')) { return 'fa-paint-brush'; }
+            if (name.includes('-ui')) { return 'fa-paint-brush'; }
+            if (name.includes('syntax')) { return 'fa-code'; }
+
+            return 'fa-archive';
+        },
+
         selectPackage(name) {
             this.showPackageMenu = false;
 
@@ -129,10 +138,10 @@ export default {
 
     .package-toolbar {
 
-        position: fixed;
+        position: absolute;
         padding: $gp $gp / 2;
         background: $color-white;
-        top: 60px;
+        top: 0;
         right: 0;
         border-bottom: 1px solid $color-base-border;
         border-left: 1px solid $color-base-border;
@@ -155,7 +164,7 @@ export default {
     .user-packages {
         position: relative;
         font-size: 12px;
-        height: calc(100vh - 100px);
+        // height: calc(100vh - 100px);
         overflow-y: auto;
         background: rgba(255, 255, 255, 0.2) !important;
         padding: $gp * 2;

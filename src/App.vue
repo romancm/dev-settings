@@ -4,7 +4,7 @@
             <nav-header v-if="!$route.meta.hideNav" />
             <router-view/>
             <el-footer height="auto">
-                <as-footer />
+                <page-footer />
             </el-footer>
         </el-container>
     </main>
@@ -13,14 +13,14 @@
 <script>
 import { store } from '@/store';
 import NavHeader from './components/NavHeader/NavHeader';
-import AsFooter from './components/Footer/Footer';
+import PageFooter from './components/PageFooter/PageFooter';
 
 export default {
     name: 'app',
 
     components: {
         NavHeader,
-        AsFooter,
+        PageFooter,
     },
 
     computed: {
@@ -37,4 +37,8 @@ export default {
     // @import "styles/lumen";
     @import "styles/_variables";
     @import "styles/_global";
+
+    .el-footer {
+        padding: 0;
+    }
 </style>
