@@ -3,7 +3,7 @@
         <div class="footer-top">
             <a href="https://www.ziprecruiter.com/jobs" id="jobs_widget_link"><span>Job Search by</span> <span id="zr_logo_container"><img id="zr_logo" src="https://www.ziprecruiter.com/img/logos/logo-sm-black-304px.png" alt="ZipRecruiter" width="120" /></span></a>
 
-            <el-carousel :interval="10000" type="card" height="140px">
+            <el-carousel :interval="10000" type="card">
                 <el-carousel-item v-for="job in jobs" :key="job.name">
                     <a :href="job.url" target="_blank">
                         <el-card>
@@ -96,6 +96,17 @@
             a {
                 text-decoration: none;
             }
+            .el-carousel__indicators, .el-carousel__arrow {
+                display: none;
+            }
+
+            .el-carousel__container {
+                height: 140px !important;
+
+                @media($xs) {
+                    height: 220px !important;
+                }
+            }
 
             .el-card__body {
                 h6 {
@@ -107,6 +118,12 @@
 
                     &.snippet {
                         margin-top: $gp;
+
+                        @media($xs) {
+                            height: 40px;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                        }
                     }
                 }
             }

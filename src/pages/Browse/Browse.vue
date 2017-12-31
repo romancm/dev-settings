@@ -154,8 +154,11 @@
     @import "~styles/_variables";
 
     .browse {
-        // background: #cfc;
         height: calc(100vh - 300px) !important;
+
+        @media($xs) {
+            height: auto !important;
+        }
     }
     header {
         display: flex;
