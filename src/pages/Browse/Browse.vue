@@ -60,7 +60,7 @@
             </div>
 
             <div class="user-list" v-else>
-                <content-placeholders v-for="n in 12">
+                <content-placeholders v-for="n in 12" :key="n">
                     <content-placeholders-img :lines="1" :img="true" />
                 </content-placeholders>
             </div>
@@ -153,13 +153,6 @@
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
 
-    .browse {
-        height: calc(100vh - 300px) !important;
-
-        @media($xs) {
-            height: auto !important;
-        }
-    }
     header {
         display: flex;
 

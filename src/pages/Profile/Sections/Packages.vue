@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="user-packages">
         <div class="package-list" v-if="!packageName">
-            <el-button type="text" plain v-for="{ name } in packages" @click="goToPackage(name)">
+            <el-button type="text" plain v-for="{ name } in packages" :key="name" @click="goToPackage(name)">
                 <i class="fa" :class="getPackageIcon(name)"></i>
                 {{name}}
             </el-button>
