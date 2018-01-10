@@ -18,7 +18,7 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2018 Atom Settings</p>
+            <p>&copy; {{ new Date().getFullYear() }} Atom Settings</p>
         </div>
     </div>
 </template>
