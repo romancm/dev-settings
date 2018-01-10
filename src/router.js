@@ -158,6 +158,7 @@ const routes = new Router({
                     component: SettingsLink,
                     name: 'settingsLink',
                     meta: {
+                        subRouteTitle: 'Link Settings',
                         title: 'Link your Atom Settings | Atom Settings',
                         auth: true,
                     },
@@ -167,6 +168,7 @@ const routes = new Router({
                     component: SettingsProfile,
                     name: 'settingsProfile',
                     meta: {
+                        subRouteTitle: 'Profile',
                         title: 'Profile | Atom Settings',
                         auth: true,
                     },
@@ -176,7 +178,8 @@ const routes = new Router({
                     component: SettingsSocial,
                     name: 'settingsSocial',
                     meta: {
-                        title: 'Social | Atom Settings',
+                        subRouteTitle: 'Social Networks',
+                        title: 'Social Networks | Atom Settings',
                         auth: true,
                     },
                 },
@@ -185,6 +188,7 @@ const routes = new Router({
                     component: SettingsAccount,
                     name: 'settingsAccount',
                     meta: {
+                        subRouteTitle: 'Account',
                         title: 'Account | Atom Settings',
                         auth: true,
                     },

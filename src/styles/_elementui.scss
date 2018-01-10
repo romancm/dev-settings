@@ -1,0 +1,21 @@
+.el-alert {
+    margin-top: $gp * 2;
+    padding: $gp * 2;
+}
+
+// TODO: move to global place if used in multiple places
+.popover-content {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+
+    h5 {
+        margin: 0 0 $gp;
+    }
+
+    .popover-actions {
+        display: flex;
+        align-items: center;
+    }
+}

@@ -1,5 +1,4 @@
 // Typography
-$font-stack: 'Avenir', Helvetica, Arial, sans-serif;
 $gp: 10px;
 $border-radius: 5px;
 
@@ -27,11 +26,6 @@ $color-scripts: #FF6E3A;
 $color-snippets: #692139;
 $color-keymaps: #FF3D7F;
 $color-styles: #2262af;
-
-.text-success { color: $color-success; }
-.text-warning { color: $color-warning; }
-.text-danger { color: $color-danger; }
-.text-info { color: $color-info; }
 
 // Media Queries
 $xs: "max-width: 767px";
