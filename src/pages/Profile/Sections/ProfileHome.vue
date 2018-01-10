@@ -3,7 +3,7 @@
         <h2>{{user.user}}</h2>
 <!-- <pre>{{gistData}}</pre> -->
         <main>
-            <section v-if="user.profile.jobTitle">
+            <section v-if="user.profile.jobTitle.length > 0">
                 <h3>Fields of expertise</h3>
                 <span v-for="{value, label} in jobTitles">
                     <el-tag type="info" v-if="user.profile.jobTitle.includes(value)">
@@ -13,7 +13,7 @@
                 </span>
             </section>
 
-            <section v-if="user.profile.languages">
+            <section v-if="user.profile.languages.length > 0">
                 <h3>Skill set</h3>
                 <span v-for="{value, label} in languages">
                     <el-tag type="info" v-if="user.profile.languages.includes(value)">
