@@ -75,7 +75,7 @@
                         };
 
                         store.commit('setSession', session);
-                        this.$router.push({ path: '/settings' });
+                        this.$router.push({ path: '/settings/profile' });
                     })
                     .catch((error) => {
                         this.$notify.error({
