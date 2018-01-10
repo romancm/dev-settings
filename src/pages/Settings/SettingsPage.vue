@@ -15,7 +15,7 @@
         </aside>
 
         <main>
-            <h2>Settings</h2>
+            <h4>Settings / {{sectionName}}</h4>
             <router-view />
         </main>
     </div>
@@ -77,6 +77,9 @@ export default {
     },
 
     computed: {
+        sectionName() {
+            return this.$route.meta.subRouteTitle;
+        },
         user() { return store.getters.session.user; },
         isMobile() {
             return this.$mq.resize && this.$mq.below(768);

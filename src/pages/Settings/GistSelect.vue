@@ -1,7 +1,5 @@
 <template lang="html">
     <div>
-        <h4>Link gist to share your settings </h4>
-        <p>{{filteredGists.length}} compatible settings gist found, {{gists.length}} gists found total.</p>
         <el-row :gutter="20">
             <el-col :xs="24" v-for="gist in gists" :key="gist.id">
                 <div class="gist">
@@ -18,52 +16,38 @@
                         Linked
                     </el-button>
 
-                    <el-button type="success" plain size="small" @click="selectGist(gist.id)" v-else>
+                    <el-button type="success" plain size="small" @click="selectGist(gist.id)" v-else-if="filteredGists.includes(gist)">
+                        <i class="fa fa-link" aria-hidden="true" />
                         Link
+                    </el-button>
+
+                    <el-button type="warning" plain size="small" v-else>
+                        <i class="fa fa-bad" aria-hidden="true" />
+                        Not compatible
                     </el-button>
                 </div>
             </el-col>
 
             <el-col :xs="8" :sm="6" :md="4" :lg="6" :xl="24" v-if="session.user.gistId">
-                <el-button type="danger" plain size="small" @click="selectGist(null)">
+                <el-popover ref="unlink" placement="right" width="300" v-model="showUnlinkPopover" trigger="manual">
+                    <div class="popover-content">
+                        <h5>Are you sure?</h5>
+                        <p class="small">Unlinking your gist will automatically <br /> remove you from browse results.</p>
+                        <div class="popover-actions">
+                            <el-button size="mini" type="info" @click="closeLogoutPopover" plain>No</el-button>
+                            <el-button type="primary" size="mini" @click="selectGist(null)">Yes</el-button>
+                        </div>
+                    </div>
+                </el-popover>
+
+                <el-button v-popover:unlink type="danger" plain size="small">
                     <i class="fa fa-remove" aria-hidden="true" />
-                    Unlink
+                    Unlink Settings
                 </el-button>
-
-                <br>
-
             </el-col>
         </el-row>
         <br>
-        <el-alert
-        type="info"
-        show-icon
-        title="Keep in mind"
-        description="Unlinking your gist will automatically remove you from browse results.">
-    </el-alert>
     <br>
-        <el-alert
-            title="Public Gists Warning"
-            show-icon
-            type="warning"
-            :closable="false"
-            description="If you use certain packages, storing auth-tokens, a malicious party could abuse them.">
-        </el-alert>
-
-
-        <!-- <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Not seeing your Gist?</h3>
-            </div>
-            <div class="panel-body">
-                <p>We only display public gists, if your sync-settings gist is set to secret you may have to create a new public gist.</p>
-
-                <a href="https://help.github.com/articles/about-gists/" class="btn btn-info" target="_blank">
-                    Learn more about Gists
-                    <i class="fa fa-external-link" aria-hidden="true"></i>
-                </a>
-            </div>
-        </div> -->
     </div>
 </template>
 
@@ -75,6 +59,7 @@
     export default {
         data() {
             return {
+                showUnlinkPopover: false,
                 gists: [],
             };
         },
@@ -108,7 +93,6 @@
                         // this.loadingGists = false;
                     })
                     .catch(() => {
-                        console.log('err');
                         this.$notify.error({
                             title: 'Error',
                             message: msg.errors.user,

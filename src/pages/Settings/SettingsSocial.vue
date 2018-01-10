@@ -1,23 +1,41 @@
 <template>
     <div class="settings-social">
-        <h3>Social Networks</h3>
         <el-form ref="form" @submit.native.prevent="save">
-            <el-row :gutter="15">
-                <el-col :span="12" :xs="24" :sm="12" :md="8">
-                    <el-form-item label="Twitter">
-                        <el-input v-model="session.user.socialNetworks.twitter"></el-input>
-                    </el-form-item>
+            <el-row :gutter="20">
+                <el-col :xs="24" :sm="12">
+                    <el-alert type="info" :closable="false" title="Twitter">
+                        <el-form-item>
+                            <el-input placeholder="username" v-model="session.user.socialNetworks.twitter">
+                                <template slot="prepend">https://twitter.com/</template>
+                            </el-input>
+                        </el-form-item>
+
+                        <el-button type="primary" plain :loading="loading" @click="save">
+                            <i class="fa fa-floppy-o" aria-hidden="true" v-if="!loading" />
+                            Save
+                        </el-button>
+                    </el-alert>
                 </el-col>
-                <el-col :span="12" :xs="24" :sm="12" :md="8">
-                    <el-form-item label="Facebook">
-                        <el-input v-model="session.user.socialNetworks.linkedin"></el-input>
-                    </el-form-item>
+
+                <el-col :xs="24" :sm="12">
+                    <el-alert type="info" :closable="false" title="LinkedIn">
+                        <el-form-item>
+                            <el-input placeholder="username" v-model="session.user.socialNetworks.linkedin">
+                                <template slot="prepend">https://linkedin.com/in/</template>
+                            </el-input>
+                        </el-form-item>
+
+                        <el-button type="primary" plain :loading="loading" @click="save">
+                            <i class="fa fa-floppy-o" aria-hidden="true" v-if="!loading" />
+                            Save
+                        </el-button>
+                    </el-alert>
                 </el-col>
             </el-row>
 
-            <el-form-item>
+            <!-- <el-form-item>
                 <el-button type="primary" plain :loading="loading" @click="save">Save</el-button>
-            </el-form-item>
+            </el-form-item> -->
         </el-form>
     </div>
 </template>

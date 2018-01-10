@@ -1,10 +1,5 @@
 <template>
     <div class="settings-profile">
-        <!-- <div role="alert" class="el-message el-message--success is-center" style="z-index: 2013;">
-            <i class="el-message__icon el-icon-success"></i>
-            <p class="el-message__content">Congrats, this is a success message.</p>
-        </div> -->
-        <h3>Profile</h3>
         <el-form ref="form">
             <el-row>
                 <el-col :xs="{ span: 24, offset: 0}" :sm="{ span: 11 }">
