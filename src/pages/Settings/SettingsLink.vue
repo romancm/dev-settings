@@ -16,7 +16,12 @@
                 <p class="small">Please refer to the following video about how to setup sync-settings package and get started sharing your settings.</p>
                 <p class="small">Special thanks to <a href="https://www.youtube.com/channel/UCGo6gTZTxSnueTx1aC1FWDQ" target="_blank">Danny Dickson</a> for creating such a great guide.</p>
 
-                <p class="small"></p>
+                <el-alert
+                    title="IMPORTANT! Not seeing your Gist?"
+                    show-icon
+                    :closable="false"
+                    description="We only display public gists, if your sync-settings gist is set to secret you may have to create a new public gist.">
+                </el-alert>
 
                 <div class="videoWrapper">
                     <iframe width="560" height="315" src="http://www.youtube.com/embed/fchZJvaktdc?&rel=0&showinfo=0&modestbranding=1&hd=1&autohide=1" frameborder="0" allowfullscreen />
@@ -28,17 +33,6 @@
                     type="warning"
                     :closable="false"
                     description="If you use certain packages, storing auth-tokens, a malicious party could abuse them.">
-                </el-alert>
-
-                <el-alert
-                    title="Not seeing your Gist?"
-                    show-icon
-                    :closable="false"
-                    description="We only display public gists, if your sync-settings gist is set to secret you may have to create a new public gist.">
-                    <a href="https://help.github.com/articles/about-gists/" class="btn btn-info" target="_blank">
-                        Learn more about Gists
-                        <i class="fa fa-external-link" aria-hidden="true"></i>
-                    </a>
                 </el-alert>
             </el-col>
         </el-row>
