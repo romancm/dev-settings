@@ -53,10 +53,6 @@
         data() {
             return {
                 features: {
-                    settings: {
-                        icon: 'fa-cogs',
-                        routeName: 'settings',
-                    },
                     packages: {
                         icon: 'fa-archive',
                         routeName: 'packages',
@@ -64,6 +60,10 @@
                     scripts: {
                         icon: 'fa-terminal',
                         routeName: 'init-script',
+                    },
+                    settings: {
+                        icon: 'fa-cogs',
+                        routeName: 'settings',
                     },
                     keymaps: {
                         icon: 'fa-keyboard-o',
