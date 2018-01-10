@@ -1,12 +1,23 @@
 <template lang="html">
     <el-container>
-        <el-main>
+        <el-main v-if="users">
             <h2>Admin</h2>
-            <el-table :data="users" stripe border>
-                <el-table-column prop="user" label="User" width="180" />
-                <el-table-column prop="dateJoined" label="Date Joined" width="180" />
-                <el-table-column prop="avatar" label="avatar" width="180" />
-            </el-table>
+            <table style="width:100%">
+                <tr>
+                    <th>Profile Pic</th>
+                    <th>Date Joined</th>
+                    <th>User name</th>
+                </tr>
+                <tr v-for="{user, _id, avatar, dateJoined, profile} in users" :key="_id">
+                    <td>
+                        <img :src="avatar" :alt="user" width="75">
+                    </td>
+                    <td :title="dateJoined">
+                        {{ formatDate(dateJoined) }}
+                    </td>
+                    <td>{{user}}</td>
+                </tr>
+            </table>
         </el-main>
     </el-container>
 </template>
@@ -30,16 +41,12 @@ export default {
     },
 
     mounted() {
-        if (this.session.user.admin) {
-            this.load();
-        } else {
-            this.$router.push({ path: '/' });
-        }
+        this.load();
     },
 
     methods: {
-        moment() {
-            return moment();
+        formatDate(date) {
+            return moment(date, 'YYYYMMDD').fromNow();
         },
 
         load() {
@@ -73,7 +80,8 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables";
 
-    .table {
+    table {
         background: $color-white;
+        text-align: left;
     }
 </style>
