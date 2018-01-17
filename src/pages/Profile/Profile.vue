@@ -1,40 +1,37 @@
 <template lang="html">
     <div class="profile">
-        <aside>
-            <!-- <img :src="user.avatar" :alt="user.user" class="avatar" @click="goToProfile"> -->
-            <el-menu :default-active="activeName" class="el-menu-vertical-demo" collapse @select="handleMenuClick">
-                <el-menu-item index class="avatar">
-                    <img :src="user.avatar" :alt="user.user">
-                    <span slot="title">{{user.user}}</span>
-                </el-menu-item>
-                <el-menu-item index="packages">
-                    <i class="fa fa-arrow-left" aria-hidden="true" v-if="isPackageSelected" />
-                    <i class="fa fa-archive" aria-hidden="true" v-else />
+        <el-menu :default-active="activeName" mode="horizontal" class="el-menu-vertical-demo" @select="handleMenuClick">
+            <el-menu-item index class="avatar">
+                <img :src="user.avatar" :alt="user.user">
+                <span slot="title">{{user.user}}</span>
+            </el-menu-item>
+            <el-menu-item index="packages">
+                <i class="fa fa-arrow-left" aria-hidden="true" v-if="isPackageSelected" />
+                <i class="fa fa-archive" aria-hidden="true" v-else />
 
-                    <span slot="title">Packages</span>
-                </el-menu-item>
-                <el-menu-item index="init-script">
-                    <i class="fa fa-terminal" aria-hidden="true" />
-                    <span slot="title">Init Script</span>
-                </el-menu-item>
-                <el-menu-item index="keymaps">
-                    <i class="fa fa-keyboard-o" aria-hidden="true" />
-                    <span slot="title">Keymaps</span>
-                </el-menu-item>
-                <el-menu-item index="settings">
-                    <i class="fa fa-cogs" aria-hidden="true" />
-                    <span slot="title">Settings</span>
-                </el-menu-item>
-                <el-menu-item index="snippets">
-                    <i class="fa fa-code" aria-hidden="true" />
-                    <span slot="title">Snippets</span>
-                </el-menu-item>
-                <el-menu-item index="styles">
-                    <i class="fa fa-css3" aria-hidden="true" />
-                    <span slot="title">Styles</span>
-                </el-menu-item>
-            </el-menu>
-        </aside>
+                <span slot="title">Packages</span>
+            </el-menu-item>
+            <el-menu-item index="init-script">
+                <i class="fa fa-terminal" aria-hidden="true" />
+                <span slot="title">Init Script</span>
+            </el-menu-item>
+            <el-menu-item index="keymaps">
+                <i class="fa fa-keyboard-o" aria-hidden="true" />
+                <span slot="title">Keymaps</span>
+            </el-menu-item>
+            <el-menu-item index="settings">
+                <i class="fa fa-cogs" aria-hidden="true" />
+                <span slot="title">Settings</span>
+            </el-menu-item>
+            <el-menu-item index="snippets">
+                <i class="fa fa-code" aria-hidden="true" />
+                <span slot="title">Snippets</span>
+            </el-menu-item>
+            <el-menu-item index="styles">
+                <i class="fa fa-css3" aria-hidden="true" />
+                <span slot="title">Styles</span>
+            </el-menu-item>
+        </el-menu>
 
         <profile-home v-if="routeName === 'profile'" />
         <router-view />
@@ -128,10 +125,12 @@ export default {
         },
 
         handleMenuClick(name) {
+            console.log(name);
+            console.log(this.$route.path);
             if (this.sections.includes(name) || name === '') {
-                this.$router.push({ path: `/browse/${this.$route.params.id}/${name}` });
+                this.$router.push({ path: `/atom/${this.$route.params.id}/${name}` });
             } else {
-                this.$router.push({ path: `/browse/${this.$route.params.id}/packages/${name}` });
+                this.$router.push({ path: `/atom/${this.$route.params.id}/packages/${name}` });
             }
         },
 
@@ -168,6 +167,7 @@ export default {
 
     .profile {
         display: flex;
+        flex-direction: column;
 
         pre[class*="language-"] {
             padding: $gp * 2;

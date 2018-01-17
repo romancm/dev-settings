@@ -12,6 +12,7 @@ export const store = new Vuex.Store({
         userCache: {},
         gistCache: {},
         session: {},
+        editor: null,
         environment: {},
     },
 
@@ -19,6 +20,10 @@ export const store = new Vuex.Store({
         setSession(state, session) {
             session.lastLogin = moment().format();
             state.session = session;
+        },
+
+        setEditor(state, editor) {
+            state.editor = editor;
         },
 
         updateSessionUser(state, user) {
@@ -69,6 +74,7 @@ export const store = new Vuex.Store({
         gistCache(state) { return state.gistCache; },
         userCache(state) { return state.userCache; },
         session(state) { return state.session; },
+        editor(state) { return state.editor; },
         users(state) { return state.users; },
         environment(state) { return state.environment; },
     },

@@ -1,6 +1,14 @@
 <template lang="html">
     <div>
         <el-row :gutter="20">
+            <el-col :xs="12">
+                <img src="static/img/atom.png" width="40">
+                <img src="static/img/code.png" width="40">
+            </el-col>
+            <el-col :xs="12">
+                <img src="static/img/atom.png" width="40">
+                <img src="static/img/code.png" width="40">
+            </el-col>
             <el-col :xs="24" v-for="gist in gists" :key="gist.id">
                 <div class="gist">
                     <i class="fa fa-cog fa-3x" aria-hidden="true" />
@@ -46,8 +54,6 @@
                 </el-button>
             </el-col>
         </el-row>
-        <br>
-    <br>
     </div>
 </template>
 
@@ -130,34 +136,34 @@
                 });
             },
 
-            updateGistId() {
-                // TODO: update logic to save gist
-                this.loading = true;
-
+            saveAtomGist(id) {
                 const payload = {
-                    userName: this.user.userName,
-                    gistId: this.user.gistId,
+                    userName: this.session.user.user,
+                    atom: id,
                     token: this.session.token,
                 };
 
-                this.$http.put(`${this.environment.baseUrl}/profile/gist/`, payload)
-                    .then(() => {
-                        store.commit('reloadUserData');
-                        this.$notify({
-                            title: 'Success',
-                            message: 'This is a success message',
-                            type: 'success',
-                        });
-                    })
-                    .catch(() => {
-                        this.$notify.error({
-                            title: 'Error',
-                            message: 'Error',
-                        });
-                    })
-                    .then(() => {
-                        this.loading = false;
+                this.$http.put(`${this.environment.baseUrl}/profile/gist/atom`, payload)
+                .then(({ data }) => {
+                    store.commit('reloadUserData');
+
+                    this.$message({
+                        showClose: false,
+                        center: true,
+                        message: data.message,
+                        type: 'success',
                     });
+                })
+                .catch(() => {
+                    this.$message({
+                        center: true,
+                        type: 'error',
+                        message: msg.errors.settings.gist,
+                    });
+                })
+                .then(() => {
+                    this.loading = false;
+                });
             },
         },
     };

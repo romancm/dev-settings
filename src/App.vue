@@ -1,13 +1,11 @@
 <template>
-    <main id="app">
-        <el-container>
-            <nav-header v-if="!$route.meta.hideNav" />
+    <div id="app">
+        <nav-header v-if="!$route.meta.hideNav" />
+        <main class="main-content">
             <router-view/>
-            <el-footer height="auto">
-                <page-footer />
-            </el-footer>
-        </el-container>
-    </main>
+        </main>
+
+    </div>
 </template>
 
 <script>
@@ -40,7 +38,14 @@ export default {
     @import "styles/_elementui";
     @import "styles/_global";
 
-    .el-footer {
-        padding: 0;
+    #app {
+        display: flex;
+        .main-content {
+            flex: 1;
+            height: 100vh;
+            background: $color-white;
+            overflow-y: auto;
+        }
     }
+
 </style>

@@ -1,4 +1,7 @@
 const msg = {
+    global: {
+        siteName: '[DEV SETTINGS]',
+    },
     errors: {
         handshake: {
             validation: 'There was a problem validating the github code',

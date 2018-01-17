@@ -1,70 +1,91 @@
 <template lang="html">
     <el-container class="browse">
         <el-main>
-            <header>
-                <h2>Browse Settings</h2>
-                <div class="header-options">
-                    <el-pagination
-                        v-if="users.totalPages > 1"
-                        layout="prev, pager, next"
-                        :page-size="users.pageSize"
-                        :current-page.sync="currentPage"
-                        :total="users.totalUserCount"
-                    />
+            <div v-if="!editor">
+                <el-dialog
+                title="Please select an editor"
+                :visible="true"
+                width="30%"
+                center>
+                <span>You can always switch from the menu</span>
+                <span slot="footer" class="dialog-footer">
+                    <el-button-group>
+                        <el-button type="info" plain @click="selectEditor('atom')">
+                            <img src="static/img/atom.png" width="30">
+                        </el-button>
+                        <el-button type="info" plain @click="selectEditor('code')">
+                            <img src="static/img/code.png" width="30">
+                        </el-button>
+                    </el-button-group>
+                </span>
+            </el-dialog>
 
-                    <div class="filters">
-                        <el-select
-                            v-model="selectedJobTitles"
-                            filterable
-                            placeholder="Filter by Job title"
-                        >
-                            <el-option
-                                v-for="item in jobTitles"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                            />
-                        </el-select>
-
-                        <el-select
-                            v-model="selectedLanguages"
-                            filterable
-                            placeholder="Filter by language"
-                        >
-                            <el-option
-                                v-for="item in languages"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                            />
-                        </el-select>
-                    </div>
-                </div>
-            </header>
-
-            <div class="users" v-if="!loading">
-                <div class="user-list" v-if="users && users.results && users.results.length">
-                    <div class="user-card" v-for="user in users.results" :key="user.user">
-                        <router-link :to="{ name: 'profile', params: { id: user.user } }">
-                            <img :src="user.avatar" alt="user.user">
-                        </router-link>
-                    </div>
-                </div>
-
-                <div class="no-results" v-else>
-                    <i class="fa fa-frown-o fa-5x" aria-hidden="true" />
-                    <h3>No results were found for given criteria</h3>
-                    <p>Please try selecting different filters</p>
-                    <p>You can also <el-button size="mini" @click="clearFilters">Clear filters</el-button></p>
-                </div>
             </div>
 
-            <div class="user-list" v-else>
-                <content-placeholders v-for="n in 12" :key="n">
-                    <content-placeholders-img :lines="1" :img="true" />
-                </content-placeholders>
-            </div>
+            <div v-else>
+                <header>
+                    <div class="header-options">
+                        <el-pagination
+                            v-if="users.totalPages > 1"
+                            layout="prev, pager, next"
+                            :page-size="users.pageSize"
+                            :current-page.sync="currentPage"
+                            :total="users.totalUserCount"
+                        />
 
+                        <div class="filters">
+                            <el-select
+                                v-model="selectedJobTitles"
+                                filterable
+                                placeholder="Filter by Job title"
+                            >
+                                <el-option
+                                    v-for="item in jobTitles"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                />
+                            </el-select>
+
+                            <el-select
+                                v-model="selectedLanguages"
+                                filterable
+                                placeholder="Filter by language"
+                            >
+                                <el-option
+                                    v-for="item in languages"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                />
+                            </el-select>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="users" v-if="!loading">
+                    <div class="user-list" v-if="users && users.results && users.results.length">
+                        <div class="user-card" v-for="user in users.results" :key="user.user">
+                            <router-link :to="{ name: 'profile', params: { id: user.user } }">
+                                <img :src="user.avatar" alt="user.user">
+                            </router-link>
+                        </div>
+                    </div>
+
+                    <div class="no-results" v-else>
+                        <i class="fa fa-frown-o fa-5x" aria-hidden="true" />
+                        <h3>No results were found for given criteria</h3>
+                        <p>Please try selecting different filters</p>
+                        <p>You can also <el-button size="mini" @click="clearFilters">Clear filters</el-button></p>
+                    </div>
+                </div>
+
+                <div class="user-list" v-else>
+                    <content-placeholders v-for="n in 12" :key="n">
+                        <content-placeholders-img :lines="1" :img="true" />
+                    </content-placeholders>
+                </div>
+            </div>
         </el-main>
     </el-container>
 </template>
@@ -92,6 +113,7 @@
         },
 
         computed: {
+            editor() { return store.getters.editor; },
             users() { return store.getters.users; },
             session() { return store.getters.session; },
             environment() { return store.getters.environment; },
@@ -105,6 +127,10 @@
         },
 
         watch: {
+            editor() {
+                this.load();
+            },
+
             currentPage() {
                 this.load();
             },
@@ -124,10 +150,14 @@
                 this.selectedLanguages = [];
             },
 
+            selectEditor(editor) {
+                store.commit('setEditor', editor);
+            },
+
             load() {
-                if (this.environment.baseUrl) {
+                if (this.environment.baseUrl && this.editor) {
                     this.loading = true;
-                    this.$http.get(`${this.environment.baseUrl}/browse/?page=${this.currentPage}&title=${this.selectedJobTitles}&languages=${this.selectedLanguages}&pageSize=${this.pageSize}`)
+                    this.$http.get(`${this.environment.baseUrl}/browse/?page=${this.currentPage}&title=${this.selectedJobTitles}&languages=${this.selectedLanguages}&pageSize=${this.pageSize}&editor=${this.editor}`)
                         .then(({ data }) => {
                             store.commit('updateBrowseData', data);
                             this.loading = false;
@@ -139,12 +169,6 @@
                             });
                         });
                 }
-                // this.$http.get('https://api.ziprecruiter.com/jobs/v1?search=javascript%20angular%20front%20end&location=&radius_miles=100&days_ago=&jobs_per_page=1&page=1&api_key=ajafmiw3ax7ntws6iui8iiqnvjb8wiwy')
-                //     .then(({ data }) => {
-                //         this.jobs = data;
-                //     })
-                //     .catch(() => {
-                //     });
             },
         },
     };
@@ -152,6 +176,10 @@
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/_variables";
+
+    .el-button img {
+        // width: 300px;
+    }
 
     header {
         display: flex;

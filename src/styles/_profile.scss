@@ -4,8 +4,8 @@ pre[class*="language-"] {
 	margin: 0;
 	overflow: auto;
 	border-radius: 0;
-    width: 100%;
-    // height: calc(100vh - 80px);
+    // width: 100%;
+    height: 100vh;
 
 	@media($xs) {
 		padding: $gp;

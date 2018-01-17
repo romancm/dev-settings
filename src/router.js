@@ -3,7 +3,7 @@ import Router from 'vue-router';
 
 // Pages
 import Browse from '@/pages/Browse/Browse';
-import Home from '@/pages/Home';
+// import Home from '@/pages/Home';
 import NotFound from '@/pages/NotFound/NotFound';
 import Logout from '@/pages/Logout/Logout';
 import ExitPage from '@/pages/ExitPage/ExitPage';
@@ -25,7 +25,9 @@ import Handshake from '@/pages/Auth/Handshake';
 
 // Settings
 import SettingsPage from '@/pages/Settings/SettingsPage';
-import SettingsLink from '@/pages/Settings/SettingsLink';
+import SettingsLink from '@/pages/Settings/SettingsLink/SettingsLink';
+import AtomLink from '@/pages/Settings/SettingsLink/AtomLink';
+import CodeLink from '@/pages/Settings/SettingsLink/CodeLink';
 import SettingsProfile from '@/pages/Settings/SettingsProfile';
 import SettingsSocial from '@/pages/Settings/SettingsSocial';
 import SettingsAccount from '@/pages/Settings/SettingsAccount';
@@ -43,11 +45,72 @@ const routes = new Router({
     routes: [
         {
             path: '/',
-            component: Home,
+            component: Browse,
             name: 'home',
             meta: {
                 title: 'Atom Settings',
             },
+        },
+        {
+            path: '/code',
+            component: Browse,
+            name: 'code',
+            meta: {
+                title: 'Browse | Atom Settings',
+            },
+        },
+        {
+            path: '/atom',
+            component: Browse,
+            name: 'atom',
+            meta: {
+                title: 'Browse | Atom Settings',
+            },
+        },
+        {
+            path: '/atom/:id',
+            component: Profile,
+            name: 'profile',
+            // redirect: '/browse/:id/packages/',
+            children: [
+                {
+                    path: 'packages',
+                    component: UserPackages,
+                    name: 'packages',
+                    children: [
+                        {
+                            name: 'package',
+                            path: ':packageName',
+                            component: UserPackages,
+                        },
+                    ],
+                },
+                {
+                    path: 'init-script',
+                    name: 'init-script',
+                    component: UserScripts,
+                },
+                {
+                    path: 'keymaps',
+                    name: 'keymaps',
+                    component: UserKeymaps,
+                },
+                {
+                    path: 'settings',
+                    name: 'settings',
+                    component: UserSettings,
+                },
+                {
+                    path: 'snippets',
+                    name: 'snippets',
+                    component: UserSnippets,
+                },
+                {
+                    path: 'styles',
+                    name: 'styles',
+                    component: UserStyles,
+                },
+            ],
         },
         {
             path: '/404',
@@ -101,51 +164,6 @@ const routes = new Router({
             },
         },
         {
-            path: '/browse/:id',
-            component: Profile,
-            name: 'profile',
-            // redirect: '/browse/:id/packages/',
-            children: [
-                {
-                    path: 'packages',
-                    component: UserPackages,
-                    name: 'packages',
-                    children: [
-                        {
-                            name: 'package',
-                            path: ':packageName',
-                            component: UserPackages,
-                        },
-                    ],
-                },
-                {
-                    path: 'init-script',
-                    name: 'init-script',
-                    component: UserScripts,
-                },
-                {
-                    path: 'keymaps',
-                    name: 'keymaps',
-                    component: UserKeymaps,
-                },
-                {
-                    path: 'settings',
-                    name: 'settings',
-                    component: UserSettings,
-                },
-                {
-                    path: 'snippets',
-                    name: 'snippets',
-                    component: UserSnippets,
-                },
-                {
-                    path: 'styles',
-                    name: 'styles',
-                    component: UserStyles,
-                },
-            ],
-        },
-        {
             path: '/settings',
             component: SettingsPage,
             meta: {
@@ -162,6 +180,28 @@ const routes = new Router({
                         title: 'Link your Atom Settings | Atom Settings',
                         auth: true,
                     },
+                    children: [
+                        {
+                            path: 'atom',
+                            component: AtomLink,
+                            name: 'atom',
+                            meta: {
+                                subRouteTitle: 'Link Settings / Atom',
+                                title: 'Link your Atom Settings | Atom Settings',
+                                auth: true,
+                            },
+                        },
+                        {
+                            path: 'code',
+                            component: CodeLink,
+                            name: 'code',
+                            meta: {
+                                subRouteTitle: 'Link Settings / Visual Studio Code',
+                                title: 'Link your Atom Settings | Atom Settings',
+                                auth: true,
+                            },
+                        },
+                    ],
                 },
                 {
                     path: 'profile',

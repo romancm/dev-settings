@@ -1,44 +1,8 @@
 <template lang="html">
     <div class="settings-profile">
-        <el-row :gutter="20">
-            <el-col :xs="24" :sm="16">
-                <el-alert
-                    title="Settings linked"
-                    show-icon
-                    :closable="false"
-                    type="success"
-                    description="Your settings are linked and can be seen by other developers. Thank you for using Atom Settings"
-                />
-                <gist-select />
-            </el-col>
-            <el-col :xs="24" :sm="8">
-                <h3>Get started</h3>
-                <p class="small">Please refer to the following video about how to setup sync-settings package and get started sharing your settings.</p>
-                <p class="small">Special thanks to <a href="https://www.youtube.com/channel/UCGo6gTZTxSnueTx1aC1FWDQ" target="_blank">Danny Dickson</a> for creating such a great guide.</p>
-
-                <el-alert
-                    title="IMPORTANT! Not seeing your Gist?"
-                    show-icon
-                    :closable="false"
-                    description="We only display public gists, if your sync-settings gist is set to secret you may have to create a new public gist.">
-                </el-alert>
-
-                <div class="videoWrapper">
-                    <iframe width="560" height="315" src="http://www.youtube.com/embed/fchZJvaktdc?&rel=0&showinfo=0&modestbranding=1&hd=1&autohide=1" frameborder="0" allowfullscreen />
-                </div>
-
-                <el-alert
-                    title="Public Gists Warning"
-                    show-icon
-                    type="warning"
-                    :closable="false"
-                    description="If you use certain packages, storing auth-tokens, a malicious party could abuse them.">
-                </el-alert>
-            </el-col>
-        </el-row>
-
-        <!-- <p>AtomSettings helps developers around to world to share and discover settings for the hackable text editor for the 21st Century. In order to get started you need to install Sync Settings for Atom. Please refer to their readme for instructions on how to set it up. Once you are all set you can enter the gist id.</p> -->
-
+        <router-link to="/settings/link/atom"><img src="static/img/atom.png" width="40"></router-link>
+        <router-link to="/settings/link/code"><img src="static/img/code.png" width="40"></router-link>
+        <router-view />
     </div>
 </template>
 

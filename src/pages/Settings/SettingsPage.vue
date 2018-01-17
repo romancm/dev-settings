@@ -1,19 +1,5 @@
 <template>
     <div class="settings-page">
-        <aside>
-            <user-card />
-
-            <img :src="user.avatar" alt="user.user" width="64" height="64">
-
-            <el-menu :default-active="activeName" @select="select" collapse>
-                <el-menu-item v-for="({icon, name, path, title}, index) in settingsRoutes" :index="name" :key="index">
-                    <i :class="['fa', `fa-warning`]" aria-hidden="true" v-if="isMissingGist(name)"></i>
-                    <i :class="['fa', `fa-${icon}`]" aria-hidden="true" v-else></i>
-                    <span slot="title">{{title}}</span>
-                </el-menu-item>
-            </el-menu>
-        </aside>
-
         <main>
             <h4>Settings / {{sectionName}}</h4>
             <router-view />
@@ -33,28 +19,6 @@ export default {
     data() {
         return {
             activeName: '',
-            settingsRoutes: [
-                {
-                    name: 'settingsLink',
-                    title: 'Link Settings',
-                    icon: 'github',
-                },
-                {
-                    name: 'settingsProfile',
-                    title: 'Profile',
-                    icon: 'user',
-                },
-                {
-                    name: 'settingsSocial',
-                    title: 'Social Networks',
-                    icon: 'share-alt',
-                },
-                {
-                    name: 'settingsAccount',
-                    title: 'Account',
-                    icon: 'lock',
-                },
-            ],
         };
     },
 

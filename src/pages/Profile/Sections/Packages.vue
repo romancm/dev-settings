@@ -39,6 +39,7 @@ export default {
 
     computed: {
         id() { return this.$route.params.id; },
+        editor() { return store.getters.editor; },
         packageName() { return this.$route.params.packageName; },
         isMobile() { return this.$mq.resize && this.$mq.below(768); },
         gistData() { return store.getters.gistCache[this.id]; },
@@ -85,7 +86,7 @@ export default {
         },
 
         goToPackage(name) {
-            this.$router.push({ path: `/browse/${this.$route.params.id}/packages/${name}` });
+            this.$router.push({ path: `/${this.editor}/${this.$route.params.id}/packages/${name}` });
         },
 
         loadPackage() {
@@ -164,11 +165,8 @@ export default {
     .user-packages {
         position: relative;
         font-size: 12px;
-        // height: calc(100vh - 100px);
-        overflow-y: auto;
         background: rgba(255, 255, 255, 0.2) !important;
         padding: $gp * 2;
-        width: 100%;
         @media($xs) {
             height: calc(100vh - 80px);
             padding: $gp;

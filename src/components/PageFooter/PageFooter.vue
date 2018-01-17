@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="page-footer">
-        <div class="footer-top">
+        <!-- <div class="footer-top">
             <a href="https://www.ziprecruiter.com/jobs" id="jobs_widget_link"><span>Job Search by</span> <span id="zr_logo_container"><img id="zr_logo" src="https://www.ziprecruiter.com/img/logos/logo-sm-black-304px.png" alt="ZipRecruiter" width="120" /></span></a>
 
             <el-carousel :interval="10000" type="card">
@@ -15,7 +15,7 @@
                     </a>
                 </el-carousel-item>
             </el-carousel>
-        </div>
+        </div> -->
 
         <div class="footer-bottom">
             <p>&copy; {{ new Date().getFullYear() }} Atom Settings</p>
@@ -25,7 +25,7 @@
 
 <script>
     import { store } from '@/store';
-    import msg from '@/msg';
+    // import msg from '@/msg';
 
     export default {
         data() {
@@ -45,16 +45,16 @@
         methods: {
             load() {
                 // TODO: enhance this logic so endpoint isn't hit every time
-                this.$http.get(`${this.environment.baseUrl}/browse/`)
-                    .then(({ data }) => {
-                        store.commit('updateBrowseData', data);
-                    })
-                    .catch(() => {
-                        this.$notify.error({
-                            title: 'Error',
-                            message: msg.errors.browse,
-                        });
-                    });
+                // this.$http.get(`${this.environment.baseUrl}/browse/`)
+                //     .then(({ data }) => {
+                //         store.commit('updateBrowseData', data);
+                //     })
+                //     .catch(() => {
+                //         this.$notify.error({
+                //             title: 'Error',
+                //             message: msg.errors.browse,
+                //         });
+                //     });
 
                 // this.$http.get('https://api.ziprecruiter.com/jobs/v1?search=javascript%20angular%20front%20end&location=&radius_miles=100&days_ago=&jobs_per_page=20&api_key=ddu42ffqjikzzs2zcsuerw8az9rgxhte')
                 this.$http.get('https://api.ziprecruiter.com/jobs/v1?search=&location=&radius_miles=100&days_ago=&jobs_per_page=20&api_key=ddu42ffqjikzzs2zcsuerw8az9rgxhte')
