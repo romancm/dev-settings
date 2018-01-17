@@ -84,7 +84,7 @@
         methods: {
             goToSection(name) {
                 // console.log(name);
-                this.$router.push({ path: `/browse/${this.$route.params.id}/${name}` });
+                this.$router.push({ path: `/profile/${this.$route.params.id}/${name}` });
             },
         },
     };

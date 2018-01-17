@@ -86,7 +86,7 @@ export default {
         },
 
         goToPackage(name) {
-            this.$router.push({ path: `/${this.editor}/${this.$route.params.id}/packages/${name}` });
+            this.$router.push({ path: `/profile/${this.$route.params.id}/packages/${name}` });
         },
 
         loadPackage() {

@@ -52,23 +52,7 @@ const routes = new Router({
             },
         },
         {
-            path: '/code',
-            component: Browse,
-            name: 'code',
-            meta: {
-                title: 'Browse | Atom Settings',
-            },
-        },
-        {
-            path: '/atom',
-            component: Browse,
-            name: 'atom',
-            meta: {
-                title: 'Browse | Atom Settings',
-            },
-        },
-        {
-            path: '/atom/:id',
+            path: '/profile/:id',
             component: Profile,
             name: 'profile',
             // redirect: '/browse/:id/packages/',

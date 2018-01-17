@@ -11,6 +11,8 @@ export const store = new Vuex.Store({
         users: {},
         userCache: {},
         gistCache: {},
+        atomCache: {},
+        codeCache: {},
         session: {},
         editor: null,
         environment: {},
@@ -44,6 +46,18 @@ export const store = new Vuex.Store({
             Vue.set(state.gistCache, data.owner.login, data);
         },
 
+        cacheUserAtomData(state, data) {
+            data.atomCachedDate = moment().format();
+            Vue.set(state.atomCache, data.owner.login, data);
+            console.log('atom datra cached');
+        },
+
+        cacheUserCodeData(state, data) {
+            data.codeCachedDate = moment().format();
+            Vue.set(state.codeCache, data.owner.login, data);
+            console.log('code datra cached');
+        },
+
         setEnvironment(state, environment) {
             if (Object.keys(state.environment).length === 0) {
                 state.environment = {
@@ -71,6 +85,8 @@ export const store = new Vuex.Store({
     },
 
     getters: {
+        atomCache(state) { return state.atomCache; },
+        codeCache(state) { return state.codeCache; },
         gistCache(state) { return state.gistCache; },
         userCache(state) { return state.userCache; },
         session(state) { return state.session; },

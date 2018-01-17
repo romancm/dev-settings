@@ -114,7 +114,7 @@
         }
 
         &.atom {
-            background: #0ba673;
+            background: $color-atom;
 
             a {
                 color: $color-white;
