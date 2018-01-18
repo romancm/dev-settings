@@ -9,7 +9,8 @@ import Logout from '@/pages/Logout/Logout';
 import ExitPage from '@/pages/ExitPage/ExitPage';
 
 // Profile
-import Profile from '@/pages/Profile/Profile';
+import ProfileAtom from '@/pages/Profile/Atom/Atom';
+import ProfileCode from '@/pages/Profile/Code/Code';
 import UserPackages from '@/pages/Profile/Sections/Packages';
 import UserScripts from '@/pages/Profile/Sections/InitScript';
 import UserKeymaps from '@/pages/Profile/Sections/Keymaps';
@@ -52,9 +53,54 @@ const routes = new Router({
             },
         },
         {
-            path: '/profile/:id',
-            component: Profile,
-            name: 'profile',
+            path: '/atom/:id',
+            component: ProfileAtom,
+            name: 'profileAtom',
+            // redirect: '/browse/:id/packages/',
+            children: [
+                {
+                    path: 'packages',
+                    component: UserPackages,
+                    name: 'packages',
+                    children: [
+                        {
+                            name: 'package',
+                            path: ':packageName',
+                            component: UserPackages,
+                        },
+                    ],
+                },
+                {
+                    path: 'init-script',
+                    name: 'init-script',
+                    component: UserScripts,
+                },
+                {
+                    path: 'keymaps',
+                    name: 'keymaps',
+                    component: UserKeymaps,
+                },
+                {
+                    path: 'settings',
+                    name: 'settings',
+                    component: UserSettings,
+                },
+                {
+                    path: 'snippets',
+                    name: 'snippets',
+                    component: UserSnippets,
+                },
+                {
+                    path: 'styles',
+                    name: 'styles',
+                    component: UserStyles,
+                },
+            ],
+        },
+        {
+            path: '/code/:id',
+            component: ProfileCode,
+            name: 'profileCode',
             // redirect: '/browse/:id/packages/',
             children: [
                 {

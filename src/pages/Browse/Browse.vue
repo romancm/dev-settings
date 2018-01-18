@@ -1,26 +1,7 @@
 <template lang="html">
     <el-container class="browse">
         <el-main>
-            <div v-if="!editor">
-                <el-dialog
-                title="Please select an editor"
-                :visible="true"
-                width="30%"
-                center>
-                <span>You can always switch from the menu</span>
-                <span slot="footer" class="dialog-footer">
-                    <el-button-group>
-                        <el-button type="info" plain @click="selectEditor('atom')">
-                            <img src="static/img/atom.png" width="30">
-                        </el-button>
-                        <el-button type="info" plain @click="selectEditor('code')">
-                            <img src="static/img/code.png" width="30">
-                        </el-button>
-                    </el-button-group>
-                </span>
-            </el-dialog>
-
-            </div>
+            <editor-selector v-if="!editor" />
 
             <div v-else>
                 <header>
@@ -66,7 +47,10 @@
                 <div class="users" v-if="!loading">
                     <div class="user-list" v-if="users && users.results && users.results.length">
                         <div class="user-card" v-for="user in users.results" :key="user.user">
-                            <router-link :to="{ name: 'profile', params: { id: user.user } }">
+                            <router-link :to="{ name: 'profileAtom', params: { id: user.user } }" v-if="editor === 'atom'">
+                                <img :src="user.avatar" alt="user.user">
+                            </router-link>
+                            <router-link :to="{ name: 'profileCode', params: { id: user.user } }" v-if="editor === 'code'">
                                 <img :src="user.avatar" alt="user.user">
                             </router-link>
                         </div>
@@ -94,9 +78,15 @@
     import msg from '@/msg';
     import { JOB_TITLES, LANGUAGES_FRAMEWORKS } from '@/shared';
     import Avatar from '@/components/Avatar/Avatar';
+    import EditorSelector from '@/components/EditorSelector/EditorSelector';
     import { store } from '@/store';
 
     export default {
+        components: {
+            Avatar,
+            EditorSelector,
+        },
+
         data() {
             return {
                 jobs: {},
@@ -122,10 +112,6 @@
             languages() { return LANGUAGES_FRAMEWORKS; },
         },
 
-        components: {
-            Avatar,
-        },
-
         watch: {
             editor() {
                 this.load();
@@ -148,10 +134,6 @@
             clearFilters() {
                 this.selectedJobTitles = [];
                 this.selectedLanguages = [];
-            },
-
-            selectEditor(editor) {
-                store.commit('setEditor', editor);
             },
 
             load() {

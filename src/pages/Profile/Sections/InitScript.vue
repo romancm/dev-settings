@@ -1,7 +1,7 @@
 <template lang="html">
     <prism
         language="coffeescript"
-        :code="gistData.files['init.coffee'].content"
+        :code="atomData.files['init.coffee'].content"
     />
 </template>
 
@@ -16,7 +16,7 @@ export default {
 
     computed: {
         id() { return this.$route.params.id; },
-        gistData() { return store.getters.gistCache[this.id]; },
+        atomData() { return store.getters.atomCache[this.id]; },
     },
 
     mounted() {

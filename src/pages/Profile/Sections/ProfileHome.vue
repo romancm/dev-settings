@@ -1,7 +1,6 @@
 <template lang="html">
     <div class="profile-home">
         <h2>{{user.user}}</h2>
-<!-- <pre>{{gistData}}</pre> -->
         <main>
             <section v-if="user.profile.jobTitle.length > 0">
                 <h3>Fields of expertise</h3>

@@ -42,8 +42,9 @@ export default {
         editor() { return store.getters.editor; },
         packageName() { return this.$route.params.packageName; },
         isMobile() { return this.$mq.resize && this.$mq.below(768); },
+        atomData() { return store.getters.atomCache[this.id]; },
         gistData() { return store.getters.gistCache[this.id]; },
-        packages() { return this.gistData ? JSON.parse(this.gistData.files['packages.json'].content) : null; }, // eslint-disable-line
+        packages() { return this.atomData ? JSON.parse(this.atomData.files['packages.json'].content) : null; }, // eslint-disable-line
         formattedRepository() { return !this.loading && this.packageData && this.packageData.repository ? this.packageData.repository.url.split('github.com/')[1] : 'atom/about'; }, // eslint-disable-line
         sections() { return Math.ceil(this.packages.length / 30); },
     },
@@ -86,7 +87,7 @@ export default {
         },
 
         goToPackage(name) {
-            this.$router.push({ path: `/profile/${this.$route.params.id}/packages/${name}` });
+            this.$router.push({ path: `/atom/${this.$route.params.id}/packages/${name}` });
         },
 
         loadPackage() {

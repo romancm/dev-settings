@@ -9,13 +9,8 @@
 
 <script>
 import { store } from '@/store';
-import UserCard from '../Profile/UserCard';
 
 export default {
-    components: {
-        UserCard,
-    },
-
     data() {
         return {
             activeName: '',

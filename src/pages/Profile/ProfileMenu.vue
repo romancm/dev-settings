@@ -1,61 +1,56 @@
 <template lang="html">
     <div>
-        <!-- <pre>{{user}}</pre> -->
-        ONLY CACHE CODE/ATOM NOT BOTH AT ONCE
-        <pre>{{codeData}}</pre>
-        <pre>{{atomData}}</pre>
-        <el-menu :default-active="activeName" mode="horizontal" class="el-menu-vertical-demo" @select="handleMenuClick" v-if="editor === 'atom'">
-            <el-menu-item index class="avatar">
-                <img :src="user.avatar" :alt="user.user">
-                <!-- {{user.user}} -->
-                <span slot="title">{{user.user}}</span>
-            </el-menu-item>
-            <el-menu-item index="packages">
-                <i class="fa fa-arrow-left" aria-hidden="true" v-if="isPackageSelected" />
-                <i class="fa fa-archive" aria-hidden="true" v-else />
-
-                <span slot="title">Packages</span>
-            </el-menu-item>
-            <el-menu-item index="init-script">
-                <i class="fa fa-terminal" aria-hidden="true" />
-                <span slot="title">Init Script</span>
-            </el-menu-item>
-            <el-menu-item index="keymaps">
-                <i class="fa fa-keyboard-o" aria-hidden="true" />
-                <span slot="title">Keymaps</span>
-            </el-menu-item>
-            <el-menu-item index="settings">
-                <i class="fa fa-cogs" aria-hidden="true" />
-                <span slot="title">Settings</span>
-            </el-menu-item>
-            <el-menu-item index="snippets">
-                <i class="fa fa-code" aria-hidden="true" />
-                <span slot="title">Snippets</span>
-            </el-menu-item>
-            <el-menu-item index="styles">
-                <i class="fa fa-css3" aria-hidden="true" />
-                <span slot="title">Styles</span>
-            </el-menu-item>
-        </el-menu>
-
-        <el-menu :default-active="activeName" mode="horizontal" class="el-menu-vertical-demo" @select="handleMenuClick" v-if="editor === 'code'">
+        <el-menu :default-active="activeName" mode="horizontal" class="el-menu-vertical-demo" @select="handleMenuClick">
             <el-menu-item index class="avatar">
                 <img :src="user.avatar" :alt="user.user">
                 <span slot="title">{{user.user}}</span>
             </el-menu-item>
-            <el-menu-item index="packages">
-                <i class="fa fa-arrow-left" aria-hidden="true" v-if="isPackageSelected" />
-                <i class="fa fa-archive" aria-hidden="true" v-else />
 
-                <span slot="title">Extensions</span>
-            </el-menu-item>
+            <div v-if="editor === 'atom'">
+                <el-menu-item index="packages">
+                    <i class="fa fa-arrow-left" aria-hidden="true" v-if="isPackageSelected" />
+                    <i class="fa fa-archive" aria-hidden="true" v-else />
+                    <span slot="title">Packages</span>
+                </el-menu-item>
+
+                <el-menu-item index="init-script">
+                    <i class="fa fa-terminal" aria-hidden="true" />
+                    <span slot="title">Init Script</span>
+                </el-menu-item>
+
+                <el-menu-item index="keymaps">
+                    <i class="fa fa-keyboard-o" aria-hidden="true" />
+                    <span slot="title">Keymaps</span>
+                </el-menu-item>
+
+                <el-menu-item index="settings">
+                    <i class="fa fa-cogs" aria-hidden="true" />
+                    <span slot="title">Settings</span>
+                </el-menu-item>
+
+                <el-menu-item index="snippets">
+                    <i class="fa fa-code" aria-hidden="true" />
+                    <span slot="title">Snippets</span>
+                </el-menu-item>
+
+                <el-menu-item index="styles">
+                    <i class="fa fa-css3" aria-hidden="true" />
+                    <span slot="title">Styles</span>
+                </el-menu-item>
+            </div>
+
+            <div v-else>
+                <el-menu-item index="styles">
+                    <i class="fa fa-css3" aria-hidden="true" />
+                    <span slot="title">Styles</span>
+                </el-menu-item>
+            </div>
+
         </el-menu>
     </div>
 </template>
 
 <script>
-import msg from '@/msg';
-import moment from 'moment';
 import { store } from '@/store';
 
 export default {
@@ -69,12 +64,11 @@ export default {
     computed: {
         editor() { return store.getters.editor; },
         environment() { return store.getters.environment; },
-        gistData() { return store.getters.gistCache[this.id]; },
         atomData() { return store.getters.atomCache[this.id]; },
         codeData() { return store.getters.codeCache[this.id]; },
         id() { return this.$route.params.id; },
         isMobile() { return this.$mq.resize && this.$mq.below(768); },
-        packages() { return this.gistData ? JSON.parse(this.gistData.files['packages.json'].content) : null; },
+        packages() { return this.atomData ? JSON.parse(this.atomData.files['packages.json'].content) : null; },
         routeName() { return this.$route.name; },
         user() { return store.getters.userCache[this.id]; },
         isPackageSelected() { return this.$route.params.packageName; },
@@ -86,100 +80,16 @@ export default {
         },
     },
 
-    mounted() {
-        this.init();
-    },
-
     methods: {
-        init() {
-            // TODO: clean up this logic
-            if (!this.user) {
-                this.getUser();
-            }
-
-            if (!this.atomData) {
-                this.getAtomData();
-                console.log('get atom data');
-            }
-
-            if (!this.codeData) {
-                this.getCodeData();
-                console.log('get code data');
-            }
-        },
-
-
-        getAtomData(id) {
-            console.log(this.user);
-            const atomGistId = id || this.user.atom;
-            console.log(atomGistId);
-
-            if (atomGistId) {
-                const url = `https://api.github.com/gists/${atomGistId}`;
-                this.$http.get(url)
-                    .then(({ data }) => {
-                        store.commit('cacheUserAtomData', data);
-                    })
-                    .catch(() => {
-                        this.$notify.error({
-                            title: 'Error',
-                            message: 'Error',
-                        });
-                    });
-            }
-        },
-
-        getCodeData(id) {
-            console.log(this.user);
-            const codeGistId = id || this.user.code;
-            console.log(codeGistId);
-
-            if (codeGistId) {
-                const url = `https://api.github.com/gists/${codeGistId}`;
-                this.$http.get(url)
-                    .then(({ data }) => {
-                        store.commit('cacheUserCodeData', data);
-                    })
-                    .catch(() => {
-                        this.$notify.error({
-                            title: 'Error',
-                            message: 'Error',
-                        });
-                    });
-            }
-        },
-
-        moment() {
-            return moment();
-        },
-
-        isCurrentRoute(route) {
-            return route === this.$route.name;
-        },
-
-        getUser() {
-            this.$http.get(`${this.environment.baseUrl}/browse/${this.id}`)
-                .then(({ data }) => {
-                    console.log(data);
-                    store.commit('cacheUser', data);
-
-                    this.getGistData(data.gistId);
-                })
-                .catch(() => {
-                    this.$notify.error({
-                        title: 'Error',
-                        message: msg.errors.user,
-                    });
-                });
-        },
+        // isCurrentRoute(route) {
+        //     return route === this.$route.name;
+        // },
 
         handleMenuClick(name) {
-            console.log(name);
-            console.log(this.$route.path);
             if (this.sections.includes(name) || name === '') {
-                this.$router.push({ path: `/profile/${this.$route.params.id}/${name}` });
+                this.$router.push({ path: `/${this.editor}/${this.$route.params.id}/${name}` });
             } else {
-                this.$router.push({ path: `/profile/${this.$route.params.id}/packages/${name}` });
+                this.$router.push({ path: `/${this.editor}/${this.$route.params.id}/packages/${name}` });
             }
         },
     },
