@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="profile-atom">
+    <div>
         <profile-menu />
         <profile-home v-if="routeName === 'profileAtom'" />
         <router-view />

@@ -37,6 +37,7 @@ export default {
     @import "styles/_typography";
     @import "styles/_elementui";
     @import "styles/_global";
+    @import "styles/_profile";
 
     #app {
         display: flex;

@@ -1,10 +1,9 @@
 <template lang="html">
-    <div class="profile-code">
-        <pre>{{codeData.files}}</pre>
+    <section class="profile">
         <profile-menu />
         <profile-home v-if="routeName === 'profileCode'" />
         <router-view />
-    </div>
+    </section>
 </template>
 
 <script>
@@ -20,7 +19,6 @@ export default {
     },
 
     computed: {
-        editor() { return store.getters.editor; },
         codeData() { return store.getters.codeCache[this.id]; },
         id() { return this.$route.params.id; },
         user() { return store.getters.userCache[this.id]; },
@@ -29,7 +27,7 @@ export default {
     },
 
     mounted() {
-        document.title = `${this.id} Settings | Atom Settings`;
+        document.title = `${this.id} Settings`;
         store.commit('setEditor', 'code');
         this.init();
     },

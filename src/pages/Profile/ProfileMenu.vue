@@ -1,9 +1,9 @@
 <template lang="html">
-    <div>
+    <div class="profile-menu">
         <el-menu :default-active="activeName" mode="horizontal" class="el-menu-vertical-demo" @select="handleMenuClick">
             <el-menu-item index class="avatar">
                 <img :src="user.avatar" :alt="user.user">
-                <span slot="title">{{user.user}}</span>
+                <!-- <span slot="title">{{user.user}}</span> -->
             </el-menu-item>
 
             <div v-if="editor === 'atom'">
@@ -39,10 +39,20 @@
                 </el-menu-item>
             </div>
 
-            <div v-else>
-                <el-menu-item index="styles">
-                    <i class="fa fa-css3" aria-hidden="true" />
-                    <span slot="title">Styles</span>
+            <div v-if="editor === 'code'">
+                <el-menu-item index="extensions">
+                    <i class="fa fa-puzzle-piece" aria-hidden="true" />
+                    <span slot="title">Extensions</span>
+                </el-menu-item>
+
+                <el-menu-item index="keybindings">
+                    <i class="fa fa-keyboard-o" aria-hidden="true" />
+                    <span slot="title">Keybindings</span>
+                </el-menu-item>
+
+                <el-menu-item index="settings">
+                    <i class="fa fa-cogs" aria-hidden="true" />
+                    <span slot="title">Settings</span>
                 </el-menu-item>
             </div>
 
@@ -57,7 +67,7 @@ export default {
     data() {
         return {
             activeName: '',
-            sections: ['packages', 'init-script', 'keymaps', 'settings', 'snippets', 'styles'],
+            sections: ['packages', 'init-script', 'keymaps', 'settings', 'snippets', 'styles', 'extensions', 'keybindings'],
         };
     },
 
@@ -69,6 +79,7 @@ export default {
         id() { return this.$route.params.id; },
         isMobile() { return this.$mq.resize && this.$mq.below(768); },
         packages() { return this.atomData ? JSON.parse(this.atomData.files['packages.json'].content) : null; },
+        extensions() { return this.codeData ? JSON.parse(this.codeData.files['extensions.json'].content) : null; },
         routeName() { return this.$route.name; },
         user() { return store.getters.userCache[this.id]; },
         isPackageSelected() { return this.$route.params.packageName; },
@@ -89,6 +100,7 @@ export default {
             if (this.sections.includes(name) || name === '') {
                 this.$router.push({ path: `/${this.editor}/${this.$route.params.id}/${name}` });
             } else {
+                console.log(`/${this.editor}/${this.$route.params.id}/packages/${name}`);
                 this.$router.push({ path: `/${this.editor}/${this.$route.params.id}/packages/${name}` });
             }
         },
@@ -111,33 +123,15 @@ export default {
         img {
             cursor: pointer;
             max-width: 100%;
-            height: 64px;
-            width: 64px;
+            height: 60px;
+            width: 60px;
             display: flex;
         }
     }
 
-    .profile {
-    display: flex;
-    flex-direction: column;
-
-    pre[class*="language-"] {
-        padding: $gp * 2;
-        font-size: 11px;
-        margin: 0;
-        overflow: auto;
-        border-radius: 0;
-        width: 100%;
-        min-height: calc(100vh - 360px);
-
-        @media($xs) {
-            padding: $gp;
-        }
-    }
-
-
-        .el-menu {
-            border-right: none;
+    .profile-menu {
+        .el-menu.el-menu--horizontal {
+            border: none !important;
             .el-menu-item, .el-submenu {
                 text-align: center;
 

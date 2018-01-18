@@ -12,8 +12,10 @@ import ExitPage from '@/pages/ExitPage/ExitPage';
 import ProfileAtom from '@/pages/Profile/Atom/Atom';
 import ProfileCode from '@/pages/Profile/Code/Code';
 import UserPackages from '@/pages/Profile/Sections/Packages';
+import UserExtensions from '@/pages/Profile/Sections/Extensions';
 import UserScripts from '@/pages/Profile/Sections/InitScript';
 import UserKeymaps from '@/pages/Profile/Sections/Keymaps';
+import UserKeybindings from '@/pages/Profile/Sections/Keybindings';
 import UserSettings from '@/pages/Profile/Sections/Settings';
 import UserSnippets from '@/pages/Profile/Sections/Snippets';
 import UserStyles from '@/pages/Profile/Sections/Styles';
@@ -101,44 +103,28 @@ const routes = new Router({
             path: '/code/:id',
             component: ProfileCode,
             name: 'profileCode',
-            // redirect: '/browse/:id/packages/',
             children: [
                 {
-                    path: 'packages',
-                    component: UserPackages,
-                    name: 'packages',
+                    path: 'extensions',
+                    component: UserExtensions,
+                    name: 'extensions',
                     children: [
                         {
-                            name: 'package',
-                            path: ':packageName',
-                            component: UserPackages,
+                            name: 'extension',
+                            path: ':extensionName',
+                            component: UserExtensions,
                         },
                     ],
                 },
                 {
-                    path: 'init-script',
-                    name: 'init-script',
-                    component: UserScripts,
-                },
-                {
-                    path: 'keymaps',
-                    name: 'keymaps',
-                    component: UserKeymaps,
+                    path: 'keybindings',
+                    name: 'keybindings',
+                    component: UserKeybindings,
                 },
                 {
                     path: 'settings',
                     name: 'settings',
                     component: UserSettings,
-                },
-                {
-                    path: 'snippets',
-                    name: 'snippets',
-                    component: UserSnippets,
-                },
-                {
-                    path: 'styles',
-                    name: 'styles',
-                    component: UserStyles,
                 },
             ],
         },

@@ -1,8 +1,17 @@
 <template lang="html">
-    <prism
-        language="json"
-        :code="atomData.files['settings.json'].content"
-    />
+    <div>
+        <prism
+            language="json"
+            :code="atomData.files['settings.json'].content"
+            v-if="editor === 'atom'"
+        />
+
+        <prism
+            language="json"
+            :code="cacheData.files['settings.json'].content"
+            v-if="editor === 'code'"
+        />
+    </div>
 </template>
 
 <script>
@@ -15,8 +24,10 @@ export default {
     },
 
     computed: {
+        editor() { return store.getters.editor; },
         id() { return this.$route.params.id; },
         atomData() { return store.getters.atomCache[this.id]; },
+        cacheData() { return store.getters.codeCache[this.id]; },
     },
 
     mounted() {
