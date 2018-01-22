@@ -20,6 +20,9 @@ import UserSettings from '@/pages/Profile/Sections/Settings';
 import UserSnippets from '@/pages/Profile/Sections/Snippets';
 import UserStyles from '@/pages/Profile/Sections/Styles';
 
+// Jobs
+import JobsPage from '@/pages/JobsPage/JobsPage';
+
 // Admin
 import AdminPage from '@/pages/Admin/AdminPage';
 
@@ -151,6 +154,14 @@ const routes = new Router({
             meta: {
                 title: 'Admin | Atom Settings',
                 auth: true,
+            },
+        },
+        {
+            path: '/jobs',
+            component: JobsPage,
+            name: 'jobs',
+            meta: {
+                title: 'Jobs | Atom Settings',
             },
         },
         {
