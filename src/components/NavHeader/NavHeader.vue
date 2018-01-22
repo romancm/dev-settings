@@ -23,6 +23,15 @@
         </el-tooltip>
 
         <div class="session">
+                <el-tooltip content="Jobs for Developers" placement="right" effect="light">
+                    <router-link :to="{ name: 'jobs' }">
+                        <el-badge is-dot class="item">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </el-badge>
+                    </router-link>
+                </el-tooltip>
+                <!-- <el-button class="share-button" icon="el-icon-share" type="primary"></el-button> -->
+
             <div v-if="session.token">
                 <el-tooltip content="Link Settings" placement="right" effect="light">
                     <router-link :to="{ name: 'settingsLink' }">
@@ -155,7 +164,11 @@ export default {
             color: $color-white;
             text-decoration: none;
 
-            i {
+            &:hover {
+                background: rgba(255, 255, 255, .1);
+            }
+
+            i, .el-badge {
                 margin: 0 auto;
             }
         }
