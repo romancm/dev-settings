@@ -5,16 +5,16 @@
                 <h5>Change Editor</h5>
                 <div class="popover-actions">
                     <el-button type="info" plain @click="selectEditor('atom')">
-                        <img src="static/img/atom.png" width="30">
+                        <img src="static/logos/atom.svg" width="30">
                     </el-button>
                     <el-button type="info" plain @click="selectEditor('code')">
-                        <img src="static/img/code.png" width="30">
+                        <img src="static/logos/code.svg" width="30">
                     </el-button>
                 </div>
             </div>
         </el-popover>
 
-        <img :src="`static/img/${editor}.svg`" alt="" v-show="editor" class="editor" v-popover:logout>
+        <img :src="`static/logos/${editor}.svg`" alt="" v-show="editor" class="editor" v-popover:logout>
 
         <el-tooltip content="Browse" placement="right" effect="light">
             <router-link :to="{ name: 'home' }">
@@ -74,9 +74,7 @@
 </template>
 
 <script>
-import Avatar from '@/components/Avatar/Avatar';
 import { store } from '@/store';
-import EditorSelector from '@/components/EditorSelector/EditorSelector';
 
 export default {
     data() {
@@ -85,10 +83,6 @@ export default {
             open: false,
             centerDialogVisible: false,
         };
-    },
-    components: {
-        EditorSelector,
-        Avatar,
     },
 
     computed: {
@@ -137,7 +131,7 @@ export default {
         }
 
         &.atom {
-            background: $color-atom;
+            background: $color-atom-primary;
 
             a {
                 color: $color-white;
@@ -145,7 +139,7 @@ export default {
         }
 
         &.code {
-            background: #007acc;
+            background: #373277;
 
             a {
                 color: $color-white;

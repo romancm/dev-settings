@@ -3,9 +3,7 @@
         <el-main>
             <el-row>
                 <el-col :xs="{ span: 20, offset: 1}" :sm="{ span: 12, offset: 6 }">
-                    <h2>
-                        4<i class="fa fa-cog" aria-hidden="true" />4
-                    </h2>
+                    <h2>404</h2>
                     <p>Page not found</p>
                 </el-col>
             </el-row>

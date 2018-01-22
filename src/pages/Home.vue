@@ -1,3 +1,4 @@
+<!-- DEPRECATED -->
 <template>
     <div class="home">
         <div class="hero">

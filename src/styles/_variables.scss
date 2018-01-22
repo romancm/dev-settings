@@ -1,8 +1,12 @@
 // Typography
+$font-stack: 'Avenir', Helvetica, Arial, sans-serif;
+
+// Measurements
 $gp: 10px;
 $border-radius: 5px;
+$menu-icon-size: 18px;
 
-// Color Palette
+// Colors
 $color-primary-text: #2d2f33;
 $color-regular-text: #5a5e66;
 $color-secondary-text: #878d99;
@@ -19,9 +23,12 @@ $color-danger: #fa5555;
 $color-info: #878d99;
 $color-white: #fff;
 
-$color-atom: #0ba673;
+$color-atom-primary: #3b9b6d;
+$color-atom-text: #574c4f;
 
-// Sections
+$color-vscode-primary: #373277;
+$color-vscode-text: #444;
+
 $color-settings: #3FB8AF;
 $color-packages: #7F4F8D;
 $color-scripts: #FF6E3A;
@@ -36,10 +43,6 @@ $md: "min-width: 992px) and (max-width: 1199px";
 $lg: "min-width: 1200px";
 $short: "max-height: 740px";
 $mobile-landscape: "min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape";
-
-// Measurements
-
-$menu-icon-size: 18px;
 
 // Usage
 // @media($xs) { ... }

@@ -175,7 +175,7 @@ export default {
 
                                 font-size: 13px;
                                 min-width: 200px;
-                                color: $color-atom;
+                                color: $color-atom-primary;
                             }
                         }
                     }

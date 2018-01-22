@@ -27,7 +27,6 @@ import moment from 'moment';
 import axios from 'axios';
 import { store } from '@/store';
 
-
 export default {
     computed: {
         session() { return store.getters.session; },
