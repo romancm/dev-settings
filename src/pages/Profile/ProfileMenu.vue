@@ -3,56 +3,56 @@
         <el-menu :default-active="activeName" mode="horizontal" class="el-menu-vertical-demo" @select="handleMenuClick">
             <el-menu-item index class="avatar">
                 <img :src="user.avatar" :alt="user.user">
-                <!-- <span slot="title">{{user.user}}</span> -->
+                <!-- <span slot="title" v-if="!isMobile">{{user.user}}</span> -->
             </el-menu-item>
 
             <div v-if="editor === 'atom'">
                 <el-menu-item index="packages">
                     <i class="fa fa-arrow-left" aria-hidden="true" v-if="isPackageSelected" />
                     <i class="fa fa-archive" aria-hidden="true" v-else />
-                    <span slot="title">Packages</span>
+                    <span slot="title" v-if="!isMobile">Packages</span>
                 </el-menu-item>
 
                 <el-menu-item index="init-script">
                     <i class="fa fa-terminal" aria-hidden="true" />
-                    <span slot="title">Init Script</span>
+                    <span slot="title" v-if="!isMobile">Init Script</span>
                 </el-menu-item>
 
                 <el-menu-item index="keymaps">
                     <i class="fa fa-keyboard-o" aria-hidden="true" />
-                    <span slot="title">Keymaps</span>
+                    <span slot="title" v-if="!isMobile">Keymaps</span>
                 </el-menu-item>
 
                 <el-menu-item index="settings">
                     <i class="fa fa-cogs" aria-hidden="true" />
-                    <span slot="title">Settings</span>
+                    <span slot="title" v-if="!isMobile">Settings</span>
                 </el-menu-item>
 
                 <el-menu-item index="snippets">
                     <i class="fa fa-code" aria-hidden="true" />
-                    <span slot="title">Snippets</span>
+                    <span slot="title" v-if="!isMobile">Snippets</span>
                 </el-menu-item>
 
                 <el-menu-item index="styles">
                     <i class="fa fa-css3" aria-hidden="true" />
-                    <span slot="title">Styles</span>
+                    <span slot="title" v-if="!isMobile">Styles</span>
                 </el-menu-item>
             </div>
 
             <div v-if="editor === 'code'">
                 <el-menu-item index="extensions">
                     <i class="fa fa-puzzle-piece" aria-hidden="true" />
-                    <span slot="title">Extensions</span>
+                    <span slot="title" v-if="!isMobile">Extensions</span>
                 </el-menu-item>
 
                 <el-menu-item index="keybindings">
                     <i class="fa fa-keyboard-o" aria-hidden="true" />
-                    <span slot="title">Keybindings</span>
+                    <span slot="title" v-if="!isMobile">Keybindings</span>
                 </el-menu-item>
 
                 <el-menu-item index="settings">
                     <i class="fa fa-cogs" aria-hidden="true" />
-                    <span slot="title">Settings</span>
+                    <span slot="title" v-if="!isMobile">Settings</span>
                 </el-menu-item>
             </div>
 
