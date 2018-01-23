@@ -1,7 +1,11 @@
 <template lang="html">
     <div class="settings-profile">
-        <router-link to="/settings/link/atom"><img src="static/img/atom.png" width="40"></router-link>
-        <router-link to="/settings/link/code"><img src="static/img/code.png" width="40"></router-link>
+        <router-link to="/settings/link/atom">
+            <img src="static/logos/atom.svg" width="40">
+        </router-link>
+        <router-link to="/settings/link/code">
+            <img src="static/logos/code.svg" width="40">
+        </router-link>
         <router-view />
     </div>
 </template>
@@ -29,6 +33,14 @@ export default {
     },
 
     mounted() {
+        if (this.editor && this.editor === 'atom') {
+            this.$router.push({ name: 'atom' });
+        }
+
+        if (this.editor && this.editor === 'code') {
+            this.$router.push({ name: 'code' });
+        }
+
         this.getSyncReadme();
         this.active = this.session.user.gistId ? 0 : 0;
         this.showInst = Boolean(!this.session.user.gistId);
@@ -36,6 +48,7 @@ export default {
 
     computed: {
         session() { return store.getters.session; },
+        editor() { return store.getters.editor; },
     },
 
     methods: {
