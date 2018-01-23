@@ -9,6 +9,7 @@ import VueContentPlaceholders from 'vue-content-placeholders';
 import axios from 'axios';
 import vmodal from 'vue-js-modal';
 import VueGitHubButtons from 'vue-github-buttons'; // Component plugin
+import VueMasonry from 'vue-masonry-css';
 
 import 'prismjs';
 import 'prism-themes/themes/prism-atom-dark.css';
@@ -20,6 +21,7 @@ import App from './App';
 import router from './router';
 import { store } from './store';
 
+Vue.use(VueMasonry);
 Vue.use(VueGitHubButtons, { useCache: true });
 Vue.use(ElementUI);
 Vue.use(vMediaQuery);
