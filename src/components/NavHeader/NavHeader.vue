@@ -4,10 +4,10 @@
             <div class="popover-content">
                 <h5>Change Editor</h5>
                 <div class="popover-actions">
-                    <el-button type="info" plain @click="selectEditor('atom')">
+                    <el-button plain @click="selectEditor('atom')" class="atom">
                         <img src="static/logos/atom.svg" width="30">
                     </el-button>
-                    <el-button type="info" plain @click="selectEditor('code')">
+                    <el-button type="info" plain @click="selectEditor('code')" class="code">
                         <img src="static/logos/code.svg" width="30">
                     </el-button>
                 </div>
@@ -182,6 +182,16 @@ export default {
 
         .el-dialog {
             text-align: center;
+        }
+    }
+
+    .el-button {
+        &.atom {
+            background: $color-atom-primary;
+        }
+
+        &.code {
+            background: $color-vscode-primary;
         }
     }
 </style>
