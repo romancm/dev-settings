@@ -3,11 +3,11 @@
         <span>You can always switch from the menu</span>
         <span slot="footer" class="dialog-footer">
             <el-button-group>
-                <el-button type="info" plain @click="selectEditor('atom')">
-                    <img src="static/img/atom.png" width="30">
+                <el-button @click="selectEditor('atom')" class="atom">
+                    <img src="static/logos/atom.svg" height="30">
                 </el-button>
-                <el-button type="info" plain @click="selectEditor('code')">
-                    <img src="static/img/code.png" width="30">
+                <el-button @click="selectEditor('code')" class="code">
+                    <img src="static/logos/code.svg" height="30">
                 </el-button>
             </el-button-group>
         </span>
@@ -27,4 +27,12 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+    @import "~styles/_variables";
+    .atom {
+        background: $color-atom-primary;
+    }
+
+    .code {
+        background: $color-vscode-primary;
+    }
 </style>
