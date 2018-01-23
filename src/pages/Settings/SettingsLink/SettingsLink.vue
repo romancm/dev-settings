@@ -1,5 +1,15 @@
+<!-- WIP -->
 <template lang="html">
     <div class="settings-profile">
+        <el-button-group>
+            <router-link to="/settings/link/atom" class="el-button el-button--primary">
+                <img src="static/logos/atom.svg" height="20">
+            </router-link>
+            <router-link to="/settings/link/code" class="el-button el-button--primary">
+                <img src="static/logos/code.svg" height="20">
+            </router-link>
+        </el-button-group>
+
         <router-link to="/settings/link/atom">
             <img src="static/logos/atom.svg" width="40">
         </router-link>
