@@ -52,7 +52,7 @@
         mounted() {
             this.loading = true;
 
-            this.$http.get('https://api.ziprecruiter.com/jobs/v1?search=&location=&radius_miles=100&days_ago=&jobs_per_page=100&api_key=ddu42ffqjikzzs2zcsuerw8az9rgxhte')
+            this.$http.get('https://api.ziprecruiter.com/jobs/v1?search=Software+Web+Developer+frontend&location=&radius_miles=100&days_ago=&jobs_per_page=100&api_key=ddu42ffqjikzzs2zcsuerw8az9rgxhte')
                 .then(({ data }) => {
                     // TODO: save read status in store, remove notification dot
                     this.loading = false;
