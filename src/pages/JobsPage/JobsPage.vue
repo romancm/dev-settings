@@ -41,25 +41,41 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                jobs: {},
-                loading: false,
-            };
-        },
+import moment from 'moment';
+import { store } from '@/store';
 
-        mounted() {
-            this.loading = true;
+export default {
+    data() {
+        return {
+            jobs: {},
+            loading: false,
+        };
+    },
 
-            this.$http.get('https://api.ziprecruiter.com/jobs/v1?search=Software+Web+Developer+frontend&location=&radius_miles=100&days_ago=&jobs_per_page=100&api_key=ddu42ffqjikzzs2zcsuerw8az9rgxhte')
-                .then(({ data }) => {
-                    // TODO: save read status in store, remove notification dot
-                    this.loading = false;
-                    this.jobs = data.jobs;
-                });
+    computed: {
+        today() { return moment().format('MM/DD/YYYY'); },
+        preferences() { return store.getters.preferences; },
+    },
+
+    mounted() {
+        this.loading = true;
+
+        this.$http.get('https://api.ziprecruiter.com/jobs/v1?search=Software+Web+Developer+frontend&location=&radius_miles=100&days_ago=1&jobs_per_page=100&api_key=ddu42ffqjikzzs2zcsuerw8az9rgxhte')
+            .then(({ data }) => {
+                this.loading = false;
+                this.jobs = data.jobs;
+                this.updatePreferences();
+            });
+    },
+
+    methods: {
+        updatePreferences() {
+            if (this.preferences && this.preferences.jobsTimestamp !== this.today) {
+                store.commit('setPreference', { jobsTimestamp: this.today });
+            }
         },
-    };
+    },
+};
 </script>
 
 

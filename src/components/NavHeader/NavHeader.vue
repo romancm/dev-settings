@@ -1,6 +1,6 @@
 <template>
     <nav :class="editor">
-        <el-popover ref="logout" placement="right" width="180" v-model="showEditorPopover" trigger="hover">
+        <el-popover ref="editor" placement="right" width="180" v-model="showEditorPopover" trigger="hover">
             <div class="popover-content">
                 <h5>Change Editor</h5>
                 <div class="popover-actions">
@@ -14,7 +14,11 @@
             </div>
         </el-popover>
 
-        <img :src="`static/logos/${editor}.svg`" alt="" v-show="editor" class="editor" v-popover:logout>
+        <span v-popover:editor>
+            <img :src="`static/logos/atom.svg`" alt="" v-if="editor === 'atom'" class="editor">
+            <img :src="`static/logos/code.svg`" alt="" v-if="editor === 'code'" class="editor">
+        </span>
+
 
         <el-tooltip content="Browse" placement="right" effect="light">
             <router-link :to="{ name: 'home' }">
@@ -25,12 +29,13 @@
         <div class="session">
                 <el-tooltip content="Jobs for Developers" placement="right" effect="light">
                     <router-link :to="{ name: 'jobs' }">
-                        <el-badge is-dot class="item">
+                        <el-badge is-dot class="item" v-if="!jobsSeen">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </el-badge>
+
+                        <i class="fa fa-briefcase" aria-hidden="true" v-else />
                     </router-link>
                 </el-tooltip>
-                <!-- <el-button class="share-button" icon="el-icon-share" type="primary"></el-button> -->
 
             <div v-if="session.token">
                 <el-tooltip content="Link Settings" placement="right" effect="light">
@@ -84,6 +89,7 @@
 
 <script>
 import { store } from '@/store';
+import moment from 'moment';
 
 export default {
     data() {
@@ -95,21 +101,29 @@ export default {
     },
 
     computed: {
+        preferences() { return store.getters.preferences; },
         user() { return store.getters.session.user; },
         editor() { return store.getters.editor; },
         session() { return store.getters.session; },
+        today() { return moment().format('MM/DD/YYYY'); },
         meta() { return this.$route.meta; },
         section() { return this.$route.name; },
         environment() { return store.getters.environment; },
         settingsRoute() { return this.session.user.gistId ? 'settingsProfile' : 'settingsLink'; },
         githuburl() { return `https://github.com/login/oauth/authorize?scope=user:email&client_id=${this.environment.githubClientId}`; },
+        jobsSeen() {
+            return this.preferences && this.preferences.jobsTimestamp === this.today;
+        },
     },
 
     methods: {
         selectEditor(editor) {
             if (editor !== this.editor) {
                 store.commit('setEditor', editor);
+                // TODO: only push route if looking at profile
                 this.$router.push({ name: 'home' });
+
+                // TODO: handle route change if in settingsLink
             }
 
             this.showEditorPopover = false;

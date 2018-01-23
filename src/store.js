@@ -13,6 +13,7 @@ export const store = new Vuex.Store({
         gistCache: {},
         atomCache: {},
         codeCache: {},
+        preferences: {},
         session: {},
         editor: null,
         environment: {},
@@ -22,6 +23,13 @@ export const store = new Vuex.Store({
         setSession(state, session) {
             session.lastLogin = moment().format();
             state.session = session;
+        },
+
+        setPreference(state, preference) {
+            if (Object.keys(preference).length === 1) {
+                const key = Object.keys(preference)[0];
+                Vue.set(state.preferences, key, preference[key]);
+            }
         },
 
         setEditor(state, editor) {
@@ -85,6 +93,7 @@ export const store = new Vuex.Store({
     },
 
     getters: {
+        preferences(state) { return state.preferences; },
         atomCache(state) { return state.atomCache; },
         codeCache(state) { return state.codeCache; },
         gistCache(state) { return state.gistCache; },
