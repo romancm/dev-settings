@@ -40,7 +40,7 @@
             <div v-if="session.token">
                 <el-tooltip content="Link Settings" placement="right" effect="light">
                     <router-link :to="{ name: 'settingsLink' }">
-                        <i aria-hidden="true" class="fa fa-github" />
+                        <i class="fa fa-cogs" aria-hidden="true" />
                     </router-link>
                 </el-tooltip>
                 <el-tooltip content="Social Networks" placement="right" effect="light">
@@ -120,10 +120,10 @@ export default {
         selectEditor(editor) {
             if (editor !== this.editor) {
                 store.commit('setEditor', editor);
-                // TODO: only push route if looking at profile
-                this.$router.push({ name: 'home' });
 
-                // TODO: handle route change if in settingsLink
+                if (this.$route.meta.redirectOnEditorSwitch) {
+                    this.$router.push({ name: 'home' });
+                }
             }
 
             this.showEditorPopover = false;

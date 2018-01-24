@@ -1,5 +1,5 @@
 <template lang="html">
-    <el-dialog title="Please select an editor" :visible="true" width="30%" center>
+    <el-dialog title="Please select an editor" :visible="true" width="30%" center :show-close="false">
         <span>You can always switch from the menu</span>
         <span slot="footer" class="dialog-footer">
             <el-button-group>

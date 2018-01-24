@@ -2,7 +2,7 @@
     <div class="settings-account">
         <el-row :gutter="20">
             <el-col :xs="24" :sm="12">
-                <el-alert type="primary" :closable="false" title="Sign out">
+                <el-alert type="info" :closable="false" title="Sign out">
                     <p class="small">Your session will automatically expire in 1 month, but you can always manually sign out if you want to.</p>
 
                     <el-popover ref="logout" placement="right" width="180" v-model="showLogoutPopover" trigger="manual">

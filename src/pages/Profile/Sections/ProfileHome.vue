@@ -43,6 +43,7 @@
     export default {
         computed: {
             user() { return store.getters.userCache[this.id]; },
+            editor() { return store.getters.editor; },
             id() { return this.$route.params.id; },
             gistData() { return store.getters.gistCache[this.id]; },
             jobTitles() { return JOB_TITLES; },
@@ -83,7 +84,7 @@
         methods: {
             goToSection(name) {
                 // console.log(name);
-                this.$router.push({ path: `/profile/${this.$route.params.id}/${name}` });
+                this.$router.push({ path: `/${this.editor}/${this.$route.params.id}/${name}` });
             },
         },
     };
@@ -98,7 +99,6 @@
         height: calc(100vh - 100px);
         overflow-y: auto;
         background: rgba(255, 255, 255, 0.2) !important;
-        // background: #cfc;
         padding: $gp * 2;
         width: 100%;
 
