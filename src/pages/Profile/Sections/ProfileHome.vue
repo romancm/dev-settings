@@ -24,7 +24,7 @@
 
             <section class="features">
                 <el-row :gutter="0">
-                    <el-col :lg="4" :md="8" :sm="8" :xs="8" v-for="({ icon, routeName }, name) in features" :key="name">
+                    <el-col :lg="4" :md="8" :sm="8" :xs="8" v-for="({ icon, routeName }, name) in sections" :key="name">
                         <div :class="name" class="feature" @click="goToSection(routeName)">
                             <icon :name="icon" />
                             <h3 v-html="name" />
@@ -48,11 +48,12 @@
             gistData() { return store.getters.gistCache[this.id]; },
             jobTitles() { return JOB_TITLES; },
             languages() { return LANGUAGES_FRAMEWORKS; },
+            sections() { return this.editor === 'atom' ? this.atomSections : this.codeSections; },
         },
 
         data() {
             return {
-                features: {
+                atomSections: {
                     packages: {
                         icon: 'archive',
                         routeName: 'packages',
@@ -76,6 +77,20 @@
                     styles: {
                         icon: 'css3',
                         routeName: 'styles',
+                    },
+                },
+                codeSections: {
+                    extensions: {
+                        icon: 'puzzle-piece',
+                        routeName: 'extensions',
+                    },
+                    keybindings: {
+                        icon: 'keyboard-o',
+                        routeName: 'keybindings',
+                    },
+                    settings: {
+                        icon: 'cogs',
+                        routeName: 'settings',
                     },
                 },
             };
@@ -175,10 +190,10 @@
                     }
 
                     &.settings { color: $color-settings; }
-                    &.packages { color: $color-packages; }
+                    &.packages, &.extensions { color: $color-packages; }
                     &.scripts { color: $color-scripts; }
                     &.snippets { color: $color-snippets; }
-                    &.keymaps { color: $color-keymaps; }
+                    &.keymaps, &.keybindings { color: $color-keymaps; }
                     &.styles { color: $color-styles; }
                 }
             }
