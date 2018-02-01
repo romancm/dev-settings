@@ -2,7 +2,7 @@
     <div class="user-packages">
         <div class="package-list" v-if="!params.extensionName">
             <el-button type="text" plain v-for="{ name } in extensions" :key="name" @click="goToExtension(name)">
-                <i class="fa" :class="getExtensionIcon(name)"></i>
+                <icon :name="getExtensionIcon(name)" />
                 {{name}}
             </el-button>
         </div>
@@ -78,12 +78,12 @@ export default {
 
     methods: {
         getExtensionIcon(name) {
-            if (name.includes('language')) { return 'fa-language'; }
-            if (name.includes('theme')) { return 'fa-paint-brush'; }
-            if (name.includes('-ui')) { return 'fa-paint-brush'; }
-            if (name.includes('syntax')) { return 'fa-code'; }
+            if (name.includes('language')) { return 'language'; }
+            if (name.includes('theme')) { return 'paint-brush'; }
+            if (name.includes('-ui')) { return 'paint-brush'; }
+            if (name.includes('syntax')) { return 'code'; }
 
-            return 'fa-archive';
+            return 'archive';
         },
 
         togglePackageMenu() {

@@ -26,7 +26,7 @@
                 <el-row :gutter="0">
                     <el-col :lg="4" :md="8" :sm="8" :xs="8" v-for="({ icon, routeName }, name) in features" :key="name">
                         <div :class="name" class="feature" @click="goToSection(routeName)">
-                            <i class="fa" :class="icon" aria-hidden="true"></i>
+                            <icon :name="icon" />
                             <h3 v-html="name" />
                         </div>
                     </el-col>
@@ -54,27 +54,27 @@
             return {
                 features: {
                     packages: {
-                        icon: 'fa-archive',
+                        icon: 'archive',
                         routeName: 'packages',
                     },
                     scripts: {
-                        icon: 'fa-terminal',
+                        icon: 'terminal',
                         routeName: 'init-script',
                     },
                     settings: {
-                        icon: 'fa-cogs',
+                        icon: 'cogs',
                         routeName: 'settings',
                     },
                     keymaps: {
-                        icon: 'fa-keyboard-o',
+                        icon: 'keyboard-o',
                         routeName: 'keymaps',
                     },
                     snippets: {
-                        icon: 'fa-code',
+                        icon: 'code',
                         routeName: 'snippets',
                     },
                     styles: {
-                        icon: 'fa-css3',
+                        icon: 'css3',
                         routeName: 'styles',
                     },
                 },

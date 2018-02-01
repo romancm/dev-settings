@@ -23,60 +23,60 @@
 
                                 <div v-if="filteredGists.includes(gist)" class="settings-sections">
                                     <div v-if="gist.files['packages.json']" class="packages">
-                                        <i class="fa fa-archive" aria-hidden="true" />
+                                        <icon name="archive" />
                                         Packages
                                     </div>
 
                                     <div v-if="gist.files['init.coffee']" class="scripts">
-                                        <i class="fa fa-terminal" aria-hidden="true" />
+                                        <icon name="terminal" />
                                         Init Script
                                     </div>
 
                                     <div v-if="gist.files['keymap.cson']" class="keymaps">
-                                        <i class="fa fa-keyboard-o" aria-hidden="true" />
+                                        <icon name="keyboard-o" />
                                         Keymaps
                                     </div>
 
                                     <div v-if="gist.files['settings.json']" class="settings">
-                                        <i class="fa fa-cogs" aria-hidden="true" />
+                                        <icon name="cogs" />
                                         Settings
                                     </div>
 
                                     <div v-if="gist.files['snippets.cson']" class="snippets">
-                                        <i class="fa fa-code" aria-hidden="true" />
+                                        <icon name="code" />
                                         Snippets
                                     </div>
 
                                     <div v-if="gist.files['styles.less']" class="styles">
-                                        <i class="fa fa-css3" aria-hidden="true" />
+                                        <icon name="css3" />
                                         Styles
                                     </div>
 
 
                                     <div v-if="gist.files['extensions.json']" class="packages">
-                                        <i class="fa fa-puzzle-piece" aria-hidden="true" />
+                                        <icon name="puzzle-piece" />
                                         Extensions
                                     </div>
 
                                     <div v-if="gist.files['keybindings.json']" class="keymaps">
-                                        <i class="fa fa-keyboard-o" aria-hidden="true" />
+                                        <icon name="keyboard-o" />
                                         Keybindings
                                     </div>
                                 </div>
                             </div>
 
                             <el-button type="success" plain size="small" v-if="gist.id === session.user[editor]">
-                                <i class="fa fa-check" aria-hidden="true" />
+                                <icon name="check" />
                                 Linked
                             </el-button>
 
                             <el-button type="success" plain size="small" @click="selectGist(gist.id)" v-else-if="filteredGists.includes(gist)">
-                                <i class="fa fa-link" aria-hidden="true" />
+                                <icon name="link" />
                                 Link
                             </el-button>
 
                             <el-button type="warning" plain size="small" v-else>
-                                <i class="fa fa-bad" aria-hidden="true" />
+                                <icon name="bad" />
                                 Not compatible
                             </el-button>
                         </div>
@@ -96,7 +96,7 @@
                     </el-popover>
 
                     <el-button v-popover:unlink type="danger" plain size="small">
-                        <i class="fa fa-remove" aria-hidden="true" />
+                        <icon name="remove" />
                         Unlink Settings
                     </el-button>
                 </el-col>

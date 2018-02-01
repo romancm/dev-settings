@@ -2,7 +2,7 @@
     <div class="user-packages">
         <div class="package-list" v-if="!packageName">
             <el-button type="text" plain v-for="{ name } in packages" :key="name" @click="goToPackage(name)">
-                <i class="fa" :class="getPackageIcon(name)"></i>
+                <icon :name="getPackageIcon(name)" />
                 {{name}}
             </el-button>
         </div>
@@ -63,12 +63,12 @@ export default {
 
     methods: {
         getPackageIcon(name) {
-            if (name.includes('language')) { return 'fa-language'; }
-            if (name.includes('theme')) { return 'fa-paint-brush'; }
-            if (name.includes('-ui')) { return 'fa-paint-brush'; }
-            if (name.includes('syntax')) { return 'fa-code'; }
+            if (name.includes('language')) { return 'language'; }
+            if (name.includes('theme')) { return 'paint-brush'; }
+            if (name.includes('-ui')) { return 'paint-brush'; }
+            if (name.includes('syntax')) { return 'code'; }
 
-            return 'fa-archive';
+            return 'archive';
         },
 
         selectPackage(name) {

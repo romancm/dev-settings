@@ -6,11 +6,11 @@
                 <h2>Welcome home, developers</h2>
                 <p>From software architects to hobbyist, share and discover settings, workspaces, packages and more.</p>
                 <el-button type="primary" v-if="!session.token" @click="login">
-                    <i class="fa fa-github" aria-hidden="true" />
+                    <icon name="github" />
                     Login with Github
                 </el-button>
                 <el-button type="primary" v-else @click="browse">
-                    <i class="fa fa-search" aria-hidden="true" />
+                    <icon name="search" />
                     Browse
                 </el-button>
             </div>
@@ -19,7 +19,7 @@
                 <el-row :gutter="0">
                     <el-col :lg="8" :md="12" :sm="12" :xs="12" v-for="({ icon, desc }, name) in features" :key="name">
                         <div :class="name" class="feature">
-                            <i class="fa" :class="icon" aria-hidden="true"></i>
+                            <icon :name="icon" />
                             <div>
                                 <h3 v-html="name" />
                                 <p v-html="desc" />
@@ -46,27 +46,27 @@
             return {
                 features: {
                     settings: {
-                        icon: 'fa-cogs',
+                        icon: 'cogs',
                         desc: 'Font settings, tab size, scroll speed and more.',
                     },
                     packages: {
-                        icon: 'fa-archive',
+                        icon: 'archive',
                         desc: 'Make Atom do amazing things with packages.',
                     },
                     scripts: {
-                        icon: 'fa-terminal',
+                        icon: 'terminal',
                         desc: 'Discover and share your favorite flavor of Atom.',
                     },
                     keymaps: {
-                        icon: 'fa-keyboard-o',
+                        icon: 'keyboard-o',
                         desc: 'Associate keystrokes with events in specific contexts.',
                     },
                     snippets: {
-                        icon: 'fa-code',
+                        icon: 'code',
                         desc: 'Incredibly powerful way to quickly generate commonly needed code syntax from a shortcut.',
                     },
                     styles: {
-                        icon: 'fa-css3',
+                        icon: 'css3',
                         desc: 'Add your own CSS or LESS to fully customize Atom',
                     },
                 },

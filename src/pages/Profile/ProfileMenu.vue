@@ -8,50 +8,50 @@
 
             <div v-if="editor === 'atom'">
                 <el-menu-item index="packages">
-                    <i class="fa fa-arrow-left" aria-hidden="true" v-if="isPackageSelected" />
-                    <i class="fa fa-archive" aria-hidden="true" v-else />
+                    <icon name="arrow-left" v-if="isPackageSelected" />
+                    <icon name="archive" v-else />
                     <span slot="title" v-if="!isMobile">Packages</span>
                 </el-menu-item>
 
                 <el-menu-item index="init-script">
-                    <i class="fa fa-terminal" aria-hidden="true" />
+                    <icon name="terminal"/>
                     <span slot="title" v-if="!isMobile">Init Script</span>
                 </el-menu-item>
 
                 <el-menu-item index="keymaps">
-                    <i class="fa fa-keyboard-o" aria-hidden="true" />
+                    <icon name="keyboard-o"/>
                     <span slot="title" v-if="!isMobile">Keymaps</span>
                 </el-menu-item>
 
                 <el-menu-item index="settings">
-                    <i class="fa fa-cogs" aria-hidden="true" />
+                    <icon name="cogs"/>
                     <span slot="title" v-if="!isMobile">Settings</span>
                 </el-menu-item>
 
                 <el-menu-item index="snippets">
-                    <i class="fa fa-code" aria-hidden="true" />
+                    <icon name="code"/>
                     <span slot="title" v-if="!isMobile">Snippets</span>
                 </el-menu-item>
 
                 <el-menu-item index="styles">
-                    <i class="fa fa-css3" aria-hidden="true" />
+                    <icon name="css3"/>
                     <span slot="title" v-if="!isMobile">Styles</span>
                 </el-menu-item>
             </div>
 
             <div v-if="editor === 'code'">
                 <el-menu-item index="extensions">
-                    <i class="fa fa-puzzle-piece" aria-hidden="true" />
+                    <icon name="puzzle-piece"/>
                     <span slot="title" v-if="!isMobile">Extensions</span>
                 </el-menu-item>
 
                 <el-menu-item index="keybindings">
-                    <i class="fa fa-keyboard-o" aria-hidden="true" />
+                    <icon name="keyboard-o"/>
                     <span slot="title" v-if="!isMobile">Keybindings</span>
                 </el-menu-item>
 
                 <el-menu-item index="settings">
-                    <i class="fa fa-cogs" aria-hidden="true" />
+                    <icon name="cogs"/>
                     <span slot="title" v-if="!isMobile">Settings</span>
                 </el-menu-item>
             </div>

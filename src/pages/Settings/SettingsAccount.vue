@@ -16,7 +16,7 @@
                     </el-popover>
 
                     <el-button v-popover:logout type="" plain size="small">
-                        <i class="fa fa-sign-out" aria-hidden="true" />
+                        <icon name="sign-out" />
                         Sign out
                     </el-button>
                 </el-alert>
@@ -37,7 +37,7 @@
                     </el-popover>
 
                     <el-button v-popover:logout type="danger" plain size="small">
-                        <i class="fa fa-trash" aria-hidden="true" />
+                        <icon name="trash" />
                         Delete Account
                     </el-button>
                 </el-alert>

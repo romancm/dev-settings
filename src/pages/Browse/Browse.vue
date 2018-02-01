@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="no-results" v-else>
-                        <i class="fa fa-frown-o fa-5x" aria-hidden="true" />
+                        <icon name="frown-o" scale="5" />
                         <h3>No results were found for given criteria</h3>
                         <p>Please try selecting different filters</p>
                         <p>You can also <el-button size="mini" @click="clearFilters">Clear filters</el-button></p>

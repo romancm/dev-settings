@@ -11,7 +11,7 @@
                         </el-form-item>
 
                         <el-button type="primary" plain :loading="loading" @click="save">
-                            <i class="fa fa-floppy-o" aria-hidden="true" v-if="!loading" />
+                            <icon name="floppy-o" v-if="!loading" />
                             Save
                         </el-button>
                     </el-alert>
@@ -26,7 +26,7 @@
                         </el-form-item>
 
                         <el-button type="primary" plain :loading="loading" @click="save">
-                            <i class="fa fa-floppy-o" aria-hidden="true" v-if="!loading" />
+                            <icon name="floppy-o" v-if="!loading" />
                             Save
                         </el-button>
                     </el-alert>

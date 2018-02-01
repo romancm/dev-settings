@@ -3,6 +3,8 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import 'vue-awesome/icons';
+import Icon from 'vue-awesome/components/Icon';
 import vMediaQuery from 'v-media-query';
 import FastClick from 'fastclick';
 import VueContentPlaceholders from 'vue-content-placeholders';
@@ -27,6 +29,7 @@ Vue.use(ElementUI);
 Vue.use(vMediaQuery);
 Vue.use(VueContentPlaceholders);
 Vue.use(vmodal);
+Vue.component('icon', Icon);
 
 Vue.config.productionTip = false;
 

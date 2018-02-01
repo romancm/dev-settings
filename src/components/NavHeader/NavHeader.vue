@@ -22,7 +22,7 @@
 
         <el-tooltip content="Browse" placement="right" effect="light">
             <router-link :to="{ name: 'home' }">
-                <i class="fa fa-home" />
+                <icon name="home" />
             </router-link>
         </el-tooltip>
 
@@ -30,32 +30,32 @@
                 <el-tooltip content="Jobs for Developers" placement="right" effect="light">
                     <router-link :to="{ name: 'jobs' }">
                         <el-badge is-dot class="item" v-if="!jobsSeen">
-                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                            <icon name="briefcase" />
                         </el-badge>
 
-                        <i class="fa fa-briefcase" aria-hidden="true" v-else />
+                        <icon name="briefcase" v-else />
                     </router-link>
                 </el-tooltip>
 
             <div v-if="session.token">
                 <el-tooltip content="Link Settings" placement="right" effect="light">
                     <router-link :to="{ name: 'settingsLink' }">
-                        <i class="fa fa-cogs" aria-hidden="true" />
+                        <icon name="cogs" />
                     </router-link>
                 </el-tooltip>
                 <el-tooltip content="Social Networks" placement="right" effect="light">
                     <router-link :to="{ name: 'settingsSocial' }">
-                        <i aria-hidden="true" class="fa fa-share-alt"></i>
+                        <icon name="share-alt" />
                     </router-link>
                 </el-tooltip>
                 <el-tooltip content="My Profile" placement="right" effect="light">
                     <router-link :to="{ name: 'settingsProfile' }">
-                        <i aria-hidden="true" class="fa fa-user"></i>
+                        <icon name="user" />
                     </router-link>
                 </el-tooltip>
                 <el-tooltip content="Account" placement="right" effect="light">
                     <router-link :to="{ name: 'settingsAccount' }">
-                        <i aria-hidden="true" class="fa fa-lock"></i>
+                        <icon name="lock" />
                     </router-link>
                 </el-tooltip>
 
@@ -65,7 +65,7 @@
             </div>
 
             <a @click="centerDialogVisible = true" v-else>
-                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                <icon name="sign-in" />
             </a>
             <!-- <el-button type="text" @click="centerDialogVisible = true">Click to open the Dialog</el-button> -->
 
@@ -78,7 +78,7 @@
             <span>From software architects to hobbyist, share and discover settings, workspaces, packages and more.</span>
                 <span slot="footer" class="dialog-footer">
                     <el-button type="primary" plain @click="signIn">
-                        <i class="fa fa-github" aria-hidden="true" />
+                        <icon name="github" />
                         Sign in with GitHub
                     </el-button>
                 </span>
@@ -182,7 +182,7 @@ export default {
                 background: rgba(255, 255, 255, .1);
             }
 
-            i, .el-badge {
+            .fa, .fa-icon, .el-badge {
                 margin: 0 auto;
             }
         }
