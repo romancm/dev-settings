@@ -4,7 +4,7 @@
     "description": "A Vue.js project",
     "author": "Roman Cervantes <roman.cervantes@infusionsoft.com>",
     "private": true,
-    "homepage": "git@github.com:romancmx/dev-settings.git",
+    "homepage": "git@github.com:romancmx/dev-settings",
     "scripts": {
         "dev": "node build/dev-server.js",
         "start": "node build/dev-server.js",
