@@ -92,15 +92,10 @@ export default {
     },
 
     methods: {
-        // isCurrentRoute(route) {
-        //     return route === this.$route.name;
-        // },
-
         handleMenuClick(name) {
             if (this.sections.includes(name) || name === '') {
                 this.$router.push({ path: `/${this.editor}/${this.$route.params.id}/${name}` });
             } else {
-                console.log(`/${this.editor}/${this.$route.params.id}/packages/${name}`);
                 this.$router.push({ path: `/${this.editor}/${this.$route.params.id}/packages/${name}` });
             }
         },

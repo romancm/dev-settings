@@ -99,7 +99,7 @@ export default {
                     this.packageData = data;
                 })
                 .catch(() => {
-                    console.log('err');
+                    // TODO: handle error
                 });
             } else {
                 // this.selectPackage('about');

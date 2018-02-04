@@ -27,7 +27,6 @@ export default {
 
     methods: {
         open() {
-            console.log('open');
             this.$modal.show('termsModal');
             this.$modal.show('modal');
         },

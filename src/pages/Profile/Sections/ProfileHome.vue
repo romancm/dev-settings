@@ -98,7 +98,6 @@
 
         methods: {
             goToSection(name) {
-                // console.log(name);
                 this.$router.push({ path: `/${this.editor}/${this.$route.params.id}/${name}` });
             },
         },

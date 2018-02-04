@@ -64,7 +64,6 @@ export default {
         params() {
             if (!this.params.extensionName) {
                 this.extensionDetails = null;
-                console.log('nouaynada');
             }
             this.loadExtension();
         },
@@ -96,7 +95,6 @@ export default {
 
         loadReadme() {
             /* eslint-disable arrow-body-style */
-            console.log(this.extensionData);
             const readmeIndex = this.extensionData.versions[0].files.findIndex(({ assetType }) => {
                 return assetType === 'Microsoft.VisualStudio.Services.Content.Details';
             });
@@ -117,7 +115,7 @@ export default {
                     this.extensionDetails = data;
                 })
                 .catch(() => {
-                    console.log('err');
+                    // TODO: handle error
                 });
         },
 
@@ -135,7 +133,7 @@ export default {
                         this.loadReadme();
                     })
                     .catch(() => {
-                        console.log('err');
+                        // TODO: Handle error
                     });
             } else {
                 // this.selectPackage('about');

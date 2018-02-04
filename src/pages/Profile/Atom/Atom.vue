@@ -88,26 +88,6 @@ export default {
                     });
             }
         },
-
-        // getCodeData(id) {
-        //     console.log(this.user);
-        //     const codeGistId = id || this.user.code;
-        //     console.log(codeGistId);
-        //
-        //     if (codeGistId) {
-        //         const url = `https://api.github.com/gists/${codeGistId}`;
-        //         this.$http.get(url)
-        //             .then(({ data }) => {
-        //                 store.commit('cacheUserCodeData', data);
-        //             })
-        //             .catch(() => {
-        //                 this.$notify.error({
-        //                     title: 'Error',
-        //                     message: 'Error',
-        //                 });
-        //             });
-        //     }
-        // },
     },
 };
 </script>
