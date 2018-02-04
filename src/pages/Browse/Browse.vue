@@ -4,7 +4,7 @@
             <editor-selector v-if="!editor" />
 
             <div v-else>
-                <header>
+                <!-- <header>
                     <div class="header-options">
                         <el-pagination
                             v-if="users.totalPages > 1"
@@ -42,7 +42,7 @@
                             </el-select>
                         </div>
                     </div>
-                </header>
+                </header> -->
 
                 <div class="users" v-if="!loading">
                     <div class="user-list" v-if="users && users.results && users.results.length">
