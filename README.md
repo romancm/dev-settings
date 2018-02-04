@@ -1,4 +1,4 @@
-[![screenshot](https://user-images.githubusercontent.com/645310/35774751-a89bdd4c-0935-11e8-9a99-42b6faf4e9f7.png)](https://bestof.js.org/)
+[![screenshot](https://user-images.githubusercontent.com/645310/35774858-457a2b66-0939-11e8-8b7a-bc9339442525.png)](https://romancmx.github.io/dev-settings/)
 
 ## Concept
 
