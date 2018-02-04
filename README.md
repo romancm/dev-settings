@@ -1,27 +1,82 @@
-# atom-settings-fe
+[![screenshot](https://user-images.githubusercontent.com/645310/35774751-a89bdd4c-0935-11e8-9a99-42b6faf4e9f7.png)](https://bestof.js.org/)
 
-> A Vue.js project
+## Concept
 
-## Build Setup
+**DevSettings** gathers settings for the most popular text editors: Visual Studio Code and Atom.
 
-``` bash
-# install dependencies
-npm install
+This is a place where developers can find and discover new packages, extensions, customizations, settings, etc... from other developers around the world.
 
-# serve with hot reload at localhost:8080
-npm run dev
+### Community-driven
 
-# build for production with minification
-npm run build
+Users can sign in with their GitHub account and contribute to the project by:
 
-# build for production and view the bundle analyzer report
-npm run build --report
+* Contribute to the development of the website
+* Sharing settings publicly
 
-# run unit tests
-npm run unit
+Anyone can contribute!
 
-# run all tests
-npm test
+
+## Technical overview
+
+### Cloud services
+
+#### Database: [mLab](https://mlab.com/)
+
+Database-as-a-Service for MongoDB, free up to 500 MB.
+
+#### Authentication
+
+[Github](https://github.com/): Github oauth authentication.
+
+#### Static hosting
+
+**DevSettings** is hosted on GitHub pages.
+
+
+### Libraries
+
+This repository is the front-end application, a single-page application built with the following modules:
+
+* [VueJS](https://vuejs.org/)
+* [Vuex](https://github.com/vuejs/vuex)
+* [Webpack](http://webpack.github.io/)
+
+Webpack is used to build the application in development and production mode.
+
+
+## Development workflow
+
+Start the web server and watch for changes on the filesystem:
+
+```
+yarn dev
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+The application should be running at [localhost:8080](http://localhost:8080)
+
+### Production deploy
+
+Build the files for production (`index.html` rendered server-side, `build/app.css` and `build/bundle-app.js`):
+
+```
+yarn deploy
+```
+
+### Testing
+
+Run unit tests:
+
+```
+yarn test
+```
+
+Run unit tests in debug mode, to be able to see console.log in the terminal window:
+
+```
+yarn test:debug
+```
+
+
+## Show your support!
+
+Spread the word and please **star** the repo to show your support...
